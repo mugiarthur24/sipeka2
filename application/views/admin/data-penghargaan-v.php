@@ -17,6 +17,7 @@
 				<td class="">No. Keputusan</td>
 				<td class="">Tanggal</td>
 				<td class="">Tahun</td>
+				<td>Upload</td>
 				<td class="" colspan="2">Aksi</td>
 			</tr>
 		</thead>
@@ -30,6 +31,11 @@
 						<td class=""><?php echo $data->no_keputusan; ?></td>
 						<td class=""><?php echo date('d F Y', strtotime($data->tanggal)); ?></td>
 						<td class=""><?php echo $data->tahun; ?></td>
+						<td class=""><?php if ($data->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$data->upload) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a>
+							<?php else: ?>
+								tidak ada file
+                  			<?php endif ?></td>
 						<td class="">
 							<a href="<?php echo base_url('index.php/admin/pegawai/edit_penghargaan/'.$hasil->id_pegawai.'/'.$data->id_penghargaan) ?>" class="text-success"><img src="<?php echo base_url('asset/img/icons8-edit.svg') ?>" width="30" height="30" rel="tooltip" title="Edit"></a>
 						</td>
@@ -41,7 +47,7 @@
 				<?php endforeach ?>
 			<?php else: ?>
 				<tr>
-					<td class=" text-center" colspan="6">Belum ada data penghargaan</td>
+					<td class=" text-center" colspan="7">Belum ada data penghargaan</td>
 				</tr>
 			<?php endif ?>
 		</tbody>
@@ -58,7 +64,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="<?php echo base_url('index.php/admin/pegawai/create_penghargaan/'.$hasil->id_pegawai) ?>" method="post">
+			<form action="<?php echo base_url('index.php/admin/pegawai/create_penghargaan/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
@@ -72,22 +78,16 @@
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="tanggal">TANGGAL</label>
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_hr" placeholder="HH">
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_bln" placeholder="BB">
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_thn" placeholder="TTTT">
-									</div>
-								</div>
+								<input type="date" class="form-control border-dark" id="tanggal" name="tanggal" placeholder="TANGGAL" >
 							</div>
 								<div class="form-group">
 								<label class="text-info" for="tahun">TAHUN</label>
 								<input type="text" class="form-control border-dark" id="tahun" name="tahun" placeholder="TAHUN" >
 							</div>
+							<div class="form-group">
+										<label class="text-info">Upload</label>
+										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
+									</div>
 							</div>
 						</div>
 					</div>

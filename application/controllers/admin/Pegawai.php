@@ -523,6 +523,7 @@ class Pegawai extends CI_Controller {
                 $data['hasil'] = $result;
                 $data['dp3'] = $this->Pegawai_m->data_dp3($id);
                 $data['status'] = $this->Pegawai_m->select_data('master_status_pegawai');
+                $data['jnsjabatan'] = $this->Pegawai_m->select_data('master_jenis_jabatan');
                 $data['bagian'] = 'admin/data-dp3-v';
                 $data['page'] = 'admin/detail-pegawai-v';
                 // pagging setting
@@ -751,7 +752,7 @@ class Pegawai extends CI_Controller {
                     'status'=>$post['status']
                 );
                 if (!empty($_FILES["upload"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('skjab'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
+                    $config['file_name'] = strtolower(url_title('skjab'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['tanggal_sk_rj']));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'gif|jpg|png|pdf';
                     $config['max_size'] = 2048;
@@ -795,9 +796,29 @@ class Pegawai extends CI_Controller {
                     'jurusan'=>$post['jurusan'],
                     'sekolah'=>$post['sekolah'],
                     'tempat_sekolah'=>$post['tempat_sekolah'],
-                    'tanggal_lulus'=>$post['tanggal_lulus_thn'].'-'.$post['tanggal_lulus_bln'].'-'.$post['tanggal_lulus_hr'],
-                    'nomor_ijazah'=>$post['nomor_ijazah']
+                    'tanggal_lulus'=>$post['tanggal_lulus'],
+                    'nomor_ijazah'=>$post['nomor_ijazah'],
+                    'id_status'=>$post['id_status']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('ijazah'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_ijazah']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_pendidikan/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 // echo "<pre>";print_r($datainput);echo "<pre/>";exit();
                 $this->Pegawai_m->insert_data('data_pendidikan',$datainput);
                 $pesan = 'Data pendidikan baru berhasil di tambahkan';
@@ -852,9 +873,28 @@ class Pegawai extends CI_Controller {
                     'jenis_penghargaan' => $post['jenis_penghargaan'],
                     'id_pegawai' => $idpegawai,
                     'no_keputusan' => $post['no_keputusan'],
-                    'tanggal'=>$post['tanggal_thn'].'-'.$post['tanggal_bln'].'-'.$post['tanggal_hr'],
+                    'tanggal'=>$post['tanggal'],
                     'tahun' => $post['tahun']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sertifikat'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['no_keputusan']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_penghargaan/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->insert_data('data_penghargaan',$datainput);
                 $pesan = 'Data Penghargaan baru berhasil di tambahkan';
                 $this->session->set_flashdata('message', $pesan );
@@ -879,8 +919,27 @@ class Pegawai extends CI_Controller {
                     'uraian' => $post['uraian'],
                     'id_pegawai' => $idpegawai,
                     'lokasi'=>$post['lokasi'],
-                    'tanggal'=>$post['tanggal_thn'].'-'.$post['tanggal_bln'].'-'.$post['tanggal_hr']
+                    'tanggal'=>$post['tanggal']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sertifikat'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_seminar/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->insert_data('data_seminar',$datainput);
                 $pesan = 'Data seminar baru berhasil di tambahkan';
                 $this->session->set_flashdata('message', $pesan );
@@ -905,8 +964,28 @@ class Pegawai extends CI_Controller {
                     'id_satuan_kerja'=>$post['id_satuan_kerja'],
                     'id_pegawai' => $idpegawai,
                     'nomor'=>$post['nomor'],
-                    'tanggal'=>$post['tanggal_thn'].'-'.$post['tanggal_bln'].'-'.$post['tanggal_hr']
+                    'tanggal'=>$post['tanggal'],
+                    'status'=>$post['status']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sk'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_organisasi/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->insert_data('data_organisasi',$datainput);
                 $pesan = 'Data organisasi baru berhasil di tambahkan';
                 $this->session->set_flashdata('message', $pesan );
@@ -962,14 +1041,30 @@ class Pegawai extends CI_Controller {
                     'uraian' => $post['uraian'],
                     'id_pegawai' => $idpegawai,
                     'nomor_sk'=>$post['nomor_sk'],
-                    'tanggal_sk'=>$post['tanggal_sk_thn'].'-'.$post['tanggal_sk_bln'].'-'.$post['tanggal_sk_hr'],
-                    'tanggal_mulai'=>$post['tanggal_mulai_thn'].'-'.$post['tanggal_mulai_bln'].'-'.$post['tanggal_mulai_hr'],
-                    'tanggal_selesai'=>$post['tanggal_selesai_thn'].'-'.$post['tanggal_selesai_bln'].'-'.$post['tanggal_selesai_hr'],
-
+                    'tanggal_sk'=>$post['tanggal_sk'],
+                    'tanggal_mulai'=>$post['tanggal_mulai'],
+                    'tanggal_selesai'=>$post['tanggal_selesai'],
                     'no_sk_pembatalan' =>$post['no_sk_pembatalan']
-
-                  
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sk'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['tanggal_sk']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_hukuman/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->insert_data('data_hukuman',$datainput);
                 $pesan = 'Data hukuman baru berhasil di tambahkan';
                 $this->session->set_flashdata('message', $pesan );
@@ -993,19 +1088,18 @@ class Pegawai extends CI_Controller {
                 $datainput = array(
                     'tahun' => $post['tahun'],
                     'id_pegawai' => $idpegawai,
-                    'kesetiaan'=>$post['kesetiaan'],
-                    'prestasi'=>$post['prestasi'],
-                    'tanggung_jawab'=>$post['tanggung_jawab'],
-                    'ketaatan'=>$post['ketaatan'],
-                    'kejujuran'=>$post['kejujuran'],
+                    'orientasi_pelayanan'=>$post['orientasi_pelayanan'],
+                    'integritas'=>$post['integritas'],
+                    'komitmen'=>$post['komitmen'],
+                    'disiplin'=>$post['disiplin'],
                     'kerjasama'=>$post['kerjasama'],
-                    'prakarsa'=>$post['prakarsa'],
                     'kepemimpinan'=>$post['kepemimpinan'],
-                    'rata_rata'=>$post['rata_rata'],
-                    'atasan_pejabat_penilai'=>$post['atasan_pejabat_penilai'],
-                    'pejabat_penilai'=>$post['pejabat_penilai'],
-                    'atasan_pejabat_penilai'=>$post['atasan_pejabat_penilai'],
-                    'mengetahui'=>$post['mengetahui']
+                    'nilai_skp'=>$post['nilai_skp'],
+                    'id_pejabat_penilai'=>$post['id_pejabat_penilai'],
+                    'id_atasan_pejabat_penilai'=>$post['id_atasan_pejabat_penilai'],
+                    'id_jenis_jabatan'=>$post['id_jenis_jabatan'],
+                    'id_status_penilai'=>$post['id_status_penilai'],
+                    'id_status_atasan'=>$post['id_status_atasan'],
                 );
                 $this->Pegawai_m->insert_data('data_dp3',$datainput);
                 $pesan = 'Data riwayat jabatan baru berhasil di tambahkan';
@@ -1151,7 +1245,7 @@ class Pegawai extends CI_Controller {
                     'status_pangkat' =>$post['status_pangkat']
                 );
                 if (!empty($_FILES["upload"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('skgol'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
+                    $config['file_name'] = strtolower(url_title('skpangkat'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'gif|jpg|png|pdf';
                     $config['max_size'] = 2048;
@@ -1197,6 +1291,25 @@ class Pegawai extends CI_Controller {
                     'nomor_sk'=>$post['nomor_sk'],
                     'status'=>$post['status']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('skeselon'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_reselon/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->insert_data('data_riwayat_eselon',$datainput);
                 $pesan = 'Data riwayat esleon baru berhasil di tambahkan';
                 $this->session->set_flashdata('message', $pesan );
@@ -1257,6 +1370,25 @@ class Pegawai extends CI_Controller {
                     'nomor_sk'=>$post['nomor_sk'],
                     'status'=>$post['status']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('skeselon'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_sk']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_reselon/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->update_data('data_riwayat_eselon','id_riwayat_eselon',$idr,$datainput);
                 $pesan = 'Data riwayat eselon baru berhasil di diubah';
                 $this->session->set_flashdata('message', $pesan );
@@ -1320,13 +1452,32 @@ class Pegawai extends CI_Controller {
                     'nm_jabatan'=>$post['nm_jabatan'],
                     'id_satuan_kerja'=>$post['id_satuan_kerja'],
                     'id_eselon'=>$post['id_eselon'],
-                    'tmt_jabatan_rj'=>$post['tmt_jabatan_rj_thn'].'-'.$post['tmt_jabatan_rj_bln'].'-'.$post['tmt_jabatan_rj_hr'],
+                    'tmt_jabatan_rj'=>$post['tmt_jabatan_rj'],
                     'nomor_sk'=>$post['nomor_sk'],
-                    'tanggal_sk_rj'=>$post['tanggal_sk_rj_thn'].'-'.$post['tanggal_sk_rj_bln'].'-'.$post['tanggal_sk_rj_hr'],
-                    'tmt_pelantikan_rj'=>$post['tmt_pelantikan_rj_thn'].'-'.$post['tmt_pelantikan_rj_bln'].'-'.$post['tmt_pelantikan_rj_hr'],
+                    'tanggal_sk_rj'=>$post['tanggal_sk_rj'],
+                    'tmt_pelantikan_rj'=>$post['tmt_pelantikan_rj'],
                     'nomor_sk'=>$post['nomor_sk'],
                     'status'=>$post['status']
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('skjab'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['tanggal_sk_rj']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_rjabatan/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->update_data('data_riwayat_jabatan','id_riwayat_jabatan',$idr,$datainput);
                 $pesan = 'Data riwayat jabatan baru berhasil di diubah';
                 $this->session->set_flashdata('message', $pesan );
@@ -1385,9 +1536,29 @@ class Pegawai extends CI_Controller {
                     'jurusan'=>$post['jurusan'],
                     'sekolah'=>$post['sekolah'],
                     'tempat_sekolah'=>$post['tempat_sekolah'],
-                    'tanggal_lulus'=>$post['tanggal_lulus_thn'].'-'.$post['tanggal_lulus_bln'].'-'.$post['tanggal_lulus_hr'],
-                    'nomor_ijazah'=>$post['nomor_ijazah']
+                    'tanggal_lulus'=>$post['tanggal_lulus'],
+                    'nomor_ijazah'=>$post['nomor_ijazah'],
+                    'id_status'=>$post['id_status'],
                 );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('ijazah'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor_ijazah']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_pendidikan/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->update_data('data_pendidikan','id_pendidikan',$idr,$datainput);
                 $pesan = 'Data riwayat pendidikan baru berhasil di diubah';
                 $this->session->set_flashdata('message', $pesan );
@@ -1706,8 +1877,28 @@ class Pegawai extends CI_Controller {
                 $datainput = array(
                    'id_satuan_kerja'=>$post['id_satuan_kerja'],
                    'nomor'=>$post['nomor'],
-                   'tanggal'=>$post['tanggal_thn'].'-'.$post['tanggal_bln'].'-'.$post['tanggal_hr']
+                   'tanggal'=>$post['tanggal'],
+                   'status'=>['status']
                );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sk'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_organisasi/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->update_data('data_organisasi','id_organisasi',$idr,$datainput);
                 $pesan = 'Data riwayat organisasi baru berhasil di diubah';
                 $this->session->set_flashdata('message', $pesan );
@@ -1821,17 +2012,30 @@ class Pegawai extends CI_Controller {
 
                  'uraian' => $post['uraian'],
                  'nomor_sk'=>$post['nomor_sk'],
-                 'tanggal_sk'=>$post['tanggal_sk_thn'].'-'.$post['tanggal_sk_bln'].'-'.$post['tanggal_sk_hr'],
-                 'tanggal_mulai'=>$post['tanggal_mulai_thn'].'-'.$post['tanggal_mulai_bln'].'-'.$post['tanggal_mulai_hr'],
-                 'tanggal_selesai'=>$post['tanggal_selesai_thn'].'-'.$post['tanggal_selesai_bln'].'-'.$post['tanggal_selesai_hr'],
-                 'no_sk_pembatalan' =>$post['no_sk_pembatalan'],
-                   'uraian' => $post['uraian'],
-                   'nomor_sk'=>$post['nomor_sk'],
-                   'tanggal_sk'=>$post['tanggal_sk_thn'].'-'.$post['tanggal_sk_bln'].'-'.$post['tanggal_sk_hr'],
-                   'tanggal_mulai'=>$post['tanggal_mulai_thn'].'-'.$post['tanggal_mulai_bln'].'-'.$post['tanggal_mulai_hr'],
-                   'tanggal_selesai'=>$post['tanggal_selesai_thn'].'-'.$post['tanggal_selesai_bln'].'-'.$post['tanggal_selesai_hr'],
-                   'no_sk_pembatalan'=>$post['no_sk_pembatalan']
+                 'tanggal_sk'=>$post['tanggal_sk'],
+                 'tanggal_mulai'=>$post['tanggal_mulai'],
+                 'tanggal_selesai'=>$post['tanggal_selesai'],
+                 'no_sk_pembatalan' =>$post['no_sk_pembatalan']
                );
+                if (!empty($_FILES["upload"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sk'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['tanggal_sk']));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'gif|jpg|png|pdf';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error );
+                        redirect(base_url('index.php/admin/pegawai/detail_hukuman/'.$idpegawai));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $datainput['upload'] = $img;
+                    }
+                }
                 $this->Pegawai_m->update_data('data_hukuman','id_hukuman',$idr,$datainput);
                 $pesan = 'Data riwayat hukuman baru berhasil di diubah';
                 $this->session->set_flashdata('message', $pesan );
@@ -1884,24 +2088,19 @@ class Pegawai extends CI_Controller {
                 $post = $this->input->post();
                 $datainput = array(
                  'tahun' => $post['tahun'],
-                 'id_pegawai' => $idpegawai,
-                 'rata_rata'=>$post['rata_rata'],
-                 'atasan_pejabat_penilai'=>$post['atasan_pejabat_penilai'],
-                 'pejabat_penilai'=>$post['pejabat_penilai'],
-                 
-                   'tahun' => $post['tahun'],
-                   'kesetiaan'=>$post['kesetiaan'],
-                   'prestasi'=>$post['prestasi'],
-                   'tanggung_jawab'=>$post['tanggung_jawab'],
-                   'ketaatan'=>$post['ketaatan'],
-                   'kejujuran'=>$post['kejujuran'],
-                   'kerjasama'=>$post['kerjasama'],
-                   'prakarsa'=>$post['prakarsa'],
-                   'kepemimpinan'=>$post['kepemimpinan'],
-                   'rata_rata'=>$post['rata_rata'],
-                   'pejabat_penilai'=>$post['pejabat_penilai'],
-                   'atasan_pejabat_penilai'=>$post['atasan_pejabat_penilai'],
-                   'mengetahui'=>$post['mengetahui']
+                    'id_pegawai' => $idpegawai,
+                    'orientasi_pelayanan'=>$post['orientasi_pelayanan'],
+                    'integritas'=>$post['integritas'],
+                    'komitmen'=>$post['komitmen'],
+                    'disiplin'=>$post['disiplin'],
+                    'kerjasama'=>$post['kerjasama'],
+                    'kepemimpinan'=>$post['kepemimpinan'],
+                    'nilai_skp'=>$post['nilai_skp'],
+                    'id_pejabat_penilai'=>$post['id_pejabat_penilai'],
+                    'id_atasan_pejabat_penilai'=>$post['id_atasan_pejabat_penilai'],
+                    'id_jenis_jabatan'=>$post['id_jenis_jabatan'],
+                    'id_status_penilai'=>$post['id_status_penilai'],
+                    'id_status_atasan'=>$post['id_status_atasan'],
                );
                 $this->Pegawai_m->update_data('data_dp3','id_dp3',$idr,$datainput);
                 $pesan = 'Data riwayat dp3 baru berhasil di diubah';
@@ -2028,6 +2227,25 @@ class Pegawai extends CI_Controller {
                 $pesan = 'Data riwayat golongan baru berhasil di diubah dihapus';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/pegawai/detail_rgolongan/'.$idpegawai));
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin//login'));
+        }
+    }
+    public function delete_reselon($idpegawai,$idr){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $this->Pegawai_m->delete_data('data_riwayat_eselon','id_riwayat_eselon',$idr);
+                $pesan = 'Data riwayat eselon baru berhasil di diubah dihapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/pegawai/detail_reselon/'.$idpegawai));
             }
         }else{
             $pesan = 'Login terlebih dahulu';

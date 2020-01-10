@@ -4,7 +4,7 @@
 			<h4>Disiplin</h4>
 		</div>
 		<div class="media-right">
-			<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addhukuman"><i class="fa fa-plus-circle"></i> Tambah Data Disiplin</button>
+			<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#addhukuman"><i class="fa fa-plus-circle"></i> Tambah Data Disiplin</button>
 		</div>
 	</div>
 	<hr/>
@@ -19,6 +19,7 @@
 				<td class="">Tgl Mulai</td>
 				<td class="">Tgl Selesai</td>
 				<td class="">No SK Pembatalan</td>
+				<td class="">Upload</td>
 				<td class="" colspan="2">Aksi</td>
 			</tr>
 		</thead>
@@ -34,6 +35,11 @@
 						<td class=""><?php echo date('d F Y', strtotime($data->tanggal_mulai)); ?></td>
 						<td class=""><?php echo date('d F Y', strtotime($data->tanggal_selesai)); ?></td>
 						<td class=""><?php echo $data->no_sk_pembatalan; ?></td>
+						<td class=""><?php if ($data->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$data->upload) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a>
+							<?php else: ?>
+								tidak ada file
+                  			<?php endif ?></td>
 						<td class="">
 							<a href="<?php echo base_url('index.php/admin/pegawai/edit_hukuman/'.$hasil->id_pegawai.'/'.$data->id_hukuman) ?>" class="text-success"><img src="<?php echo base_url('asset/img/icons8-edit.svg') ?>" width="30" height="30" rel="tooltip" title="Edit"></a>
 						</td>
@@ -45,7 +51,7 @@
 				<?php endforeach ?>
 			<?php else: ?>
 				<tr>
-					<td class=" text-center" colspan="8">Belum ada data hukuman</td>
+					<td class=" text-center" colspan="9">Belum ada data hukuman</td>
 				</tr>
 			<?php endif ?>
 		</tbody>
@@ -62,7 +68,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="<?php echo base_url('index.php/admin/pegawai/create_hukuman/'.$hasil->id_pegawai) ?>" method="post">
+			<form action="<?php echo base_url('index.php/admin/pegawai/create_hukuman/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
@@ -76,49 +82,23 @@
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="tanggal_sk">TANGGAL SK</label>
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_hr" placeholder="HH">
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_bln" placeholder="BB">
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_thn" placeholder="TTTT">
-									</div>
-								</div>
+								<input type="date" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk" placeholder="TANGGAL SK" >
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="tanggal_mulai">TANGGAL MULAI</label>
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_hr" placeholder="HH" >
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_bln" placeholder="BB" >
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_thn" placeholder="TTTT">
-									</div>
-								</div>
+								<input type="date" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai" placeholder="TANGGAL MULAI" >
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="tanggal_selesai">TANGGAL SELESAI</label>
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_hr" placeholder="HH" >
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_bln" placeholder="BB" >
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_thn" placeholder="TTTT">
-									</div>
-								</div>
+								<input type="date" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai" placeholder="TANGGAL SELESAI" >
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="no_sk_pembatalan">NO SK PEMBATALAN</label>
 								<input type="text" class="form-control border-dark" id="no_sk_pembatalan" name="no_sk_pembatalan" placeholder="NO SK PEMBATALAN">
+							</div>
+							<div class="form-group">
+								<label class="text-info">Upload SK</label>
+								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
 							</div>
 						</div>
 					</div>

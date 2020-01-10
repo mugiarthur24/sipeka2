@@ -14,9 +14,6 @@
 			<tr>
 				<td class="p-1 text-center">No</td>
 				<td class="p-1 text-center">Pangkat</td>
-				<td class="p-1 text-center">No SK</td>
-				<td class="p-1 text-center">Tgl SK</td>
-				<td class="p-1 text-center">Masa Kerja</td>
 				<td class="p-1 text-center">Upload</td>
 				<td class="p-1 text-center">Status</td>
 				<td class="p-1 text-center" colspan="2">Aksi</td>
@@ -29,9 +26,6 @@
 					<tr>
 						<td class=" text-center"><?php echo $no; ?></td>
 						<td class=""><?php echo @$this->Admin_m->detail_data_order('master_pangkat','id_pangkat',$data->id_pangkat)->nm_pangkat; ?></td>
-						<td class=""><?php echo $data->nomor_sk; ?></td>
-						<td class=""><?php echo date('d F Y', strtotime($data->tanggal_sk)) ; ?></td>
-						<td class=""><?php echo $data->masa_kerja; ?></td>
 						<td class=""><?php if ($data->upload == TRUE): ?>
 							<a href="<?php echo base_url('asset/dokumen/'.$data->upload) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a>
 							<?php else: ?>
@@ -55,7 +49,7 @@
 				<?php endforeach ?>
 				<?php else: ?>
 					<tr>
-						<td class=" text-center" colspan="8">Belum ada data Riwayat pangkat</td>
+						<td class=" text-center" colspan="5">Belum ada data Riwayat pangkat</td>
 					</tr>
 				<?php endif ?>
 			</tbody>
@@ -96,12 +90,12 @@
 										<input type="date" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk" placeholder="TANGGAL SK">
 									</div>
 									<div class="form-group">
-										<label class="text-info" for="tmt_pangkat">TANGGAL MULAI</label>
-										<input type="date" class="form-control border-dark" id="tmt_pangkat" name="tmt_pangkat" placeholder="TANGGAL MULAI">
+										<label class="text-info" for="tanggal_mulai">TANGGAL MULAI</label>
+										<input type="date" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai" placeholder="TANGGAL MULAI">
 									</div>
 									<div class="form-group">
-										<label class="text-info" for="tanggal_bkn">TANGGAL SELESAI</label>
-										<input type="date" class="form-control border-dark" id="tanggal_bkn" name="tanggal_bkn" placeholder="TANGGAL SELESAI">
+										<label class="text-info" for="tanggal_selesai">TANGGAL SELESAI</label>
+										<input type="date" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai" placeholder="TANGGAL SELESAI">
 									</div>
 									<div class="form-group">
 										<label class="text-info" for="masa_kerja">MASA KERJA</label>
@@ -117,7 +111,7 @@
 									</div>
 									<div class="form-group">
 										<label class="text-info">Status Pangkat</label>
-										<select name="status" class="form-control border-dark">
+										<select name="status_pangkat" class="form-control border-dark" >
 											<option value="0">Tidak Aktif</option>
 											<option value="1">Aktif</option>
 										</select>

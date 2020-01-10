@@ -1,5 +1,5 @@
 <div style="margin-top: 14px; background-color: white;padding: 30px">
-<form action="<?php echo base_url('index.php/admin/pegawai/update_penghargaan/'.$hasil->id_pegawai.'/'.$detail->id_penghargaan) ?>" method="post">
+<form action="<?php echo base_url('index.php/admin/pegawai/update_penghargaan/'.$hasil->id_pegawai.'/'.$detail->id_penghargaan) ?>" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-12">
@@ -14,22 +14,26 @@
 					</div>
 					<div class="form-group">
 						<label class="text-info" for="tanggal">TANGGAL</label>
-						<div class="row">
-							<div class="col-md-4">
-								<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_hr" placeholder="HH" value="<?php echo substr($detail->tanggal,8,2)?>">
-							</div>
-							<div class="col-md-4">
-								<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_bln" placeholder="BB" value="<?php echo substr($detail->tanggal,5,2)?>">
-							</div>
-							<div class="col-md-4">
-								<input type="text" class="form-control border-dark" id="tanggal" name="tanggal_thn" placeholder="TTTT" value="<?php echo substr($detail->tanggal,0,4)?>">
-							</div>
-						</div>
+						<input type="date" class="form-control border-dark" id="tanggal" name="tanggal" placeholder="TANGGAL" value="<?php echo $detail->tanggal?>">
 					</div>
 					<div class="form-group">
 						<label class="text-info" for="tahun">TAHUN</label>
 						<input type="text" class="form-control border-dark" id="tahun" name="tahun" placeholder="TAHUN" value="<?php echo $detail->tahun?>">
 					</div>
+					<div class="form-group">
+				<div class="row">
+					<div class="col-md-8">
+						<input type="file" name="upload">
+					</div>
+					<div class="col-md-4">
+						<?php if (@$detail->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$detail->upload) ?>" target="_blank" class="btn btn-success btn-sm w-100">Lihat File</a>
+							<?php else: ?>
+								<span class="btn btn-secondary btn-sm w-100">Lihat File</span>
+							<?php endif ?>
+					</div>	
+				</div>
+			</div>
 				</div>
 			</div>
 			<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan data</button>

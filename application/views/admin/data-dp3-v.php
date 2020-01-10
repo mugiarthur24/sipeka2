@@ -4,7 +4,7 @@
 			<h4>Data SKP</h4>
 		</div>
 		<div class="media-right">
-			<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#adddp3"><i class="fa fa-plus-circle"></i> Tambah Data SKP</button>
+			<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#adddp3"><i class="fa fa-plus-circle"></i> Tambah Data SKP</button>
 		</div>
 	</div>
 	<hr/>
@@ -14,7 +14,8 @@
 			<tr>
 				<td class="text-center">No</td>
 				<td class="">Tahun</td>
-				<td class="">Rata-Rata</td>
+				<td class="">Jenis Jab</td>
+				<td class="">Nilai SKP</td>
 				<td class="">Pejabat Penilai</td>
 				<td class="">Atasan Pejabat Penilai</td>
 				<td class="" colspan="2">Aksi</td>
@@ -26,6 +27,7 @@
 				<?php foreach ($dp3 as $data): ?>
 					<tr>
 						<td class=" text-center"><?php echo $no; ?></td>
+						<td class=""><?php echo $this->Admin_m->detail_data_order('master_jenis_jabatan','id_jenis_jabatan',$data->id_jenis_jabatan)->nama_jenis_jabatan; ?></td>
 						<td class=""><?php echo $data->tahun; ?></td>
 						<td class=""><?php echo $data->rata_rata; ?></td>
 						<td class=""><?php echo $data->pejabat_penilai; ?></td>
@@ -67,57 +69,50 @@
 								<input type="text" class="form-control border-dark" id="tahun" name="tahun" placeholder="TAHUN" >
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="kesetiaan">KESETIAAN</label>
-								<input type="text" class="form-control border-dark" id="kesetiaan" name="kesetiaan" placeholder="KESETIAAN" >
+									<label class="text-info" for="id_jenis_jabatan">JENIS JABATAN</label>
+									<select class="form-control border-dark" name="id_jenis_jabatan">
+										<?php foreach ($jnsjabatan as $data): ?>
+											<option value="<?php echo $data->id_jenis_jabatan ?>"><?php echo $data->nama_jenis_jabatan; ?></option>
+										<?php endforeach ?>
+									</select>
+								</div>
+							
+							<div class="form-group">
+								<label class="text-info" for="orientasi_pelayanan">ORIENTASI PELAYANAN</label>
+								<input type="text" class="form-control border-dark" id="orientasi_pelayanan" name="orientasi_pelayanan" placeholder="ORIENTASI PELAYANAN" >
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="prestasi">PRESTASI</label>
-								<input type="text" class="form-control border-dark" id="prestasi" name="prestasi" placeholder="PRESTASI" >
+								<label class="text-info" for="integritas">INTEGRITAS</label>
+								<input type="text" class="form-control border-dark" id="integritas" name="integritas" placeholder="INTEGRITAS" >
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="tanggung_jawab">TANGGUNG JAWAB</label>
-								<input type="text" class="form-control border-dark" id="tanggung_jawab" name="tanggung_jawab" placeholder="TANGGUNG JAWAB">
+								<label class="text-info" for="disiplin">DISIPLIN</label>
+								<input type="text" class="form-control border-dark" id="disiplin" name="disiplin" placeholder="DISIPLIN">
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="ketaatan">KETAATAN</label>
-								<input type="text" class="form-control border-dark" id="ketaatan" name="ketaatan" placeholder="KETAATAN">
-							</div>
-							<div class="form-group">
-								<label class="text-info" for="kejujuran">KEJUJURAN</label>
-								<input type="text" class="form-control border-dark" id="kejujuran" name="kejujuran" placeholder="KEJUJURAN">
-							</div>
-							<div class="form-group">
-								<label class="text-info" for="kerjasama">KERJA SAMA</label>
-								<input type="text" class="form-control border-dark" id="kerjasama" name="kerjasama" placeholder="KERJA SAMA">
-							</div>
-							<div class="form-group">
-								<label class="text-info" for="prakarsa">PRAKARSA</label>
-								<input type="text" class="form-control border-dark" id="prakarsa" name="prakarsa" placeholder="PRAKARSA">
+								<label class="text-info" for="kerjasama">KERJASAMA</label>
+								<input type="text" class="form-control border-dark" id="kerjasama" name="kerjasama" placeholder="KERJASAMA">
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="kepemimpinan">KEPEMIMPINAN</label>
 								<input type="text" class="form-control border-dark" id="kepemimpinan" name="kepemimpinan" placeholder="KEPEMIMPINAN">
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="rata_rata">RATA-RATA</label>
-								<input type="text" class="form-control border-dark" id="rata_rata" name="rata_rata" placeholder="RATA-RATA">
+								<label class="text-info" for="nilai_skp	">NILAI SKP</label>
+								<input type="text" class="form-control border-dark" id="nilai_skp	" name="nilai_skp	" placeholder="NILAI SKP">
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="pejabat_penilai">PEJABAT PENILAI</label>
-								<input type="text" class="form-control border-dark" id="pejabat_penilai" name="pejabat_penilai" placeholder="PEJABAT PENILAI">
+								<label class="text-info" for="id_pejabat_penilai">PEJABAT PENILAI</label>
+								<input type="text" class="form-control border-dark" id="id_pejabat_penilai" name="id_pejabat_penilai" placeholder="PEJABAT PENILAI">
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="atasan_pejabat_penilai">ATASAN PEJABAT PENILAI</label>
-								<input type="text" class="form-control border-dark" id="atasan_pejabat_penilai" name="atasan_pejabat_penilai" placeholder="ATASAN PEJABAT PENILAI">
-							</div>
-							<div class="form-group">
-								<label class="text-info" for="mengetahui">MENGETAHUI</label>
-								<input type="text" class="form-control border-dark" id="mengetahui" name="mengetahui" placeholder="MENGETAHUI">
+								<label class="text-info" for="id_atasan_pejabat_penilai	">ATASAN PEJABAT PENILAI</label>
+								<input type="text" class="form-control border-dark" id="id_atasan_pejabat_penilai	" name="id_atasan_pejabat_penilai	" placeholder="ATASAN PEJABAT PENILAI">
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="submit" name="submit" value="submit" class="btn btn-success">Simpan</button>
+						<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 					</div>
 				</form>
 			</div>

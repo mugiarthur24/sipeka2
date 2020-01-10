@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 Jan 2020 pada 01.21
+-- Generation Time: 10 Jan 2020 pada 16.02
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -30,18 +30,18 @@ CREATE TABLE `tbl_data_dp3` (
   `id_dp3` int(50) NOT NULL,
   `id_pegawai` int(50) NOT NULL,
   `tahun` varchar(30) NOT NULL,
-  `kesetiaan` varchar(100) NOT NULL,
-  `prestasi` varchar(100) NOT NULL,
-  `tanggung_jawab` varchar(100) NOT NULL,
-  `ketaatan` varchar(100) NOT NULL,
-  `kejujuran` varchar(100) NOT NULL,
-  `kerjasama` varchar(100) NOT NULL,
-  `prakarsa` varchar(100) NOT NULL,
-  `kepemimpinan` varchar(100) NOT NULL,
-  `rata_rata` varchar(100) NOT NULL,
-  `pejabat_penilai` varchar(100) NOT NULL,
-  `atasan_pejabat_penilai` varchar(100) NOT NULL,
-  `mengetahui` varchar(100) NOT NULL
+  `orientasi_pelayanan` int(11) NOT NULL,
+  `integritas` int(11) NOT NULL,
+  `komitmen` int(11) NOT NULL,
+  `disiplin` int(11) NOT NULL,
+  `kerjasama` int(11) NOT NULL,
+  `kepemimpinan` int(11) NOT NULL,
+  `nilai_skp` int(11) NOT NULL,
+  `id_pejabat_penilai` int(11) NOT NULL,
+  `id_atasan_pejabat_penilai` int(11) NOT NULL,
+  `id_jenis_jabatan` int(11) NOT NULL,
+  `id_status_penilai` int(11) NOT NULL,
+  `id_status_atasan` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -79,8 +79,16 @@ CREATE TABLE `tbl_data_hukuman` (
   `tanggal_sk` varchar(100) NOT NULL,
   `tanggal_mulai` varchar(50) NOT NULL,
   `tanggal_selesai` varchar(50) NOT NULL,
-  `no_sk_pembatalan` varchar(100) NOT NULL
+  `no_sk_pembatalan` varchar(100) NOT NULL,
+  `upload` varchar(114) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_hukuman`
+--
+
+INSERT INTO `tbl_data_hukuman` (`id_hukuman`, `id_pegawai`, `id_master_hukuman`, `uraian`, `nomor_sk`, `tanggal_sk`, `tanggal_mulai`, `tanggal_selesai`, `no_sk_pembatalan`, `upload`) VALUES
+(1, 11, 0, 'testes', 'tes', '2020-01-10', '2020-01-10', '2020-01-10', 'TES 2', 'sk-11-20200110-2020-01-10.jpg');
 
 -- --------------------------------------------------------
 
@@ -188,8 +196,17 @@ CREATE TABLE `tbl_data_organisasi` (
   `id_pegawai` int(50) NOT NULL,
   `id_satuan_kerja` int(11) NOT NULL,
   `nomor` varchar(100) NOT NULL,
-  `tanggal` varchar(100) NOT NULL
+  `tanggal` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL,
+  `upload` varchar(114) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_organisasi`
+--
+
+INSERT INTO `tbl_data_organisasi` (`id_organisasi`, `id_pegawai`, `id_satuan_kerja`, `nomor`, `tanggal`, `status`, `upload`) VALUES
+(1, 11, 3, '000000000', '--', 1, 'sk-11-20200110-25435.jpg');
 
 -- --------------------------------------------------------
 
@@ -256,7 +273,7 @@ INSERT INTO `tbl_data_pegawai` (`id_pegawai`, `nip`, `nip_lama`, `no_kartu_pegaw
 (8, '198210072011012006', '', '', 'WA LIYANA, SE', 1, 'Buton', '07-10-1982', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-01-2011', '', '04/01/2012', 'avatar.png', NULL, NULL),
 (9, '198310162010012006', '', '', 'RIKA WULANDA, S.Kom, MM', 1, 'Jakarta', '16-10-1983', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-01-2010', '', '', 'avatar.png', NULL, NULL),
 (10, '199007102012062001', '', '', 'NITAWATI, S.STP ', 1, 'Lamena', '10-07-1990', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-06-2012', '', '01-06-2013', 'avatar.png', NULL, NULL),
-(11, '198504112014031003', '', '', 'AHMAD JAMALUDDIN, SH., MH', 1, '', '', '', '', '1', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '', '', '', 'avatar.png', NULL, NULL),
+(11, '198504112014031003', '', '', 'AHMAD JAMALUDDIN, SH., MH', 1, '', '1970-01-01', '', '', 'Laki-Laki', '', '3', '--', '', '', '', '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '--', '', '--', 'avatar.png', '', ''),
 (12, '196807211997022005', '', '', 'WA ODE HASIYNA, S.IP ', 1, 'Baubau', '21-07-1968', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-02-1997', '', '01-05-1998', 'avatar.png', NULL, NULL),
 (13, '197003031999032007', '', '', 'ASFA,S.IP ', 1, 'Baubau', '03-03-1970', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-03-1999', '', '01-04-2000', 'avatar.png', NULL, NULL),
 (14, '198502022012122001', '', '', 'SURIANI ', 1, 'Buton Selatan', '02-02-1985', '', '', '2', '', '3', '', '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, 0, 2, '', '', '', '', 0, '', '01-12-2012', '', '01-04-2014', 'avatar.png', NULL, NULL),
@@ -314,8 +331,16 @@ CREATE TABLE `tbl_data_pendidikan` (
   `tempat_sekolah` text NOT NULL,
   `tanggal_lulus` varchar(50) NOT NULL,
   `nomor_ijazah` varchar(114) NOT NULL,
-  `id_status` int(11) NOT NULL
+  `id_status` int(11) NOT NULL,
+  `upload` varchar(114) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_pendidikan`
+--
+
+INSERT INTO `tbl_data_pendidikan` (`id_pendidikan`, `id_pegawai`, `tingkat_pendidikan`, `jurusan`, `sekolah`, `tempat_sekolah`, `tanggal_lulus`, `nomor_ijazah`, `id_status`, `upload`) VALUES
+(3, 11, 3, 'TES', 'SMK NEGERI 3 BAUBAU', 'TES', '2020-01-10', 'TES', 1, 'ijazah-11-20200110.jpg');
 
 -- --------------------------------------------------------
 
@@ -329,8 +354,16 @@ CREATE TABLE `tbl_data_penghargaan` (
   `jenis_penghargaan` varchar(114) NOT NULL,
   `no_keputusan` varchar(114) NOT NULL,
   `tanggal` varchar(100) NOT NULL,
-  `tahun` varchar(50) NOT NULL
+  `tahun` varchar(50) NOT NULL,
+  `upload` varchar(114) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_penghargaan`
+--
+
+INSERT INTO `tbl_data_penghargaan` (`id_penghargaan`, `id_pegawai`, `jenis_penghargaan`, `no_keputusan`, `tanggal`, `tahun`, `upload`) VALUES
+(1, 11, 'tes', 'tes GAR', '--', '2020', 'sertifikat-11-20200110-tes.jpg');
 
 -- --------------------------------------------------------
 
@@ -441,6 +474,13 @@ CREATE TABLE `tbl_data_riwayat_eselon` (
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_data_riwayat_eselon`
+--
+
+INSERT INTO `tbl_data_riwayat_eselon` (`id_riwayat_eselon`, `id_pegawai`, `id_eselon`, `id_jenis_jabatan`, `nm_jabatan`, `nomor_sk`, `upload`, `status`) VALUES
+(3, 11, 27, 2, 'SEKTRETARIS', '0474/DJA/KP.04.1/SK/III/2012', 'skeselon-11-20200110-0474djakp041skiii2011.jpg', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -451,15 +491,22 @@ CREATE TABLE `tbl_data_riwayat_golongan` (
   `id_riwayat_golongan` int(100) NOT NULL,
   `id_pegawai` int(50) NOT NULL,
   `id_golongan` int(50) DEFAULT NULL,
-  `nomor_sk` varchar(50) NOT NULL,
-  `tanggal_sk` varchar(50) NOT NULL,
-  `tmt_golongan` varchar(50) NOT NULL,
+  `nomor_sk` date NOT NULL,
+  `tanggal_sk` date NOT NULL,
+  `tmt_golongan` date NOT NULL,
   `nomor_bkn` varchar(100) NOT NULL,
-  `tanggal_bkn` varchar(50) NOT NULL,
+  `tanggal_bkn` date NOT NULL,
   `masa_kerja` varchar(110) DEFAULT NULL,
   `upload` varchar(114) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_riwayat_golongan`
+--
+
+INSERT INTO `tbl_data_riwayat_golongan` (`id_riwayat_golongan`, `id_pegawai`, `id_golongan`, `nomor_sk`, `tanggal_sk`, `tmt_golongan`, `nomor_bkn`, `tanggal_bkn`, `masa_kerja`, `upload`, `status`) VALUES
+(5, 11, 13, '0000-00-00', '0000-00-00', '0000-00-00', '12345678', '0000-00-00', '3 TAHUN', 'skgol-11-20200109-0954djakp041sk32015.png', 0);
 
 -- --------------------------------------------------------
 
@@ -483,6 +530,13 @@ CREATE TABLE `tbl_data_riwayat_jabatan` (
   `status` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_data_riwayat_jabatan`
+--
+
+INSERT INTO `tbl_data_riwayat_jabatan` (`id_riwayat_jabatan`, `id_pegawai`, `id_jenis_jabatan`, `nm_jabatan`, `id_jabatan`, `id_satuan_kerja`, `id_eselon`, `tmt_jabatan_rj`, `tanggal_sk_rj`, `tmt_pelantikan_rj`, `nomor_sk`, `upload`, `status`) VALUES
+(2, 11, 1, 'KEPALA DINAS', 0, 2, 27, '2020-01-09', '2020-01-09', '2020-01-09', '0474/DJA/KP.04.1/SK/III/2011', 'skjab-11-20200109-0474djakp041skiii2011.png', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -505,6 +559,13 @@ CREATE TABLE `tbl_data_riwayat_pangkat` (
   `status_pangkat` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_data_riwayat_pangkat`
+--
+
+INSERT INTO `tbl_data_riwayat_pangkat` (`id_riwayat_pangkat`, `id_pegawai`, `id_pangkat`, `status`, `nomor_sk`, `tanggal_sk`, `tanggal_mulai`, `tanggal_selesai`, `masa_kerja`, `masa_kerja_bulan`, `masa_kerja_tahun`, `upload`, `status_pangkat`) VALUES
+(1, 11, 4, 'tes', '2222222', '2020-01-10', '2020-01-10', '2020-01-11', '3 TAHUN', 12, 1, 'skgol-11-20200110-123456782.jpg', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -516,8 +577,16 @@ CREATE TABLE `tbl_data_seminar` (
   `id_pegawai` int(50) NOT NULL,
   `uraian` text NOT NULL,
   `lokasi` varchar(100) NOT NULL,
-  `tanggal` varchar(100) NOT NULL
+  `tanggal` varchar(100) NOT NULL,
+  `upload` varchar(114) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_data_seminar`
+--
+
+INSERT INTO `tbl_data_seminar` (`id_seminar`, `id_pegawai`, `uraian`, `lokasi`, `tanggal`, `upload`) VALUES
+(1, 11, 'tes', 'tes 2', '--', 'sertifikat-11-20200110.jpg');
 
 -- --------------------------------------------------------
 
@@ -1192,6 +1261,7 @@ INSERT INTO `tbl_groups` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `tbl_honorer` (
   `id_honorer` int(5) NOT NULL,
+  `no_honorer` int(11) NOT NULL,
   `nama` varchar(114) NOT NULL,
   `alamat` varchar(114) NOT NULL,
   `tat` varchar(114) NOT NULL,
@@ -1201,6 +1271,21 @@ CREATE TABLE `tbl_honorer` (
   `tempat_lahir` varchar(114) DEFAULT NULL,
   `tanggal_lahir` varchar(114) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_honorer`
+--
+
+INSERT INTO `tbl_honorer` (`id_honorer`, `no_honorer`, `nama`, `alamat`, `tat`, `id_lokasi_kerja`, `tmt`, `no_hp`, `tempat_lahir`, `tanggal_lahir`) VALUES
+(1, 2147483647, 'SUPRIANI, SKM', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Kambara', '17 Pebruari 1993'),
+(2, 2147483647, 'DESTY HESTYANNA MAINI, S.Kep.,Ns', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Bau-Bau', '14 Desember 1991'),
+(3, 2147483647, 'NUGRAHWATI, Amd.Keb', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Baubau', '14 Januari 1995'),
+(4, 2147483647, 'HERMAN, SKM', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Tarafu', '29 Juni 1990'),
+(5, 2147483647, 'MAMAT FEBRIAMAN MUSTANG, SKM', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Bataraguru', ' 23 Januari 1990'),
+(6, 2147483647, 'NURHAYATI, AMKL', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Laompo', ' 22 September 1983'),
+(7, 2147483647, 'RUSMINA, S.KM', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Baadia', ' 23 Juli 1984'),
+(8, 2147483647, 'ASMIH, AMKL', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Wajo', '27 April 1978'),
+(9, 2147483647, 'MASNI, S.K.M', '', '2 Januari 2018', '12', '31 Desember 2018', '', 'Ambon', '08 Mei 1989');
 
 -- --------------------------------------------------------
 
@@ -2943,7 +3028,7 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `id_mhs_pt`, `ip_address`, `username`, `password`, `repassword`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `hostname`, `port`, `userfeeder`, `passfeeder`, `jabatan`, `id_pegawai`, `profile`, `cs_sekret`, `cs_mutasi`, `cs_sdm`) VALUES
-(1, NULL, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1578066203, 1, 'Admin', 'istrator', 'ADMIN', '08239566666', 'localhost', '8082', '091006', 'palagimatA', 3, NULL, 'avatar.jpg', 1, 1, 1),
+(1, NULL, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1578659082, 1, 'Admin', 'istrator', 'ADMIN', '08239566666', 'localhost', '8082', '091006', 'palagimatA', 3, NULL, 'avatar.jpg', 1, 1, 1),
 (37, NULL, '::1', '195912311986011039', '$2y$08$zOinQSCBY4KAqRNTvT1UNuLkTm2Yfz82hIs7aUhU1JoigRl3BlGxW', 'password', NULL, 'la-amirishmh-buselkabgoid', NULL, NULL, NULL, NULL, 1578065574, NULL, 1, 'LA AMIRI.SH,MH ', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
 (38, NULL, '::1', '197012312005022012', '$2y$08$Ur4hrWhsfONE1fOOySJDtuzNm1jP2yDiazI82t.gEOzBYetCplOKe', 'password', NULL, 'haidasptbuselkabgoid', NULL, NULL, NULL, NULL, 1578065574, NULL, 1, 'HAIDA,S.Pt', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
 (39, NULL, '::1', '196512311986012013', '$2y$08$psbJag.RP6GlrZT8w/Ir8ungRBLdV3Qeo95mAzzzaHicgbXjrpn2G', 'password', NULL, 'nurianibuselkabgoid', NULL, NULL, NULL, NULL, 1578065575, NULL, 1, 'NURIANI', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
@@ -3435,7 +3520,7 @@ ALTER TABLE `tbl_data_gaji_pokok`
 -- AUTO_INCREMENT for table `tbl_data_hukuman`
 --
 ALTER TABLE `tbl_data_hukuman`
-  MODIFY `id_hukuman` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hukuman` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_data_karpeg`
 --
@@ -3460,7 +3545,7 @@ ALTER TABLE `tbl_data_keluarga`
 -- AUTO_INCREMENT for table `tbl_data_organisasi`
 --
 ALTER TABLE `tbl_data_organisasi`
-  MODIFY `id_organisasi` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_organisasi` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_data_pegawai`
 --
@@ -3475,12 +3560,12 @@ ALTER TABLE `tbl_data_pelatihan`
 -- AUTO_INCREMENT for table `tbl_data_pendidikan`
 --
 ALTER TABLE `tbl_data_pendidikan`
-  MODIFY `id_pendidikan` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pendidikan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_data_penghargaan`
 --
 ALTER TABLE `tbl_data_penghargaan`
-  MODIFY `id_penghargaan` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penghargaan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_data_pensiun`
 --
@@ -3500,27 +3585,27 @@ ALTER TABLE `tbl_data_pindah_wilayah_kerja_keluar`
 -- AUTO_INCREMENT for table `tbl_data_riwayat_eselon`
 --
 ALTER TABLE `tbl_data_riwayat_eselon`
-  MODIFY `id_riwayat_eselon` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_riwayat_eselon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_data_riwayat_golongan`
 --
 ALTER TABLE `tbl_data_riwayat_golongan`
-  MODIFY `id_riwayat_golongan` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_riwayat_golongan` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_data_riwayat_jabatan`
 --
 ALTER TABLE `tbl_data_riwayat_jabatan`
-  MODIFY `id_riwayat_jabatan` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_riwayat_jabatan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_data_riwayat_pangkat`
 --
 ALTER TABLE `tbl_data_riwayat_pangkat`
-  MODIFY `id_riwayat_pangkat` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_riwayat_pangkat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_data_seminar`
 --
 ALTER TABLE `tbl_data_seminar`
-  MODIFY `id_seminar` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_seminar` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_form_ijinbelajar`
 --
@@ -3575,7 +3660,7 @@ ALTER TABLE `tbl_groups`
 -- AUTO_INCREMENT for table `tbl_honorer`
 --
 ALTER TABLE `tbl_honorer`
-  MODIFY `id_honorer` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_honorer` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tbl_info_pt`
 --

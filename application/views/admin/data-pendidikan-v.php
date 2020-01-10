@@ -14,11 +14,10 @@
 			<tr class="">
 				<td class="p-1 text-center">No</td>
 				<td class="p-1">Tngkt Pendidikan</td>
-				<td class="p-1">Sekolah</td>
+				<td class="p-1">Nama Tmpt Pendidikan</td>
 				<td class="p-1">Jurusan</td>
-				<td class="p-1">No Ijazah</td>
-				<td class="p-1">Tgl Ijazah</td>
-				<td class="p-1">Tempat</td>
+				<td class="p-1">Status</td>
+				<td class="p-1">Upload</td>
 				<td class="p-1" colspan="2">Aksi</td>
 			</tr>
 		</thead>
@@ -32,8 +31,18 @@
 						<td class=""><?php echo $data->sekolah; ?></td>
 						<td class=""><?php echo $data->jurusan; ?></td>
 						<td class=""><?php echo $data->nomor_ijazah; ?></td>
-						<td class=""><?php echo $data->tanggal_lulus; ?></td>
-						<td class=""><?php echo $data->tempat_sekolah; ?></td>			
+						<td class=""><?php if ($data->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$data->upload) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a>
+							<?php else: ?>
+								tidak ada file
+                  			<?php endif ?></td>
+							<td class="">
+								<?php if ($data->id_status == '0'): ?>
+									Tidak Aktif
+									<?php else: ?>
+									Aktif	
+								<?php endif ?>
+							</td>			
 						<td class="">
 							<a href="<?php echo base_url('index.php/admin/pegawai/edit_pendidikan/'.$hasil->id_pegawai.'/'.$data->id_pendidikan) ?>" class="text-success"><img src="<?php echo base_url('asset/img/icons8-edit.svg') ?>" width="30" height="30" rel="tooltip" title="Edit"></a>
 						</td>
@@ -62,7 +71,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="<?php echo base_url('index.php/admin/pegawai/create_pendidikan/'.$hasil->id_pegawai) ?>" method="post">
+			<form action="<?php echo base_url('index.php/admin/pegawai/create_pendidikan/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
@@ -75,7 +84,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label class="text-info" for="sekolah">SEKOLAH</label>
+								<label class="text-info" for="sekolah">NAMA TEMPAT PENDIDIKAN</label>
 								<input type="text" class="form-control border-dark" id="sekolah" name="sekolah" placeholder="SEKOLAH">
 							</div>
 							<div class="form-group">
@@ -88,22 +97,23 @@
 							</div>
 							<div class="form-group">
 								<label class="text-info" for="tanggal_lulus">TANGGAL IJAZAH</label>
-								<div class="row">
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_lulus" name="tanggal_lulus_hr" placeholder="HH">
+								<input type="date" class="form-control border-dark" id="tanggal_lulus" name="tanggal_lulus" placeholder="TANGGAL IJAZAH">
+							<div class="form-group">
+								<label class="text-info" for="tempat_sekolah">TEMPAT</label>
+								<input type="text" class="form-control border-dark" id="tempat_sekolah" name="tempat_sekolah" placeholder="TEMPAT SEKOLAH">
+							</div>
+							<div class="form-group">
+								<label class="text-info">Status </label>
+								<select name="id_status" class="form-control border-dark">
+									<option value="0">Tidak Aktif</option>
+									<option value="1">Aktif</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="text-info">Upload SK</label>
+								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
 									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_lulus" name="tanggal_lulus_bln" placeholder="BB">
-									</div>
-									<div class="col-md-4">
-										<input type="text" class="form-control border-dark" id="tanggal_lulus" name="tanggal_lulus_thn" placeholder="TTTT">
-									</div>
-								</div>
-									<div class="form-group">
-										<label class="text-info" for="tempat_sekolah">TEMPAT</label>
-										<input type="text" class="form-control border-dark" id="tempat_sekolah" name="tempat_sekolah" placeholder="TEMPAT SEKOLAH">
-									</div>
-								</div>
+							</div>
 							</div>
 					</div>
 				</div>

@@ -21,45 +21,15 @@
 			</div>
 			<div class="form-group">
 				<label class="text-info" for="tanggal_sk">TANGGAL SK</label>
-				<div class="row">
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_hr" placeholder="HH" value="<?php echo substr($detail->tanggal_sk,8,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_bln" placeholder="BB" value="<?php echo substr($detail->tanggal_sk,5,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk_thn" placeholder="TTTT" value="<?php echo substr($detail->tanggal_sk,0,4)?>">
-					</div>
-				</div>
+				<input type="date" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk" placeholder="TANGGAL SK"  value="<?php echo $detail->tanggal_sk?>">
 			</div>
 			<div class="form-group">
 				<label class="text-info" for="tanggal_mulai">TANGGAL MULAI</label>
-				<div class="row">
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_hr" placeholder="HH" value="<?php echo substr($detail->tanggal_mulai,8,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_bln" placeholder="BB" value="<?php echo substr($detail->tanggal_mulai,5,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai_thn" placeholder="TTTT" value="<?php echo substr($detail->tanggal_mulai,0,4)?>">
-					</div>
-				</div>
+				<input type="date" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai" placeholder="TANGGAL MULAI"  value="<?php echo $detail->tanggal_mulai?>">
 			</div>
 			<div class="form-group">
-				<label class="text-info" for="tanggal_mulai">TANGGAL SELESAI</label>
-				<div class="row">
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_hr" placeholder="HH" value="<?php echo substr($detail->tanggal_selesai,8,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_bln" placeholder="BB" value="<?php echo substr($detail->tanggal_selesai,5,2)?>">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai_thn" placeholder="TTTT" value="<?php echo substr($detail->tanggal_selesai,0,4)?>">
-					</div>
-				</div>
+				<label class="text-info" for="tanggal_selesai">TANGGAL SELESAI</label>
+				<input type="date" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai" placeholder="TANGGAL SELESAI"  value="<?php echo $detail->tanggal_selesai?>">
 			</div>
 			<div class="form-group">
 				<label class="text-info">MASA KERJA</label>
@@ -72,6 +42,32 @@
 			<div class="form-group">
 				<label class="text-info">MASA KERJA TAHUN</label>
 				<input type="text" class="form-control border-dark" name="masa_kerja_tahun" placeholder="Masukan Masa Kerja Tahun" value="<?php echo $detail->masa_kerja_tahun ?>">
+			</div>
+			<div class="form-group">
+				<label class="text-info">Status Pangkat</label>
+				<select class="form-control border-dark" name="status">
+					<option value="<?php echo $detail->status ?>"> --<?php if ($detail->status == '0'): ?>
+					Tidak Aktif
+					<?php else: ?>
+						Aktif	
+						<?php endif ?>--</option>
+					<option value="Tidak Aktif">Tidak Aktif</option>
+					<option value="Aktif">Aktif</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-8">
+						<input type="file" name="upload">
+					</div>
+					<div class="col-md-4">
+						<?php if (@$detail->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$detail->upload) ?>" target="_blank" class="btn btn-success btn-sm w-100">Lihat File</a>
+							<?php else: ?>
+								<span class="btn btn-secondary btn-sm w-100">Lihat File</span>
+							<?php endif ?>
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>

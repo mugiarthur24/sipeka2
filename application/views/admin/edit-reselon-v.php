@@ -1,5 +1,5 @@
 <div style="margin-top: 14px; background-color: white;padding: 30px">
-	<form action="<?php echo base_url('index.php/admin/pegawai/update_reselon/'.$hasil->id_pegawai.'/'.$detail->id_riwayat_eselon) ?>" method="post">
+	<form action="<?php echo base_url('index.php/admin/pegawai/update_reselon/'.$hasil->id_pegawai.'/'.$detail->id_riwayat_eselon) ?>" method="post" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
@@ -28,6 +28,33 @@
 					<label class="text-info" for="nomor_sk">NOMOR SK</label>
 					<input type="text" class="form-control border-dark" id="nomor_sk" name="nomor_sk" placeholder="NOMOR SK"  value="<?php echo $detail->nomor_sk?>">
 				</div>
+				<div class="form-group">
+				<label class="text-info">Status Eselon</label>
+				<select class="form-control border-dark" name="status">
+					<option value="<?php echo $detail->status ?>"> --<?php if ($detail->status == '0'): ?>
+					Tidak Aktif
+					<?php else: ?>
+						Aktif	
+						<?php endif ?>--</option>
+					<option value="Tidak Aktif">Tidak Aktif</option>
+					<option value="Aktif">Aktif</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-8">
+						<input type="file" name="upload">
+					</div>
+					<div class="col-md-4">
+						<?php if (@$detail->upload == TRUE): ?>
+							<a href="<?php echo base_url('asset/dokumen/'.$detail->upload) ?>" target="_blank" class="btn btn-success btn-sm w-100">Lihat File</a>
+							<?php else: ?>
+								<span class="btn btn-secondary btn-sm w-100">Lihat File</span>
+							<?php endif ?>
+					</div>	
+				</div>
+			</div>
+			
 			</div>
 		</div>
 		<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan data</button>

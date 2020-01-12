@@ -31,6 +31,16 @@
                 </div>
             </a>
         </div>
+        <div class="col">
+            <a href="#">
+                <div class="card text-white bg-success mb-3" >
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/resign.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Surat Ijin Cuti</span>
+                    </div>
+                </div>
+            </a>
+        </div>
 	</div>
 </div>
 
@@ -63,6 +73,16 @@
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/student.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Surat Keterangan Kuliah</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="#">
+                <div class="card text-white bg-success mb-3" >
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/resign.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Surat Ijin Cuti</span>
                     </div>
                 </div>
             </a>

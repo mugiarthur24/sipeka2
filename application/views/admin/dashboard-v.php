@@ -261,6 +261,11 @@
                         </a>
                       </li>
                       <li>
+                        <a href="">
+                          <span class="sub-item">Pengangkatan & Pemberhentian</span>
+                        </a>
+                      </li>
+                      <li>
                         <a href="<?php echo base_url('index.php/admin/cskartu/') ?>">
                           <span class="sub-item">KARSU / KARSI / KARPEG</span>
                         </a>

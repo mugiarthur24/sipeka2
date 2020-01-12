@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 10 Jan 2020 pada 16.02
+-- Generation Time: 12 Jan 2020 pada 15.57
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -995,6 +995,214 @@ CREATE TABLE `tbl_form_pensiunbup` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_form_pensiunjandaduda`
+--
+
+CREATE TABLE `tbl_form_pensiunjandaduda` (
+  `id_form_pensiunjandaduda` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `upload_1` varchar(114) DEFAULT NULL,
+  `upload_2` varchar(114) DEFAULT NULL,
+  `upload_3` varchar(114) DEFAULT NULL,
+  `upload_4` varchar(114) DEFAULT NULL,
+  `upload_5` varchar(114) DEFAULT NULL,
+  `upload_6` varchar(114) DEFAULT NULL,
+  `upload_7` varchar(114) DEFAULT NULL,
+  `upload_8` varchar(114) DEFAULT NULL,
+  `upload_9` varchar(114) DEFAULT NULL,
+  `upload_10` varchar(114) DEFAULT NULL,
+  `upload_11` varchar(114) DEFAULT NULL,
+  `upload_12` varchar(114) DEFAULT NULL,
+  `upload_13` varchar(114) DEFAULT NULL,
+  `upload_14` varchar(114) DEFAULT NULL,
+  `upload_15` varchar(114) DEFAULT NULL,
+  `upload_16` varchar(114) DEFAULT NULL,
+  `upload_17` varchar(114) DEFAULT NULL,
+  `upload_18` varchar(114) DEFAULT NULL,
+  `upload_19` varchar(114) NOT NULL,
+  `upload_20` varchar(114) DEFAULT NULL,
+  `upload_21` varchar(114) DEFAULT NULL,
+  `upload_22` varchar(114) DEFAULT NULL,
+  `upload_23` varchar(114) DEFAULT NULL,
+  `upload_24` varchar(114) DEFAULT NULL,
+  `upload_25` varchar(114) DEFAULT NULL,
+  `tgl_create` date NOT NULL,
+  `id_sts_1` int(11) NOT NULL DEFAULT '1',
+  `id_sts_2` int(11) NOT NULL DEFAULT '1',
+  `id_sts_3` int(11) NOT NULL DEFAULT '1',
+  `id_sts_4` int(11) NOT NULL DEFAULT '1',
+  `id_sts_5` int(11) NOT NULL DEFAULT '1',
+  `id_sts_6` int(11) NOT NULL DEFAULT '1',
+  `id_sts_7` int(11) NOT NULL DEFAULT '1',
+  `id_sts_8` int(11) NOT NULL DEFAULT '1',
+  `id_sts_9` int(11) NOT NULL DEFAULT '1',
+  `id_sts_10` int(11) NOT NULL DEFAULT '1',
+  `id_sts_11` int(11) NOT NULL DEFAULT '1',
+  `id_sts_12` int(11) NOT NULL DEFAULT '1',
+  `id_sts_13` int(11) NOT NULL DEFAULT '1',
+  `id_sts_14` int(11) NOT NULL DEFAULT '1',
+  `id_sts_15` int(11) NOT NULL DEFAULT '1',
+  `id_sts_16` int(11) NOT NULL DEFAULT '1',
+  `id_sts_17` int(11) NOT NULL DEFAULT '1',
+  `id_sts_18` int(11) NOT NULL DEFAULT '1',
+  `id_sts_19` int(11) NOT NULL DEFAULT '1',
+  `id_sts_20` int(11) NOT NULL DEFAULT '1',
+  `id_sts_21` int(11) NOT NULL DEFAULT '1',
+  `id_sts_22` int(11) NOT NULL DEFAULT '1',
+  `id_sts_23` int(11) NOT NULL DEFAULT '1',
+  `id_sts_24` int(11) NOT NULL DEFAULT '1',
+  `id_sts_25` int(11) NOT NULL DEFAULT '1',
+  `verifikasi_1` int(11) NOT NULL,
+  `verifikasi_2` int(11) NOT NULL,
+  `verifikasi_3` int(11) NOT NULL,
+  `verifikasi_4` int(11) NOT NULL,
+  `verifikasi_5` int(11) NOT NULL,
+  `verifikasi_6` int(11) NOT NULL,
+  `verifikasi_7` int(11) NOT NULL,
+  `verifikasi_8` int(11) NOT NULL,
+  `verifikasi_9` int(11) NOT NULL,
+  `verifikasi_10` int(11) NOT NULL,
+  `verifikasi_11` int(11) NOT NULL,
+  `verifikasi_12` int(11) NOT NULL,
+  `verifikasi_13` int(11) NOT NULL,
+  `verifikasi_14` int(11) NOT NULL,
+  `verifikasi_15` int(11) NOT NULL,
+  `verifikasi_16` int(11) NOT NULL,
+  `verifikasi_17` int(11) NOT NULL,
+  `verifikasi_18` int(11) NOT NULL,
+  `verifikasi_19` int(11) NOT NULL,
+  `verifikasi_20` int(11) NOT NULL,
+  `verifikasi_21` int(11) NOT NULL,
+  `verifikasi_22` int(11) NOT NULL,
+  `verifikasi_23` int(11) NOT NULL,
+  `verifikasi_24` int(11) NOT NULL,
+  `verifikasi_25` int(11) NOT NULL,
+  `ket_1` varchar(114) NOT NULL,
+  `ket_2` varchar(114) NOT NULL,
+  `ket_3` varchar(114) NOT NULL,
+  `ket_4` varchar(114) NOT NULL,
+  `ket_5` varchar(114) NOT NULL,
+  `ket_6` varchar(114) NOT NULL,
+  `ket_7` varchar(114) NOT NULL,
+  `ket_8` varchar(114) NOT NULL,
+  `ket_9` varchar(114) NOT NULL,
+  `ket_10` varchar(114) NOT NULL,
+  `ket_11` varchar(114) NOT NULL,
+  `ket_12` varchar(114) NOT NULL,
+  `ket_13` varchar(114) NOT NULL,
+  `ket_14` varchar(114) NOT NULL,
+  `ket_15` varchar(114) NOT NULL,
+  `ket_16` varchar(114) NOT NULL,
+  `ket_17` varchar(114) NOT NULL,
+  `ket_18` varchar(114) NOT NULL,
+  `ket_19` varchar(114) NOT NULL,
+  `ket_20` varchar(114) NOT NULL,
+  `ket_21` varchar(114) NOT NULL,
+  `ket_22` varchar(114) NOT NULL,
+  `ket_23` varchar(114) NOT NULL,
+  `ket_24` varchar(114) NOT NULL,
+  `ket_25` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_form_pensiunpidana`
+--
+
+CREATE TABLE `tbl_form_pensiunpidana` (
+  `id_form_pensiunpidana` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `upload_1` varchar(114) DEFAULT NULL,
+  `upload_2` varchar(114) DEFAULT NULL,
+  `upload_3` varchar(114) DEFAULT NULL,
+  `upload_4` varchar(114) DEFAULT NULL,
+  `upload_5` varchar(114) DEFAULT NULL,
+  `upload_6` varchar(114) DEFAULT NULL,
+  `upload_7` varchar(114) DEFAULT NULL,
+  `upload_8` varchar(114) DEFAULT NULL,
+  `upload_9` varchar(114) DEFAULT NULL,
+  `upload_10` varchar(114) DEFAULT NULL,
+  `upload_11` varchar(114) DEFAULT NULL,
+  `upload_12` varchar(114) DEFAULT NULL,
+  `upload_13` varchar(114) DEFAULT NULL,
+  `upload_14` varchar(114) DEFAULT NULL,
+  `upload_15` varchar(114) DEFAULT NULL,
+  `upload_16` varchar(114) DEFAULT NULL,
+  `upload_17` varchar(114) DEFAULT NULL,
+  `upload_18` varchar(114) DEFAULT NULL,
+  `upload_19` varchar(114) DEFAULT NULL,
+  `upload_20` varchar(114) DEFAULT NULL,
+  `upload_21` varchar(114) DEFAULT NULL,
+  `tgl_create` date NOT NULL,
+  `id_sts_1` int(11) NOT NULL DEFAULT '1',
+  `id_sts_2` int(11) NOT NULL DEFAULT '1',
+  `id_sts_3` int(11) NOT NULL DEFAULT '1',
+  `id_sts_4` int(11) NOT NULL DEFAULT '1',
+  `id_sts_5` int(11) NOT NULL DEFAULT '1',
+  `id_sts_6` int(11) NOT NULL DEFAULT '1',
+  `id_sts_7` int(11) NOT NULL DEFAULT '1',
+  `id_sts_8` int(11) NOT NULL DEFAULT '1',
+  `id_sts_9` int(11) NOT NULL DEFAULT '1',
+  `id_sts_10` int(11) NOT NULL DEFAULT '1',
+  `id_sts_11` int(11) NOT NULL DEFAULT '1',
+  `id_sts_12` int(11) NOT NULL DEFAULT '1',
+  `id_sts_13` int(11) NOT NULL DEFAULT '1',
+  `id_sts_14` int(11) NOT NULL DEFAULT '1',
+  `id_sts_15` int(11) NOT NULL DEFAULT '1',
+  `id_sts_16` int(11) NOT NULL DEFAULT '1',
+  `id_sts_17` int(11) NOT NULL DEFAULT '1',
+  `id_sts_18` int(11) NOT NULL DEFAULT '1',
+  `id_sts_19` int(11) NOT NULL DEFAULT '1',
+  `id_sts_20` int(11) NOT NULL DEFAULT '1',
+  `id_sts_21` int(11) NOT NULL DEFAULT '1',
+  `verifikasi_1` int(11) NOT NULL,
+  `verifikasi_2` int(11) NOT NULL,
+  `verifikasi_3` int(11) NOT NULL,
+  `verifikasi_4` int(11) NOT NULL,
+  `verifikasi_5` int(11) NOT NULL,
+  `verifikasi_6` int(11) NOT NULL,
+  `verifikasi_7` int(11) NOT NULL,
+  `verifikasi_8` int(11) NOT NULL,
+  `verifikasi_9` int(11) NOT NULL,
+  `verifikasi_10` int(11) NOT NULL,
+  `verifikasi_11` int(11) NOT NULL,
+  `verifikasi_12` int(11) NOT NULL,
+  `verifikasi_13` int(11) NOT NULL,
+  `verifikasi_14` int(11) NOT NULL,
+  `verifikasi_15` int(11) NOT NULL,
+  `verifikasi_16` int(11) NOT NULL,
+  `verifikasi_17` int(11) NOT NULL,
+  `verifikasi_18` int(11) NOT NULL,
+  `verifikasi_19` int(11) NOT NULL,
+  `verifikasi_20` int(11) NOT NULL,
+  `verifikasi_21` int(11) NOT NULL,
+  `ket_1` varchar(114) NOT NULL,
+  `ket_2` varchar(114) NOT NULL,
+  `ket_3` varchar(114) NOT NULL,
+  `ket_4` varchar(114) NOT NULL,
+  `ket_5` varchar(114) NOT NULL,
+  `ket_6` varchar(114) NOT NULL,
+  `ket_7` varchar(114) NOT NULL,
+  `ket_8` varchar(114) NOT NULL,
+  `ket_9` varchar(114) NOT NULL,
+  `ket_10` varchar(114) NOT NULL,
+  `ket_11` varchar(114) NOT NULL,
+  `ket_12` varchar(114) NOT NULL,
+  `ket_13` varchar(114) NOT NULL,
+  `ket_14` varchar(114) NOT NULL,
+  `ket_15` varchar(114) NOT NULL,
+  `ket_16` varchar(114) NOT NULL,
+  `ket_17` varchar(114) NOT NULL,
+  `ket_18` varchar(114) NOT NULL,
+  `ket_19` varchar(114) NOT NULL,
+  `ket_20` varchar(114) NOT NULL,
+  `ket_21` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_form_pindahinstansi`
 --
 
@@ -1249,9 +1457,11 @@ INSERT INTO `tbl_groups` (`id`, `name`, `description`) VALUES
 (2, 'members', 'General User'),
 (34, 'skpd', 'Masing-masing SKPD'),
 (35, 'mutasi', 'bidang mutasi'),
-(36, 'suket', 'surat keterangan'),
+(36, 'suket', 'bidang suket'),
 (37, 'kartu', 'bidang layanan kartu pegawai'),
-(38, 'pensiun', 'bidang layanan pensiun');
+(38, 'pensiun', 'bidang layanan pensiun'),
+(39, 'data', 'admin data'),
+(40, 'user01', 'user bupati 01');
 
 -- --------------------------------------------------------
 
@@ -3028,7 +3238,7 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `id_mhs_pt`, `ip_address`, `username`, `password`, `repassword`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `hostname`, `port`, `userfeeder`, `passfeeder`, `jabatan`, `id_pegawai`, `profile`, `cs_sekret`, `cs_mutasi`, `cs_sdm`) VALUES
-(1, NULL, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1578659082, 1, 'Admin', 'istrator', 'ADMIN', '08239566666', 'localhost', '8082', '091006', 'palagimatA', 3, NULL, 'avatar.jpg', 1, 1, 1),
+(1, NULL, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1578830090, 1, 'Admin', 'istrator', 'ADMIN', '08239566666', 'localhost', '8082', '091006', 'palagimatA', 3, NULL, 'avatar.jpg', 1, 1, 1),
 (37, NULL, '::1', '195912311986011039', '$2y$08$zOinQSCBY4KAqRNTvT1UNuLkTm2Yfz82hIs7aUhU1JoigRl3BlGxW', 'password', NULL, 'la-amirishmh-buselkabgoid', NULL, NULL, NULL, NULL, 1578065574, NULL, 1, 'LA AMIRI.SH,MH ', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
 (38, NULL, '::1', '197012312005022012', '$2y$08$Ur4hrWhsfONE1fOOySJDtuzNm1jP2yDiazI82t.gEOzBYetCplOKe', 'password', NULL, 'haidasptbuselkabgoid', NULL, NULL, NULL, NULL, 1578065574, NULL, 1, 'HAIDA,S.Pt', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
 (39, NULL, '::1', '196512311986012013', '$2y$08$psbJag.RP6GlrZT8w/Ir8ungRBLdV3Qeo95mAzzzaHicgbXjrpn2G', 'password', NULL, 'nurianibuselkabgoid', NULL, NULL, NULL, NULL, 1578065575, NULL, 1, 'NURIANI', 'e-SiPeKa Kab. Busel', 'e-SiPeKa Kab. Busel', '123456789', NULL, NULL, NULL, NULL, 0, NULL, 'avatar.jpg', 0, 0, 0),
@@ -3297,6 +3507,18 @@ ALTER TABLE `tbl_form_karsu`
 --
 ALTER TABLE `tbl_form_pensiun`
   ADD PRIMARY KEY (`id_form_pensiun`);
+
+--
+-- Indexes for table `tbl_form_pensiunjandaduda`
+--
+ALTER TABLE `tbl_form_pensiunjandaduda`
+  ADD PRIMARY KEY (`id_form_pensiunjandaduda`);
+
+--
+-- Indexes for table `tbl_form_pensiunpidana`
+--
+ALTER TABLE `tbl_form_pensiunpidana`
+  ADD PRIMARY KEY (`id_form_pensiunpidana`);
 
 --
 -- Indexes for table `tbl_form_pindahinstansi`
@@ -3632,6 +3854,16 @@ ALTER TABLE `tbl_form_karsu`
 ALTER TABLE `tbl_form_pensiun`
   MODIFY `id_form_pensiun` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `tbl_form_pensiunjandaduda`
+--
+ALTER TABLE `tbl_form_pensiunjandaduda`
+  MODIFY `id_form_pensiunjandaduda` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_form_pensiunpidana`
+--
+ALTER TABLE `tbl_form_pensiunpidana`
+  MODIFY `id_form_pensiunpidana` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `tbl_form_pindahinstansi`
 --
 ALTER TABLE `tbl_form_pindahinstansi`
@@ -3655,7 +3887,7 @@ ALTER TABLE `tbl_form_tugasbelajar`
 -- AUTO_INCREMENT for table `tbl_groups`
 --
 ALTER TABLE `tbl_groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `tbl_honorer`
 --

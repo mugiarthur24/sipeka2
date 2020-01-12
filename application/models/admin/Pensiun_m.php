@@ -98,6 +98,18 @@ class Pensiun_m extends CI_Model
 		$query = $this->db->get('data_pegawai');
 		return $query->result();
 	}
+	public function cari_pegawaipensiunjandaduda($string){
+		$this->db->like('nama_pegawai', $string);
+		$this->db->limit('5');
+		$query = $this->db->get('data_pegawai');
+		return $query->result();
+	}
+	public function cari_pegawaipensiunpidana($string){
+		$this->db->like('nama_pegawai', $string);
+		$this->db->limit('5');
+		$query = $this->db->get('data_pegawai');
+		return $query->result();
+	}
 	public function last_golongan($id){
 		$this->db->where('id_pegawai',$id);
 		$this->db->join('master_golongan', 'master_golongan.id_golongan = data_riwayat_golongan.id_golongan');

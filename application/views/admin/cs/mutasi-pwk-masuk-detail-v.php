@@ -178,7 +178,7 @@
 		</div>
 	</div>
 
-<form action="<?php echo base_url('index.php/admin/csmutasi/cpwk_masuk2/'.@$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/admin/csmutasi/cpwk_masuk2/'.@$hasil->no_reg_pindah) ?>" method="post" enctype="multipart/form-data">
 	<div class="mt-4">
 		<div class="card">
 			<div class="card-header">

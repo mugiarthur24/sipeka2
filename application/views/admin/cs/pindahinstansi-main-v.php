@@ -29,9 +29,15 @@
 						<td class="text-center"><?php echo $no; ?></td>
 						<td class="text-center"><?php echo $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$data->id_pegawai)->nip; ?></td>
 						<td class=""><a href="<?php echo base_url('index.php/admin/csmutasi/detail_pindahinstansi/'.$data->id_form_pindah) ?>"><?php echo $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$data->id_pegawai)->nama_pegawai; ?></a></td>
+						<td class="text-center"><?php echo date('d F Y',strtotime($data->tgl_create)); ?></td>
 						<?php $dtstatus = $this->Admin_m->detail_data_order('status','id_status',$data->id_sts_1) ?>
-						<td class="text-center <?php echo $dtstatus->kode_status ?>"><?php echo $dtstatus->nm_status; ?></td>
-						<td class="text-center"><a href="<?php echo base_url('index.php/admin/csmutasi/ctk_pwkk/'.@$data->id_pindah_wilayah_kerja_keluar) ?>"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a></td>
+						<?php if ($data->verifikasi_1 == '2' && $data->verifikasi_2 == '2' && $data->verifikasi_3 == '2' && $data->verifikasi_4 == '2' && $data->verifikasi_5 == '2' && $data->verifikasi_6 == '2' && $data->verifikasi_7 == '2' && $data->verifikasi_8 == '2' && $data->verifikasi_9 == '2' && $data->verifikasi_10 == '2'): ?>
+						<td class="text-center text-success">Telah Diverifikasi</td>
+							<td class="text-center"><a href="<?php echo base_url('index.php/admin/csmutasi/ctk_pindahinstansi/'.$data->id_form_pindah) ?>"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a></td>
+						<?php else: ?>
+							<td class="text-center text-danger">Menunggu</td>
+						<td class="text-center"><i class="fa fa-times"></i></td>
+						<?php endif ?>
 					</tr>
 					<?php $no++ ?>
 				<?php endforeach ?>

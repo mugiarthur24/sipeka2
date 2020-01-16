@@ -1,5 +1,5 @@
 
-<div class="p-4">
+<!-- <div class="p-4">
   <?php if ($this->ion_auth->in_group(array('admin'))): ?>
     <div class="card">
       <div class="card-header">
@@ -175,7 +175,37 @@
         </form>
       </div>
     </div>
-  <?php endif ?>
+  <?php endif ?> -->
+  <div class="p-4">
+  <div class="card">
+    <div class="card-header">
+      <h3>Formulir Pindah Wilayah Kerja Keluar</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+      <div class="col">
+        <div class="card card-profile">
+        <div class="card-header" style="background-image: url(<?php echo base_url('asset/img/blogpost.jpg'); ?>)">
+          <div class="profile-picture">
+            <div class="avatar avatar-xxl">
+              <?php if (!empty($hasil->foto)): ?>
+                <img id="preview" class="avatar-img mr-3 rounded-circle" src="<?php echo base_url('asset/img/pegawai/'.$hasil->foto) ?>" alt="<?php echo $hasil->foto ?>">
+              <?php else: ?>
+                <img id="preview" class="avatar-img mr-3 rounded-circle" src="<?php echo base_url('asset/img/pegawai/avatar.png') ?>" alt="foto kosong">
+              <?php endif ?>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="user-profile text-center">
+            <div class="name"><?php echo $hasil->nama_pegawai; ?></div>
+            <div class="job">NIP : <?php echo $hasil->nip; ?></div>            
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
 
 <form action="<?php echo base_url('index.php/admin/csmutasi/cpwk_keluar2/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
   <div class="mt-4">

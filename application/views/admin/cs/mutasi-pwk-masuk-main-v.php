@@ -31,13 +31,13 @@
 				<?php foreach ($hasil as $data): ?>
 					<tr>
 						<td class="text-center"><?php echo $no; ?></td>
-						<td class="text-center"><?php echo $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$data->id_pegawai)->nip; ?></td>
-						<td class=""><a href="<?php echo base_url('index.php/admin/cssuket/detail_ijinbelajar/'.@$data->id_form_ijinbelajar) ?>"><?php echo $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$data->id_pegawai)->nama_pegawai; ?></a></td>
+						<td class="text-center"><?php echo $data->nip; ?></td>
+						<td class=""><a href="<?php echo base_url('index.php/admin/csmutasi/detail_pwk_masuk/'.@$data->id_pindah_wilayah_kerja_masuk) ?>"><?php echo $data->nm_pegawai; ?></a></td>
 						<td class="text-center"><?php echo date('d F Y',strtotime($data->tgl_create)); ?></td>
 						<?php $dtstatus = $this->Admin_m->detail_data_order('status','id_status',$data->id_sts_1) ?>
 						<?php if ($data->verifikasi_1 == '2' && $data->verifikasi_2 == '2' && $data->verifikasi_3 == '2' && $data->verifikasi_4 == '2' && $data->verifikasi_5 == '2' && $data->verifikasi_6 == '2' && $data->verifikasi_7 == '2' && $data->verifikasi_8 == '2' && $data->verifikasi_9 == '2'): ?>
 							<td class="text-center text-success">Telah Diverifikasi</td>
-						<td class="text-center"><a href="<?php echo base_url('index.php/admin/csmutasi/ctk_pwkm/'.$data->id_form_pwkmasuk) ?>" target="_blank"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a>
+						<td class="text-center"><a href="<?php echo base_url('index.php/admin/csmutasi/ctk_pwkm/'.$data->id_pindah_wilayah_kerja_masuk) ?>" target="_blank"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a>
 						</td>
 						<?php else: ?>
 							<td class="text-center text-danger">Menunggu</td>

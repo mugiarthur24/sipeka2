@@ -250,16 +250,20 @@
                     </a>
                     <div class="collapse" id="layanan">
                     <ul class="nav nav-collapse">
-                      <li>
-                        <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
-                          <span class="sub-item">Mutasi</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
-                          <span class="sub-item">SUKET Ijin Pegawai</span>
-                        </a>
-                      </li>
+                      <?php if ($users->cs_mutasi == '1'): ?>
+                        <li>
+                          <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
+                            <span class="sub-item">Mutasi</span>
+                          </a>
+                        </li>
+                      <?php endif ?>
+                      <?php if ($users->cs_sekret == '1'): ?>
+                        <li>
+                          <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
+                            <span class="sub-item">SUKET Ijin Pegawai</span>
+                          </a>
+                        </li>
+                      <?php endif ?>
                       <li>
                         <a href="">
                           <span class="sub-item">Pengangkatan & Pemberhentian</span>
@@ -292,16 +296,20 @@
                     </a>
                     <div class="collapse" id="layanan">
                     <ul class="nav nav-collapse">
-                      <li>
-                        <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
-                          <span class="sub-item">Mutasi</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
-                          <span class="sub-item">SUKET Ijin Pegawai</span>
-                        </a>
-                      </li>
+                      <?php if ($users->cs_mutasi == '1'): ?>
+                        <li>
+                          <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
+                            <span class="sub-item">Mutasi</span>
+                          </a>
+                        </li>
+                      <?php endif ?>
+                      <?php if ($users->cs_sekret == '1'): ?>
+                        <li>
+                          <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
+                            <span class="sub-item">SUKET Ijin Pegawai</span>
+                          </a>
+                        </li>
+                      <?php endif ?>
                       <li>
                         <a href="<?php echo base_url('index.php/admin/cskartu/') ?>">
                           <span class="sub-item">KARSU / KARSI / KARPEG</span>
@@ -548,6 +556,41 @@
                         </li>
                       </ul>
                     </div>
+                  </li>
+                <?php endif ?>
+                <?php if ($this->ion_auth->in_group('skpd')): ?>
+                  <li class="nav-item">
+                    <a data-toggle="collapse" href="#datapegawaiskpd">
+                      <i class="fas fa-directions"></i>
+                      <p>Data Pegawai</p>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="datapegawaiskpd">
+                    <ul class="nav nav-collapse">
+                      <li>
+                        <a href="<?php echo base_url('index.php/admin/pegawai') ?>">Data PNS</a>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  </li>
+                <?php endif ?>
+                <?php if ($this->ion_auth->in_group('mutasi')): ?>
+                  <li class="nav-item">
+                    <a data-toggle="collapse" href="#mutasi">
+                      <i class="fas fa-directions"></i>
+                      <p>Layanan Mutasi Pegawai</p>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="mutasi">
+                    <ul class="nav nav-collapse">
+                      <li>
+                        <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
+                          <span class="sub-item">Mutasi</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                   </li>
                 <?php endif ?>
               </ul>

@@ -109,7 +109,7 @@
                 <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/student.svg') ?>" width="100" height="100"></span><br/><br/>
-                        <span class="text-light">Surat Keterangan Kuliah</span>
+                        <span class="text-light">Surat Ket Kuliah</span>
                     </div>
                 </div>
             </a>
@@ -120,6 +120,28 @@
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/checklist.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Surat Ijin Belajar</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="<?php echo base_url('index.php/admin/cspensiun/pensiunjandaduda_main/') ?>">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/businessman.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Pensiun Janda/Duda</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo base_url('index.php/admin/cspensiun/pensiunpidana_main/') ?>">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/handcuffs.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Pemberhentian Karena Tindak Pidana</span>
                     </div>
                 </div>
             </a>

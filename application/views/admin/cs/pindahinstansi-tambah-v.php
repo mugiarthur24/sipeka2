@@ -267,7 +267,7 @@
                 <td>Surat Pernyataan dari Pimpinan (siap menerima) Bagi Tenaga Guru lampirkan data SALK</td>
                 <td><input type="file" name="upload_11"></td>
                 <td>
-                  <?php if (@$formupload->upload_5 == TRUE): ?>
+                  <?php if (@$formupload->upload_11 == TRUE): ?>
                     <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_11) ?>" target="_blank" class="btn btn-success btn-sm w-100">View</a>
                     <?php else: ?>
                       <span class="btn btn-secondary btn-sm w-100">View</span>

@@ -9,7 +9,7 @@ class Csmutasi extends CI_Controller {
     }
     public function index(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -36,7 +36,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pwk_masuk(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -74,7 +74,7 @@ class Csmutasi extends CI_Controller {
     }
     public function cetak_konsideran_bupati_masuk($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -95,7 +95,7 @@ class Csmutasi extends CI_Controller {
     }
     public function ctk_pwkm($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -116,13 +116,34 @@ class Csmutasi extends CI_Controller {
     }
     public function ctk_pwkk($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
-                $result = $this->Mutasi_m->detail_mutasi($id);
+                $result = $this->Mutasi_m->detail_mutasipwkk($id);
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['title'] = $result->nm_pegawai;
+                $data['hasil'] = $result;
+                // pagging setting
+                $this->load->view('admin/cs/cetak-konsideran-bupati-keluar',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function ctk_pindahinstansi($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members','mutasi');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $result = $this->Mutasi_m->detail_mutasipwkk($id);
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['title'] = $result->nm_pegawai;
                 $data['hasil'] = $result;
@@ -137,7 +158,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pwk_keluar(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -171,7 +192,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pindah_instansi(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -205,7 +226,7 @@ class Csmutasi extends CI_Controller {
     }
     public function detail_pwk_keluar($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -246,7 +267,7 @@ class Csmutasi extends CI_Controller {
     }
     public function tambah_pwk_keluar($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -282,7 +303,7 @@ class Csmutasi extends CI_Controller {
     }
     public function tambah_pwk_masuk($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -290,7 +311,7 @@ class Csmutasi extends CI_Controller {
             }else{
                 $datauser = $this->ion_auth->user()->row();
                 $pegawai = $this->Admin_m->detail_data_order('data_pidah_wilayah_kerja_masuk','nm_pegawai',$idpegawai);
-                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','id_pegawai',$pegawai->id_pegawai);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','no_reg_pindah',$pegawai->no_reg_pindah);
                     $post = $this->input->get();
                     $data['title'] = 'Tambah PWK Masuk'.$this->Admin_m->info_pt(1)->nama_info_pt;
                     $data['infopt'] = $this->Admin_m->info_pt(1);
@@ -301,7 +322,6 @@ class Csmutasi extends CI_Controller {
                     $data['jabatan'] = $this->Mutasi_m->last_jabatan($idpegawai);
                     // echo "<pre>";print_r($data['jabatan']);echo "<pre>";exit();
                     $data['skpd'] = $this->Admin_m->select_data('master_lokasi_kerja');
-
                     $data['hasil'] = $pegawai;
                     $data['formupload'] = $cekfomupload;
                     $data['aside'] = 'nav/nav';
@@ -318,7 +338,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pensiun_main(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -356,7 +376,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pindahinstansi_main(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -394,7 +414,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pindahinstansi_action($nip){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -671,7 +691,7 @@ class Csmutasi extends CI_Controller {
     }
     public function detail_pindahinstansi($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -707,7 +727,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pensiun_tambah($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -747,7 +767,7 @@ class Csmutasi extends CI_Controller {
     }
     public function tambah_pindahinstansi($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -787,7 +807,7 @@ class Csmutasi extends CI_Controller {
     }
     public function cpwk_masuk(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -831,6 +851,11 @@ class Csmutasi extends CI_Controller {
                         'waktu_create'=>date('h:i:s'),
                     );
                     $this->Admin_m->insert_data('data_pidah_wilayah_kerja_masuk',$data);
+                    // add form
+                    $dataform = array(
+                        'no_reg_pindah'=>str_pad($kode, 6, "0", STR_PAD_LEFT),
+                    );
+                    $this->Admin_m->insert_data('form_pwkmasuk',$dataform);
                     $pesan = 'Data Pindah Wilayah Kerja (Masuk) Berhasil di tambahkan';
                     $this->session->set_flashdata('message', $pesan );
                     redirect(base_url('index.php/admin/csmutasi/pwk_masuk/'));
@@ -845,7 +870,7 @@ class Csmutasi extends CI_Controller {
     }
     public function cpwk_keluar($nip){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -866,7 +891,7 @@ class Csmutasi extends CI_Controller {
                         $kode = 1;
                     }
                     $data = array(
-                        'no_req_pindah'=>'PWKK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
+                        'no_reg_pindah'=>'PWKK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
                         'no_cetak'=>'CTK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
                         'tgl_masuk'=>$post['tgl_masuk'],
                         'id_pegawai'=>$post['id_pegawai'],
@@ -894,7 +919,7 @@ class Csmutasi extends CI_Controller {
                     $this->session->set_flashdata('message', $pesan );
                     // redirect(base_url('index.php/admin/csmutasi/pwk_keluar/'));
                     $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','nip',$nip);
-                $cekfomupload = $this->Admin_m->detail_data_order('form_pensiun','id_pegawai',$getpegawai->id_pegawai);
+                    $cekfomupload = $this->Admin_m->detail_data_order('form_pwkkeluar','id_pegawai',$getpegawai->id_pegawai);
                 if ($cekfomupload == FALSE) {
                     $dps = array(
                         'id_pegawai'=>$getpegawai->id_pegawai,
@@ -903,7 +928,7 @@ class Csmutasi extends CI_Controller {
                     );
                     $this->Admin_m->insert_data('form_pensiun',$dps);
                 }
-                $cekfomupload = $this->Admin_m->detail_data_order('form_pensiun','id_pegawai',$getpegawai->id_pegawai);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkkeluar','id_pegawai',$getpegawai->id_pegawai);
                 // upload 1
                 if (!empty($_FILES["upload_1"]["tmp_name"])) {
                     $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-dpcp'.'-'.date('Ymd').'-'.time('Hms')));
@@ -1360,10 +1385,10 @@ class Csmutasi extends CI_Controller {
                         $data['upload_24'] = $img;
                     }
                 }
-                $this->Admin_m->update('form_pensiun','id_form_pensiun',$cekfomupload->id_form_pensiun,$data);
+                $this->Admin_m->update('form_pwkkeluar','id_form_pwkkeluar',$cekfomupload->id_form_pwkkeluar,$data);
                 $pesan = 'Form berhasil di upload';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/csmutasi/review_form_upload/'.$nip));
+                redirect(base_url('index.php/admin/csmutasi/pwk_keluar/'.$nip));
                 }
                 
             }
@@ -1376,7 +1401,7 @@ class Csmutasi extends CI_Controller {
     public function pindahinstansi2($nip){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1628,7 +1653,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pensiun(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1681,7 +1706,7 @@ class Csmutasi extends CI_Controller {
     }
     public function pindahinstansi_tambah($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1759,20 +1784,17 @@ class Csmutasi extends CI_Controller {
     }
     public function detail_pwk_masuk($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $datauser = $this->ion_auth->user()->row();
-                if ($this->ion_auth->in_group('members')) {
-                    redirect( base_url('index.php/admin/csmutasi/tambah_pwk_masuk/'.$datauser->id_pegawai));
-                }
-                    // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
+                 // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
                 $post = $this->input->get();
                 $datamutasi = $this->Admin_m->detail_data_order('data_pidah_wilayah_kerja_masuk','id_pindah_wilayah_kerja_masuk',$id);
-                @$formupload = $this->Admin_m->detail_data_order('form_pwkmasuk','id_pegawai',$datapegawai->nm_pegawai);
+                $formupload = $this->Admin_m->detail_data_order('form_pwkmasuk','no_reg_pindah',$datamutasi->no_reg_pindah);
                 $data['title'] = 'Detail Mutasi Masuk - '.$datamutasi->nm_pegawai;
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
@@ -1795,7 +1817,7 @@ class Csmutasi extends CI_Controller {
     public function upload_pwkm(){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1839,7 +1861,7 @@ class Csmutasi extends CI_Controller {
     public function update_stat_verif_pwkm(){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1863,7 +1885,7 @@ class Csmutasi extends CI_Controller {
     public function proses_upload_form($nip){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2349,7 +2371,7 @@ class Csmutasi extends CI_Controller {
     }
     public function review_form_upload($nip){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2386,7 +2408,7 @@ class Csmutasi extends CI_Controller {
      public function cpwk_keluar2($nip){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2506,7 +2528,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 6
                 if (!empty($_FILES["upload_6"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkk'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkk'.'-'.$getpegawai->nip.'-skp1'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2545,7 +2567,7 @@ class Csmutasi extends CI_Controller {
                     }
                 }
                 // upload 8
-                if (!empty($_FILES["upload_5"]["tmp_name"])) {
+                if (!empty($_FILES["upload_8"]["tmp_name"])) {
                     $config['file_name'] = strtolower(url_title('pwkk'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
@@ -2618,27 +2640,27 @@ class Csmutasi extends CI_Controller {
     public function cpwk_masuk2($nip){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
-                $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$nip);
-                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','id_pegawai',$getpegawai->id_pegawai);
+                $getpegawai = $this->Admin_m->detail_data_order('data_pidah_wilayah_kerja_masuk','no_reg_pindah',$nip);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','no_reg_pindah',$getpegawai->no_reg_pindah);
                 if ($cekfomupload == FALSE) {
                     $dps = array(
-                        'id_pegawai'=>$getpegawai->id_pegawai,
+                        'no_reg_pindah'=>$getpegawai->no_reg_pindah,
                         'tgl_create'=>date('Y-m-d')
                     );
                     $this->Admin_m->insert_data('form_pwkmasuk',$dps);
                 }
-                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','id_pegawai',$getpegawai->id_pegawai);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_pwkmasuk','no_reg_pindah',$getpegawai->no_reg_pindah);
                 // echo "<pre>";print_r($cekfomupload);echo "<pre>";exit();
                 $pesaneror = array();
                 // upload 1
                 if (!empty($_FILES["upload_1"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-spi'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-spi'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2658,7 +2680,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 2
                 if (!empty($_FILES["upload_2"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-sppis'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-sppis'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2678,7 +2700,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 3
                 if (!empty($_FILES["upload_3"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-sppit'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-sppit'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2698,7 +2720,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 4
                 if (!empty($_FILES["upload_4"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-fcsk'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-fcsk'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2718,7 +2740,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 5
                 if (!empty($_FILES["upload_5"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2738,7 +2760,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 6
                 if (!empty($_FILES["upload_6"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2758,7 +2780,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 7
                 if (!empty($_FILES["upload_7"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2778,7 +2800,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 8
                 if (!empty($_FILES["upload_8"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2798,7 +2820,7 @@ class Csmutasi extends CI_Controller {
                 }
                 // upload 9
                 if (!empty($_FILES["upload_9"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->nip.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pwkm'.'-'.$getpegawai->no_reg_pindah.'-skp'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2819,7 +2841,7 @@ class Csmutasi extends CI_Controller {
 
                 $pesan = 'Form berhasil di upload';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/csmutasi/tambah_pwk_masuk/'.$getpegawai->id_pegawai));
+                redirect(base_url('index.php/admin/csmutasi/detail_pwk_masuk/'.$getpegawai->id_pindah_wilayah_kerja_masuk));
             }
         }else{
             $pesan = 'Login terlebih dahulu';
@@ -2829,7 +2851,7 @@ class Csmutasi extends CI_Controller {
     }
      public function cpwk_keluar_action($nip){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -3081,7 +3103,7 @@ class Csmutasi extends CI_Controller {
     }
     public function cpwk_masuk_action($nip){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','mutasi');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );

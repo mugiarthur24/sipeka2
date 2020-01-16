@@ -2281,7 +2281,7 @@ class Cspensiun extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
-    public function pensiunbup2($nip){
+    public function pensiunpidana2($nip){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
@@ -2304,7 +2304,7 @@ class Cspensiun extends CI_Controller {
                 $pesaneror = array();
                 // upload 1
                 if (!empty($_FILES["upload_1"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('pensiunbup'.'-'.$getpegawai->nip.'-1'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['file_name'] = strtolower(url_title('pensiunpidana'.'-'.$getpegawai->nip.'-1'.'-'.date('Ymd').'-'.time('Hms')));
                     $config['upload_path'] = './asset/dokumen/';
                     $config['allowed_types'] = 'pdf|jpg|png|jpeg';
                     $config['max_size'] = 2048;
@@ -2722,8 +2722,6 @@ class Cspensiun extends CI_Controller {
                         $this->Admin_m->update('form_pensiunpidana','id_form_pensiunpidana',$cekfomupload->id_form_pensiunpidana,$data);
                     }
                 }
-                
-                
                 $pesan = 'Form berhasil di upload';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/cspensiun/pensiunpidana_tambah/'.$getpegawai->id_pegawai));

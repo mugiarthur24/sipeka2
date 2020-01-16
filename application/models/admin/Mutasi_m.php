@@ -54,6 +54,12 @@ class Mutasi_m extends CI_Model
 		$query = $this->db->get('data_pidah_wilayah_kerja_masuk');
 		return $query->row();
 	}
+	public function detail_mutasipwkk($id){
+		$this->db->join('data_pegawai', 'data_pegawai.id_pegawai = data_pindah_wilayah_kerja_keluar.id_pegawai');
+		$this->db->where('id_pindah_wilayah_kerja_keluar', $id);
+		$query = $this->db->get('data_pindah_wilayah_kerja_keluar');
+		return $query->row();
+	}
 	public function detail_pensiun($id){
 		$this->db->where('id_pensiun', $id);
 		$query = $this->db->get('data_pensiun');
@@ -122,7 +128,7 @@ class Mutasi_m extends CI_Model
 		return $query->row();
 	}
 	public function get_pwkm(){
-		$this->db->join('form_pwkmasuk', 'form_pwkmasuk.id_pegawai = data_pidah_wilayah_kerja_masuk.id_pindah_wilayah_kerja_masuk');
+		$this->db->join('form_pwkmasuk', 'form_pwkmasuk.no_reg_pindah = data_pidah_wilayah_kerja_masuk.no_reg_pindah');
 		$this->db->order_by('id_pindah_wilayah_kerja_masuk','desc');
 		$query = $this->db->get('data_pidah_wilayah_kerja_masuk');
 		return $query->result();

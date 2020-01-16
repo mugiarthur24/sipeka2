@@ -113,6 +113,9 @@ class Users extends CI_Controller {
 					'last_name' => $this->input->post('last_name'),
 					'password' => $this->input->post('password'),
 					'repassword' =>$this->input->post('password'),
+					'cs_mutasi' =>$this->input->post('cs_mutasi'),
+					'cs_sekret' =>$this->input->post('cs_sekret'),
+					'cs_sdm' =>$this->input->post('cs_sdm'),
 					);
 				}else{
 					$additional_data = array(
@@ -120,6 +123,9 @@ class Users extends CI_Controller {
 					'username' => $this->input->post('username'),
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
+					'cs_mutasi' =>$this->input->post('cs_mutasi'),
+					'cs_sekret' =>$this->input->post('cs_sekret'),
+					'cs_sdm' =>$this->input->post('cs_sdm'),
 					);
 				}
 				if ($this->ion_auth->in_group('admin')) {

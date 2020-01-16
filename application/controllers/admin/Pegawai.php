@@ -10,17 +10,18 @@ class Pegawai extends CI_Controller {
     }
     public function index($rowno=0){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin');
+            $level = array('admin','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/dashboard'));
+                redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $post = $this->input->post();
+                $getuser = $this->ion_auth->user()->row();
                 $data['title'] = $this->Admin_m->info_pt(1)->nama_info_pt;
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
-                $data['users'] = $this->ion_auth->user()->row();
+                $data['users'] = $getuser;
                 $data['aside'] = 'nav/nav';
                 $data['page'] = 'admin/pegawai-v';
                 if ($this->ion_auth->in_group($level)) {
@@ -47,9 +48,16 @@ class Pegawai extends CI_Controller {
                    if($rowno != 0){
                      $rowno = ($rowno-1) * $rowperpage;
                  }
-                   $allcount = $this->Pegawai_m->getrecordCount($search_text);
+                if ($this->ion_auth->in_group('skpd')) {
+                    $allcount = $this->Pegawai_m->getrecordCountskpd($getuser->id_mhs_pt,$search_text);
+                   // Get records
+                   $users_record = $this->Pegawai_m->getDataskpd($getuser->id_mhs_pt,$rowno,$rowperpage,$search_text);
+                }else{
+                    $allcount = $this->Pegawai_m->getrecordCount($search_text);
                    // Get records
                    $users_record = $this->Pegawai_m->getData($rowno,$rowperpage,$search_text);
+                }
+                   
                 
                 // Pagination Configuration
                  $config['base_url'] = base_url().'/index.php/admin/pegawai/index/';
@@ -102,14 +110,18 @@ class Pegawai extends CI_Controller {
     }
     public function detail($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
+                // // if ($id =='0') {
+                // //     $id = $this->ion_auth->user()->row();
+                // // }
+                // echo "<pre>";print_r($this->ion_auth->user()->row());echo "<pre/>";exit();
                 $result = $this->Pegawai_m->detail_pegawai($id);
-                // echo "<pre>";print_r($result);echo "<pre/>";exit();
+                // echo "<pre>";print_r($id);echo "<pre/>";exit();
                 $data['title'] = $result->nama_pegawai;
                 $data['titelbag'] = 'datadiri';
                 $data['infopt'] = $this->Admin_m->info_pt(1);
@@ -136,7 +148,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_keluarga($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -168,7 +180,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_rgolongan($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -200,7 +212,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_rpangkat($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -230,7 +242,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_rjabatan($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -264,7 +276,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_reselon($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -295,7 +307,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_pendidikan($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -326,7 +338,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_pelatihan($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -356,7 +368,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_penghargaan($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -386,7 +398,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_seminar($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -416,7 +428,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_organisasi($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -447,7 +459,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_gaji_pokok($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -476,7 +488,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_hukuman($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -506,7 +518,7 @@ class Pegawai extends CI_Controller {
     }
     public function detail_dp3($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -537,7 +549,7 @@ class Pegawai extends CI_Controller {
     }
     public function create(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -598,7 +610,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_keluarga($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -630,7 +642,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_rgolongan($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -680,7 +692,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_rpangkat($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -732,7 +744,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_rjabatan($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -783,7 +795,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_pendidikan($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -833,7 +845,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_pelatihan($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -862,7 +874,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_penghargaan($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -908,7 +920,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_seminar($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -953,7 +965,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_organisasi($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -999,7 +1011,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_gaji_pokok($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1030,7 +1042,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_hukuman($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1078,7 +1090,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_dp3($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1114,7 +1126,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_rgolongan($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1145,7 +1157,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_rpangkat($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1176,7 +1188,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_rgolongan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1225,7 +1237,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_rpangkat($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1276,7 +1288,7 @@ class Pegawai extends CI_Controller {
     }
     public function create_reselon($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1323,7 +1335,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_reselon($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1355,7 +1367,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_reselon($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members','skpd');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1402,7 +1414,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_rjabatan($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1439,7 +1451,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_rjabatan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1491,7 +1503,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_pendidikan($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1522,7 +1534,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_pendidikan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1572,7 +1584,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_pegawai($idpegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1619,7 +1631,7 @@ class Pegawai extends CI_Controller {
     public function update_foto_pegawai(){
         $post = $this->input->post();
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1665,7 +1677,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_pelatihan($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1695,7 +1707,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_pelatihan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1723,7 +1735,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_penghargaan($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1753,7 +1765,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_penghargaan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1781,7 +1793,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_seminar($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1811,7 +1823,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_seminar($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1836,7 +1848,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_organisasi($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1867,7 +1879,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_organisasi($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1912,7 +1924,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_gaji_pokok($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1941,7 +1953,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_gaji_pokok($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -1971,7 +1983,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_hukuman($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2001,7 +2013,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_hukuman($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2049,7 +2061,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_dp3($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2079,7 +2091,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_dp3($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2115,7 +2127,7 @@ class Pegawai extends CI_Controller {
     }
     public function edit_keluarga($id,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2147,7 +2159,7 @@ class Pegawai extends CI_Controller {
     }
     public function update_keluarga($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2178,7 +2190,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_dp3($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2197,7 +2209,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_keluarga($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2236,7 +2248,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_reselon($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2255,7 +2267,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_rjabatan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2274,7 +2286,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_pendidikan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2293,7 +2305,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_pelatihan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2312,7 +2324,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_penghargaan($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2331,7 +2343,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_seminar($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2350,7 +2362,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_organisasi($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2369,7 +2381,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_gaji_pokok($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2388,7 +2400,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_hukuman($idpegawai,$idr){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2407,7 +2419,7 @@ class Pegawai extends CI_Controller {
     }
     public function delete_pegawai($id_pegawai){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2465,7 +2477,7 @@ class Pegawai extends CI_Controller {
     }
     public function cetak_data_pegawai($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2502,7 +2514,7 @@ class Pegawai extends CI_Controller {
 
 public function lap_pegawaiperpendidikan(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2530,7 +2542,7 @@ public function lap_pegawaiperpendidikan(){
     }
 public function ctk_pegawaiperpendidikan(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2562,7 +2574,7 @@ public function ctk_pegawaiperpendidikan(){
 
     public function lap_dpcp($id){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2594,7 +2606,7 @@ public function ctk_pegawaiperpendidikan(){
     }
     public function lap_pegawaipergolongan(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2623,7 +2635,7 @@ public function ctk_pegawaiperpendidikan(){
     }
     public function ctk_pegawaipergolongan(){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin','members','skpd','user01');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -2760,7 +2772,9 @@ public function ctk_pegawaiperpendidikan(){
                     $email = strtolower(url_title(filter_var($val[1], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH).'@buselkab.go.id'));
                     $password = 'password';
                     $group = array('2');
+                    $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','nip',preg_replace("/[^0-9]/", "",trim(filter_var($val[2], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))));
                     $additional_data = array(
+                        'id_pegawai'=>$getpegawai->id_pegawai,
                         'first_name' => filter_var($val[1], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
                         'last_name' => $infopt->nama_info_pt,
                         'company' => $infopt->nama_info_pt,

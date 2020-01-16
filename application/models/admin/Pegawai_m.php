@@ -35,6 +35,35 @@ class Pegawai_m extends CI_Model
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+	public function getrecordCountskpd($skpd,$search) {
+		$this->db->select('count(*) as allcount,data_pegawai.*,master_status_pegawai.nama_status');
+		// echo "<pre>";print_r($search['skpd']);echo "</pre>";exit();
+		$this->db->from('data_pegawai');
+		if (!empty($search['string'])) {
+			$this->db->like('data_pegawai.nama_pegawai',$search['string']);
+			// $this->db->or_like('data_pegawai.nip',$search['string']);
+		}
+		$this->db->where('data_pegawai.id_satuan_kerja',$skpd);
+		$this->db->join('master_status_pegawai', 'master_status_pegawai.id_status_pegawai = data_pegawai.status_pegawai');
+		$this->db->order_by('data_pegawai.nama_pegawai','asc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function getDataskpd($skpd,$rowno,$rowperpage,$search) {
+
+		$this->db->from('data_pegawai');
+		if (!empty($search['string'])) {
+			$this->db->like('data_pegawai.nama_pegawai',$search['string']);
+			// $this->db->or_like('data_pegawai.nip',$search['string']);
+		}
+		$this->db->where('data_pegawai.id_satuan_kerja',$skpd);
+		$this->db->join('master_status_pegawai', 'master_status_pegawai.id_status_pegawai = data_pegawai.status_pegawai');
+		$this->db->limit($rowperpage, $rowno);
+		$this->db->order_by('data_pegawai.nama_pegawai','asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 	public function getrecordCount($search) {
 		$this->db->select('count(*) as allcount,data_pegawai.*,master_status_pegawai.nama_status');
 		// echo "<pre>";print_r($search['skpd']);echo "</pre>";exit();

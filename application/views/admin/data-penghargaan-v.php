@@ -85,9 +85,9 @@
 								<input type="text" class="form-control border-dark" id="tahun" name="tahun" placeholder="TAHUN" >
 							</div>
 							<div class="form-group">
-										<label class="text-info">Upload</label>
-										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
-									</div>
+								<label class="text-info">Upload</label>
+								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
+							</div>
 							</div>
 						</div>
 					</div>

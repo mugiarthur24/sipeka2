@@ -30,6 +30,11 @@ class Mutasi_m extends CI_Model
 		$query = $this->db->get('data_pidah_wilayah_kerja_masuk');
 		return $query->row();
 	}
+	public function lastpengangkatan(){
+		$this->db->order_by('id_form_pengangkatan','desc');
+		$query = $this->db->get('form_pengangkatan');
+		return $query->row();
+	}
 	public function lastidpensiun(){
 		$this->db->order_by('id_pensiun','desc');
 		$query = $this->db->get('data_pensiun');
@@ -58,6 +63,12 @@ class Mutasi_m extends CI_Model
 		$this->db->join('data_pegawai', 'data_pegawai.id_pegawai = data_pindah_wilayah_kerja_keluar.id_pegawai');
 		$this->db->where('id_pindah_wilayah_kerja_keluar', $id);
 		$query = $this->db->get('data_pindah_wilayah_kerja_keluar');
+		return $query->row();
+	}
+	public function detail_mutasipindah($id){
+		$this->db->join('data_pegawai', 'data_pegawai.id_pegawai = form_pindahinstansi.id_pegawai');
+		$this->db->where('id_form_pindah', $id);
+		$query = $this->db->get('form_pindahinstansi');
 		return $query->row();
 	}
 	public function detail_pensiun($id){
@@ -95,35 +106,35 @@ class Mutasi_m extends CI_Model
 	public function last_golongan($id){
 		$this->db->where('id_pegawai',$id);
 		$this->db->join('master_golongan', 'master_golongan.id_golongan = data_riwayat_golongan.id_golongan');
-		$this->db->order_by('id_riwayat_golongan','desc');
+		$this->db->where('status','1');
 		$query = $this->db->get('data_riwayat_golongan');
 		return $query->row();
 	}
 	public function last_pangkat($id){
 		$this->db->where('id_pegawai',$id);
 		$this->db->join('master_pangkat', 'master_pangkat.id_pangkat = data_riwayat_pangkat.id_pangkat');
-		$this->db->order_by('id_riwayat_pangkat','desc');
+		$this->db->where('status_pangkat','1');
 		$query = $this->db->get('data_riwayat_pangkat');
 		return $query->row();
 	}
 	public function last_eselon($id){
 		$this->db->where('id_pegawai',$id);
 		$this->db->join('master_eselon', 'master_eselon.id_eselon = data_riwayat_eselon.id_eselon');
-		$this->db->order_by('id_riwayat_eselon','desc');
+		$this->db->where('status','1');
 		$query = $this->db->get('data_riwayat_eselon');
 		return $query->row();
 	}
 	public function last_jabatan($id){
 		$this->db->where('id_pegawai',$id);
 		// $this->db->join('master_jabatan', 'master_jabatan.id_jabatan = data_riwayat_jabatan.id_jabatan');
-		$this->db->order_by('id_riwayat_jabatan','desc');
+		$this->db->where('status','1');
 		$query = $this->db->get('data_riwayat_jabatan');
 		return $query->row();
 	}
 	public function last_satuan_kerja($id){
 		$this->db->where('id_pegawai',$id);
 		$this->db->join('master_satuan_kerja', 'master_satuan_kerja.id_satuan_kerja = data_riwayat_jabatan.id_satuan_kerja');
-		$this->db->order_by('id_riwayat_jabatan','desc');
+		$this->db->where('status','1');
 		$query = $this->db->get('data_riwayat_jabatan');
 		return $query->row();
 	}

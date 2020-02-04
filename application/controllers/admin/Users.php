@@ -7,7 +7,7 @@ class Users extends CI_Controller {
 		$this->load->model('admin/Admin_m');
 		$this->load->library('resize');
 	}
-	public function index(){
+	Public function index(){
 		if ($this->ion_auth->logged_in()) {
 			$level = array('admin');
 			if (!$this->ion_auth->in_group($level)) {
@@ -114,8 +114,9 @@ class Users extends CI_Controller {
 					'password' => $this->input->post('password'),
 					'repassword' =>$this->input->post('password'),
 					'cs_mutasi' =>$this->input->post('cs_mutasi'),
-					'cs_sekret' =>$this->input->post('cs_sekret'),
-					'cs_sdm' =>$this->input->post('cs_sdm'),
+					'cs_suket' =>$this->input->post('cs_suket'),
+					'cs_kartu' =>$this->input->post('cs_kartu'),
+					'cs_pensiun' =>$this->input->post('cs_pensiun'),
 					);
 				}else{
 					$additional_data = array(
@@ -124,8 +125,9 @@ class Users extends CI_Controller {
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
 					'cs_mutasi' =>$this->input->post('cs_mutasi'),
-					'cs_sekret' =>$this->input->post('cs_sekret'),
-					'cs_sdm' =>$this->input->post('cs_sdm'),
+					'cs_suket' =>$this->input->post('cs_suket'),
+					'cs_kartu' =>$this->input->post('cs_kartu'),
+					'cs_pensiun' =>$this->input->post('cs_pensiun'),
 					);
 				}
 				if ($this->ion_auth->in_group('admin')) {

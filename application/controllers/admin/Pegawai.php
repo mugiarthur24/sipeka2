@@ -57,8 +57,6 @@ class Pegawai extends CI_Controller {
                    // Get records
                    $users_record = $this->Pegawai_m->getData($rowno,$rowperpage,$search_text);
                 }
-                   
-                
                 // Pagination Configuration
                  $config['base_url'] = base_url().'/index.php/admin/pegawai/index/';
                  $config['use_page_numbers'] = TRUE;
@@ -1890,7 +1888,7 @@ class Pegawai extends CI_Controller {
                    'id_satuan_kerja'=>$post['id_satuan_kerja'],
                    'nomor'=>$post['nomor'],
                    'tanggal'=>$post['tanggal'],
-                   'status'=>['status']
+                   'status'=>$post['status']
                );
                 if (!empty($_FILES["upload"]["tmp_name"])) {
                     $config['file_name'] = strtolower(url_title('sk'.'-'.$idpegawai.'-'.date('Ymd').'-'.$post['nomor']));
@@ -2584,7 +2582,10 @@ public function ctk_pegawaiperpendidikan(){
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['title'] = $result->nama_pegawai;
                 $data['hasil'] = $result;
-               
+                
+                $data['dtgolongan'] = $this->Admin_m->last_golongan($id);
+                $data['dtpangkat'] = $this->Admin_m->last_pangkat($id);
+                $data['dtjabatan'] = $this->Admin_m->last_jabatan($id);
                 $data['statpeg'] = $this->Admin_m->detail_data_order('master_status_pegawai','id_status_pegawai',$result->id_status_pegawai);
                 $data['agama'] = $this->Admin_m->detail_data_order('master_agama','id_agama',$result->agama);
                 $data['unit_org'] = $this->Admin_m->detail_data_order('master_satuan_kerja','id_satuan_kerja',$result->id_satuan_kerja);
@@ -2597,6 +2598,146 @@ public function ctk_pegawaiperpendidikan(){
 
                 // pagging setting
                 $this->load->view('admin/lap-dpcp-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function lap_daftar_riwayat_pekerjaan($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members','skpd','user01');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $result = $this->Pegawai_m->detail_pegawai($id);
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['title'] = $result->nama_pegawai;
+                $data['hasil'] = $result;
+                $data['dtgolongan'] = $this->Admin_m->last_golongan($id);
+                $data['dtpangkat'] = $this->Admin_m->last_pangkat($id);
+                $data['dtjabatan'] = $this->Admin_m->last_jabatan($id);
+               
+                $data['statpeg'] = $this->Admin_m->detail_data_order('master_status_pegawai','id_status_pegawai',$result->id_status_pegawai);
+                $data['agama'] = $this->Admin_m->detail_data_order('master_agama','id_agama',$result->agama);
+                $data['unit_org'] = $this->Admin_m->detail_data_order('master_satuan_kerja','id_satuan_kerja',$result->id_satuan_kerja);
+                $data['keluarga'] = $this->Admin_m->select_data_order('data_keluarga','id_pegawai',$id);
+                $data['golongan'] = $this->Admin_m->select_data_order('data_riwayat_golongan','id_pegawai',$id);
+                $data['jabatan'] = $this->Admin_m->select_data_order('data_riwayat_jabatan','id_pegawai',$id);
+                $data['pendidikan'] = $this->Admin_m->select_data_order('data_pendidikan','id_pegawai',$id);
+                $data['organisasi'] = $this->Admin_m->select_data_order('data_organisasi','id_pegawai',$id);
+                $data['gaji_pokok'] = $this->Admin_m->select_data_order('data_gaji_pokok','id_pegawai',$id);
+
+                // pagging setting
+                $this->load->view('admin/lap-daftar-riwayat-pekerjaan-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function lap_surat_pernyataan_tidak_sedang_menjalani_proses_pidana($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members','skpd','user01');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $result = $this->Pegawai_m->detail_pegawai($id);
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['title'] = $result->nama_pegawai;
+                $data['hasil'] = $result;
+                $data['dtgolongan'] = $this->Admin_m->last_golongan($id);
+                $data['dtpangkat'] = $this->Admin_m->last_pangkat($id);
+                $data['dtjabatan'] = $this->Admin_m->last_jabatan($id);
+               
+                $data['statpeg'] = $this->Admin_m->detail_data_order('master_status_pegawai','id_status_pegawai',$result->id_status_pegawai);
+                $data['agama'] = $this->Admin_m->detail_data_order('master_agama','id_agama',$result->agama);
+                $data['unit_org'] = $this->Admin_m->detail_data_order('master_satuan_kerja','id_satuan_kerja',$result->id_satuan_kerja);
+                $data['keluarga'] = $this->Admin_m->select_data_order('data_keluarga','id_pegawai',$id);
+                $data['golongan'] = $this->Admin_m->select_data_order('data_riwayat_golongan','id_pegawai',$id);
+                $data['jabatan'] = $this->Admin_m->select_data_order('data_riwayat_jabatan','id_pegawai',$id);
+                $data['pendidikan'] = $this->Admin_m->select_data_order('data_pendidikan','id_pegawai',$id);
+                $data['organisasi'] = $this->Admin_m->select_data_order('data_organisasi','id_pegawai',$id);
+                $data['gaji_pokok'] = $this->Admin_m->select_data_order('data_gaji_pokok','id_pegawai',$id);
+
+                // pagging setting
+                $this->load->view('admin/lap-surat-pernyataan-tidak-sedang-menjalani-proses-pidana-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function lap_surat_pernyataan_disiplin($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members','skpd','user01');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $result = $this->Pegawai_m->detail_pegawai($id);
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['title'] = $result->nama_pegawai;
+                $data['hasil'] = $result;
+                $data['dtgolongan'] = $this->Admin_m->last_golongan($id);
+                $data['dtpangkat'] = $this->Admin_m->last_pangkat($id);
+                $data['dtjabatan'] = $this->Admin_m->last_jabatan($id);
+               
+                $data['statpeg'] = $this->Admin_m->detail_data_order('master_status_pegawai','id_status_pegawai',$result->id_status_pegawai);
+                $data['agama'] = $this->Admin_m->detail_data_order('master_agama','id_agama',$result->agama);
+                $data['unit_org'] = $this->Admin_m->detail_data_order('master_satuan_kerja','id_satuan_kerja',$result->id_satuan_kerja);
+                $data['keluarga'] = $this->Admin_m->select_data_order('data_keluarga','id_pegawai',$id);
+                $data['golongan'] = $this->Admin_m->select_data_order('data_riwayat_golongan','id_pegawai',$id);
+                $data['jabatan'] = $this->Admin_m->select_data_order('data_riwayat_jabatan','id_pegawai',$id);
+                $data['pendidikan'] = $this->Admin_m->select_data_order('data_pendidikan','id_pegawai',$id);
+                $data['organisasi'] = $this->Admin_m->select_data_order('data_organisasi','id_pegawai',$id);
+                $data['gaji_pokok'] = $this->Admin_m->select_data_order('data_gaji_pokok','id_pegawai',$id);
+
+                // pagging setting
+                $this->load->view('admin/lap-surat-pernyataan-disiplin-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function lap_daftar_susunan_keluarga($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members','skpd','user01');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $result = $this->Pegawai_m->detail_pegawai($id);
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['title'] = $result->nama_pegawai;
+                $data['hasil'] = $result;
+                $data['dtgolongan'] = $this->Admin_m->last_golongan($id);
+                $data['dtpangkat'] = $this->Admin_m->last_pangkat($id);
+                $data['dtjabatan'] = $this->Admin_m->last_jabatan($id);
+               
+                $data['statpeg'] = $this->Admin_m->detail_data_order('master_status_pegawai','id_status_pegawai',$result->id_status_pegawai);
+                $data['agama'] = $this->Admin_m->detail_data_order('master_agama','id_agama',$result->agama);
+                $data['unit_org'] = $this->Admin_m->detail_data_order('master_satuan_kerja','id_satuan_kerja',$result->id_satuan_kerja);
+                $data['keluarga'] = $this->Admin_m->select_data_order('data_keluarga','id_pegawai',$id);
+                $data['golongan'] = $this->Admin_m->select_data_order('data_riwayat_golongan','id_pegawai',$id);
+                $data['jabatan'] = $this->Admin_m->select_data_order('data_riwayat_jabatan','id_pegawai',$id);
+                $data['pendidikan'] = $this->Admin_m->select_data_order('data_pendidikan','id_pegawai',$id);
+                $data['organisasi'] = $this->Admin_m->select_data_order('data_organisasi','id_pegawai',$id);
+                $data['gaji_pokok'] = $this->Admin_m->select_data_order('data_gaji_pokok','id_pegawai',$id);
+
+                // pagging setting
+                $this->load->view('admin/lap-daftar-susunan-keluarga-v',$data);
             }
         }else{
             $pesan = 'Login terlebih dahulu';

@@ -70,7 +70,7 @@
 				<form action="<?php echo base_url('index.php/admin/pegawai/create_rjabatan/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="id_jenis_jabatan">JENIS JABATAN</label>
 									<select class="form-control border-dark" name="id_jenis_jabatan">
@@ -79,10 +79,14 @@
 										<?php endforeach ?>
 									</select>
 								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="id_jabatan">NAMA JABATAN</label>
 									<input type="text" class="form-control border-dark" id="id_jabatan" name="nm_jabatan" placeholder="Nama Jabatan">
 								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="id_eselon">ESELON</label>
 									<select class="form-control border-dark" name="id_eselon">
@@ -91,22 +95,53 @@
 										<?php endforeach ?>
 									</select>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="nomor_sk">NOMOR SK</label>
 									<input type="text" class="form-control border-dark" id="nomor_sk" name="nomor_sk" placeholder="NOMOR SK">
 								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="tanggal_sk_rj">TANGGAL SK</label>
 									<input type="date" class="form-control border-dark" id="tanggal_sk_rj" name="tanggal_sk_rj" placeholder="TANGGAL SK">
 								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="tmt_jabatan_rj">TMT JABATAN</label>
 									<input type="date" class="form-control border-dark" id="tmt_jabatan_rj" name="tmt_jabatan_rj" placeholder="TMT JABATAN">
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="text-info" for="tmt_pelantikan_rj">TMT PELANTIKAN</label>
 									<input type="date" class="border-dark form-control" id="tmt_pelantikan_rj" name="tmt_pelantikan_rj" placeholder="TMT PELANTIKAN">
 								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="text-info">Status Jabatan</label>
+									<select name="status" class="form-control border-dark">
+										<option value="0">Tidak Aktif</option>
+										<option value="1">Aktif</option>
+										</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="text-info">Upload SK</label>
+									<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">	
 									<div class="form-group">
 										<label class="text-info" for="id_satuan_kerja">SATUAN KERJA</label>
 										<select class="form-control border-dark" name="id_satuan_kerja">
@@ -114,17 +149,6 @@
 												<option value="<?php echo $data->id_satuan_kerja ?>"><?php echo $data->nama_satuan_kerja; ?></option>
 											<?php endforeach ?>
 										</select>
-									</div>
-									<div class="form-group">
-										<label class="text-info">Status Jabatan</label>
-										<select name="status" class="form-control border-dark">
-											<option value="0">Tidak Aktif</option>
-											<option value="1">Aktif</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label class="text-info">Upload SK</label>
-										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
 									</div>								
 								</div>
 							</div>
@@ -133,7 +157,6 @@
 						<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 					</div>
 					</div>
-					
 				</form>
 			</div>
 		</div>

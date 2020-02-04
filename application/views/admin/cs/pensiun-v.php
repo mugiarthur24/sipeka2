@@ -111,7 +111,7 @@
 							<tr>
 								<th scope="row">1</th>
 								<td>DATA PERORANGAN CALON PENERIMA PENSIUN (DPCP), ASLI</td>
-								<td><a href="<?php echo base_url('index.php/admin/pegawai/lap_dpcp/'.@$hasil->id_pegawai) ?>">Download</a></td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_dpcp/'.@$hasil->id_pegawai) ?>">Download</a> --></td>
 							</tr>
 							<tr>
 								<th scope="row">2</th>
@@ -151,17 +151,17 @@
 							<tr>
 								<th scope="row">9</th>
 								<td>DAFTAR RIWAYAT PEKERJAAN, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_daftar_riwayat_pekerjaan/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">10</th>
 								<td>SURAT PERNYATAAN TIDAK PERNAH DIJATUHI HUKUMAN DISIPLIN TINGKAT SEDANG/BERAT, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_surat_pernyataan_disiplin/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">11</th>
 								<td>SURAT PERNYATAAN TIDAK SEDANG MENJALANI PROSES PIDANA ATAU PERNAH DIPIDANA PENJARA BERDASARKAN PUTUSAN PENGADILAN YANG TELAH BERKEKUATAN HUKUM TETAP DI INSPEKTORAT, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_surat_pernyataan_tidak_sedang_menjalani_proses_pidana/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">12</th>
@@ -186,7 +186,7 @@
 							<tr>
 								<th scope="row">16</th>
 								<td>DAFTAR SUSUNAN KELUARGA, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_daftar_susunan_keluarga/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">17</th>
@@ -251,7 +251,7 @@
 							<tr>
 								<th scope="row">1</th>
 								<td>DATA PERORANGAN CALON PENERIMA PENSIUN (DPCP), ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_dpcp/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">2</th>
@@ -286,17 +286,17 @@
 							<tr>
 								<th scope="row">8</th>
 								<td>DAFTAR RIWAYAT PEKERJAAN, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_daftar_riwayat_pekerjaan/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">9</th>
 								<td>SURAT PERNYATAAN TIDAK PERNAH DIJATUHI HUKUMAN DISIPLIN TINGKAT SEDANG/BERAT, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_surat_pernyataan_disiplin/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">10</th>
 								<td>SURAT PERNYATAAN TIDAK SEDANG MENJALANI PROSES PIDANA ATAU PERNAH DIPIDANA PENJARA BERDASARKAN PUTUSAN PENGADILAN YANG TELAH BERKEKUATAN HUKUM TETAP DI INSPEKTORAT, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_surat_pernyataan_tidak_sedang_menjalani_proses_pidana/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">11</th>
@@ -321,7 +321,7 @@
 							<tr>
 								<th scope="row">15</th>
 								<td>DAFTAR SUSUNAN KELUARGA, ASLI</td>
-								<td>Download</td>
+								<td><!-- <a href="<?php echo base_url('index.php/admin/pegawai/lap_daftar_susunan_keluarga/'.@$hasil->id_pegawai) ?>">Download --></td>
 							</tr>
 							<tr>
 								<th scope="row">16</th>

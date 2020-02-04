@@ -259,6 +259,40 @@ class Cspensiun extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function pensiunpidana_main(){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $datauser = $this->ion_auth->user()->row();
+                if ($this->ion_auth->in_group('members')) {
+                    redirect( base_url('index.php/admin/cspensiun/pensiunpidana_tambah/'.$datauser->id_pegawai));
+                }
+                    // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
+                $post = $this->input->get();
+                $data['title'] = 'Pensiun Karena Tindak Pidana '.$this->Admin_m->info_pt(1)->nama_info_pt;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $datauser;
+                $data['pangkat'] = $this->Admin_m->select_data('master_pangkat');
+                $data['golongan'] = $this->Admin_m->select_data('master_golongan');
+                $data['jabatan'] = $this->Admin_m->select_data('master_jabatan');
+                $data['skpd'] = $this->Admin_m->select_data('master_lokasi_kerja');
+                $data['hasil'] = $this->Admin_m->select_data('form_pensiunpidana');
+                $data['aside'] = 'nav/nav';
+                $data['page'] = 'admin/cs/pensiun-pidana-main-v';
+                                    // pagging setting
+                $this->load->view('admin/dashboard-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function pensiun_tambah($idpegawai){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
@@ -357,6 +391,42 @@ class Cspensiun extends CI_Controller {
                     $data['formupload'] = $cekfomupload;
                     $data['aside'] = 'nav/nav';
                     $data['page'] = 'admin/cs/pensiun-jandaduda-tambah-v';
+                    // pagging setting
+                    $this->load->view('admin/dashboard-v',$data);
+
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function pensiunpidana_tambah($idpegawai){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $datauser = $this->ion_auth->user()->row();
+                $pegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$idpegawai);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_pensiunpidana','id_pegawai',$pegawai->id_pegawai);
+                    $post = $this->input->get();
+                    $data['title'] = 'Pensiun Karena Tindak Pidana'.$this->Admin_m->info_pt(1)->nama_info_pt;
+                    $data['infopt'] = $this->Admin_m->info_pt(1);
+                    $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                    $data['users'] = $datauser;
+                    $data['pangkat'] = $this->Pensiun_m->last_pangkat($idpegawai);
+                    $data['golongan'] = $this->Pensiun_m->last_golongan($idpegawai);
+                    $data['jabatan'] = $this->Pensiun_m->last_jabatan($idpegawai);
+                    // echo "<pre>";print_r($data['jabatan']);echo "<pre>";exit();
+                    $data['skpd'] = $this->Admin_m->select_data('master_lokasi_kerja');
+
+                    $data['hasil'] = $pegawai;
+                    $data['formupload'] = $cekfomupload;
+                    $data['aside'] = 'nav/nav';
+                    $data['page'] = 'admin/cs/pensiun-pidana-tambah-v';
                     // pagging setting
                     $this->load->view('admin/dashboard-v',$data);
 
@@ -640,6 +710,20 @@ class Cspensiun extends CI_Controller {
         if ($hasil == TRUE) {
             foreach ($hasil as $data) {
                 echo '<tr><td>'.$data->nama_pegawai.'</td><td>'.$data->nip.'</td><td><a href="'.base_url('index.php/admin/cspensiun/pensiunjandaduda_tambah/'.$data->id_pegawai.'/').'">Tambahkan</a></td>';
+            }
+
+        }else{
+            echo "Pegawai tidak ditemukan";
+        }
+    }
+    public function caripegawaipensiunpidana(){
+        $post = $this->input->post();
+        $cari = $post["string"];
+        // echo $post['string'];
+        $hasil = $this->Pensiun_m->cari_pegawaipensiunpidana($cari);
+        if ($hasil == TRUE) {
+            foreach ($hasil as $data) {
+                echo '<tr><td>'.$data->nama_pegawai.'</td><td>'.$data->nip.'</td><td><a href="'.base_url('index.php/admin/cspensiun/pensiunpidana_tambah/'.$data->id_pegawai.'/').'">Tambahkan</a></td>';
             }
 
         }else{

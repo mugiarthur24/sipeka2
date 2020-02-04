@@ -74,7 +74,7 @@
 				<form action="<?php echo base_url('index.php/admin/pegawai/create_organisasi/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label class="text-info" for="id_satuan_kerja">SATUAN KERJA</label>
 									<select class="form-control border-dark" name="id_satuan_kerja">
@@ -82,28 +82,42 @@
 											<option value="<?php echo $data->id_satuan_kerja ?>"><?php echo $data->nama_satuan_kerja; ?></option>
 										<?php endforeach ?>
 									</select>
-								</div>					
+								</div>
+							</div>
+							<div class="col-md-6">					
 								<div class="form-group">
 									<label class="text-info" for="nomor">NOMOR</label>
 									<input type="text" class="form-control border-dark" id="nomor" name="nomor" placeholder="NOMOR" >
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label class="text-info" for="tanggal">TANGGAL</label>
 									<input type="date" class="form-control border-dark" id="tanggal" name="tanggal" placeholder="TANGGAL" >
 								</div>
+							</div>
+							<div class="col-md-6">
 								<div class="form-group">
 										<label class="text-info">Status</label>
 										<select name="status" class="form-control border-dark">
 											<option value="0">Tidak Aktif</option>
 											<option value="1">Aktif</option>
 										</select>
-									</div>
-									<div class="form-group">
-										<label class="text-info">Upload SK</label>
-										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
-									</div>
+								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="text-info">Upload SK</label>
+									<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
+								</div>
+							</div>
+						</div>
+						
+						
 						<div class="modal-footer">
 							<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 						</div>

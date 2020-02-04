@@ -24,7 +24,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karsu_main/') ?>">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card_1.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/identification.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Suami (KARSU)</span>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <a href="#">
+            <a href="<?php echo base_url('index.php/admin/csmutasi/pindahinstansi_main/') ?>">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/hotel.svg') ?>" width="100" height="100"></span><br/><br/>
@@ -66,7 +66,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karsi_main/') ?>">
                 <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/id-card (1).svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Istri (KARSI)</span>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karpeg_main/') ?>">
                 <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Pegawai (KARPEG)</span>
                     </div>
                 </div>
@@ -142,6 +142,26 @@
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/handcuffs.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Pemberhentian Karena Tindak Pidana</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+            <div class="col">
+            <a href="<?php echo base_url('index.php/admin/cspkpb/pengangkatan_main/') ?>">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/promotion.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Pengangkatan</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo base_url('index.php/admin/cspkpb/pemberhentian_main/') ?>">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body text-center">
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/worker.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span class="text-light">Pemberhentian</span>
                     </div>
                 </div>
             </a>

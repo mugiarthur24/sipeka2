@@ -74,10 +74,16 @@
 								<label class="text-info" for="lokasi">LOKASI</label>
 								<input type="text" class="form-control border-dark" id="lokasi" name="lokasi" placeholder="LOKASI">
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tanggal">TANGGAL</label>
 								<input type="date" class="form-control border-dark" id="tanggal" name="tanggal" placeholder="TANGGAL">
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info">Upload</label>
 								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">

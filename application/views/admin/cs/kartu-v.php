@@ -5,7 +5,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karsu_main/') ?>">
                 <div class="card text-white bg-secondary mb-3">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card_1.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/identification.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Suami (KARSU)</span>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karsi_main/') ?>">
                 <div class="card text-white bg-warning mb-3">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/id-card (1).svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Istri (KARSI)</span>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
             <a href="<?php echo base_url('index.php/admin/cskartu/karpeg_main/') ?>">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-body text-center">
-                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
+                        <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/id-card.svg') ?>" width="100" height="100"></span><br/><br/>
                         <span class="text-light">Kartu Pegawai (KARPEG)</span>
                     </div>
                 </div>

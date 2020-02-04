@@ -257,7 +257,7 @@
                           </a>
                         </li>
                       <?php endif ?>
-                      <?php if ($users->cs_sekret == '1'): ?>
+                      <?php if ($users->cs_suket == '1'): ?>
                         <li>
                           <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
                             <span class="sub-item">SUKET Ijin Pegawai</span>
@@ -265,20 +265,24 @@
                         </li>
                       <?php endif ?>
                       <li>
-                        <a href="">
+                        <a href="<?php echo base_url('index.php/admin/cspkpb/') ?>">
                           <span class="sub-item">Pengangkatan & Pemberhentian</span>
                         </a>
                       </li>
+                      <?php if ($users->cs_kartu == '1'): ?>
                       <li>
                         <a href="<?php echo base_url('index.php/admin/cskartu/') ?>">
                           <span class="sub-item">KARSU / KARSI / KARPEG</span>
                         </a>
                       </li>
+                      <?php endif ?>
+                      <?php if ($users->cs_pensiun == '1'): ?>
                       <li>
                         <a href="<?php echo base_url('index.php/admin/cspensiun/') ?>">
                           <span class="sub-item">Pensiun</span>
                         </a>
                       </li>
+                      <?php endif ?>
                       <!-- <li>
                         <a href="<?php echo base_url('index.php/admin/cskartu/') ?>">
                           <span class="sub-item">Diklat</span>
@@ -296,20 +300,19 @@
                     </a>
                     <div class="collapse" id="layanan">
                     <ul class="nav nav-collapse">
-                      <?php if ($users->cs_mutasi == '1'): ?>
+                      
                         <li>
                           <a href="<?php echo base_url('index.php/admin/csmutasi/') ?>">
                             <span class="sub-item">Mutasi</span>
                           </a>
                         </li>
-                      <?php endif ?>
-                      <?php if ($users->cs_sekret == '1'): ?>
+                      
                         <li>
                           <a href="<?php echo base_url('index.php/admin/cssuket/') ?>">
                             <span class="sub-item">SUKET Ijin Pegawai</span>
                           </a>
                         </li>
-                      <?php endif ?>
+                      
                       <li>
                         <a href="<?php echo base_url('index.php/admin/cskartu/') ?>">
                           <span class="sub-item">KARSU / KARSI / KARPEG</span>

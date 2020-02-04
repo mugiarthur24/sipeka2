@@ -68,7 +68,7 @@
 					<form action="<?php echo base_url('index.php/admin/pegawai/create_rpangkat/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="id_pangkat">PANGKAT</label>
 										<select class="form-control border-dark" name="id_pangkat">
@@ -77,38 +77,62 @@
 											<?php endforeach ?>
 										</select>
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="status">STATUS</label>
 										<input type="text" class="form-control border-dark" id="status" name="status" placeholder="STATUS">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="nomor_sk">NOMOR SK</label>
 										<input type="text" class="form-control border-dark" id="nomor_sk" name="nomor_sk" placeholder="NOMOR SK">
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="tanggal_sk">TANGGAL SK</label>
 										<input type="date" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk" placeholder="TANGGAL SK">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="tanggal_mulai">TANGGAL MULAI</label>
 										<input type="date" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai" placeholder="TANGGAL MULAI">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="tanggal_selesai">TANGGAL SELESAI</label>
 										<input type="date" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai" placeholder="TANGGAL SELESAI">
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="masa_kerja">MASA KERJA</label>
 										<input type="text" class="form-control border-dark" id="masa_kerja" name="masa_kerja" placeholder="MASA KERJA">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="masa_kerja_bulan">MASA KERJA BULAN</label>
 										<input type="text" class="form-control border-dark" id="masa_kerja_bulan" name="masa_kerja_bulan" placeholder="MASA KERJA BULAN">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="masa_kerja_tahun">MASA KERJA TAHUN</label>
 										<input type="text" class="form-control border-dark" id="masa_kerja_tahun" name="masa_kerja_tahun" placeholder="MASA KERJA TAHUN">
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info">Status Pangkat</label>
 										<select name="status_pangkat" class="form-control border-dark" >
@@ -116,15 +140,15 @@
 											<option value="1">Aktif</option>
 										</select>
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info">Upload SK</label>
 										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
 									</div>
-									
-								</div>
+								</div>	
 							</div>
 						</div>
-
 						<div class="modal-footer">
 							<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 						</div>

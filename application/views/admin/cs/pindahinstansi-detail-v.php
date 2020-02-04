@@ -1,13 +1,5 @@
 <div class="p-4">
-	<div class="card mt-4">
-		<div class="card-header">
-			<b class="text-primary">Detail Pegawai</b>
-		</div>
-		<div class="card-body">
-			
-		</div>
-	</div>
-
+	
 <div class="mt-4">
   <div class="card">
     <div class="card-header">
@@ -33,6 +25,12 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td colspan="6">
+                  <label class="text-info" for="lokasi_kerja_baru">INSTANSI BARU</label>
+                  <input type="text" class="form-control border-dark" id="lokasi_kerja_baru" name="lokasi_kerja_baru" placeholder="INSTANSI BARU" value="<?php echo $formupload->lokasi_kerja_baru ?>" required>
+                </td>
+              </tr>
               <tr>
                 <th scope="row">1</th>
                 <td>Foto Copy SK BKN/Gubernur (Di Disposisi Bupati)</td>

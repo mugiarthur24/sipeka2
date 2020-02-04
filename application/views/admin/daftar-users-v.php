@@ -3,35 +3,52 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-6"><h5 class="text-info">Daftar Users</h5></div>
+				
 				<div class="col-md-6"><button class="btn btn-danger btn-sm" style="float:right" data-toggle="modal" data-target="#addobat"><i class="fa fa-plus-circle"></i> Tambah User</button></div>
 			</div>
 			<div class="mt-4">
-			<div class="table-responsive">
-				<table id="add-row" class="display table table-striped table-hover">
-					<tr>
-						<td>NO</td>
-						<td>NAMA</td>
-						<td>USERNAME</td>
-						<td>EMAIL</td>
-						<td>LEVEL</td>
-						<td colspan="2">ACTION</td>
-					</tr>
-					<?php $no=1 ?>
-					<?php foreach ($hasil as $data): ?>
-						<tr>
-							<td><?php echo $no; ?></td>
-							<td><?php echo $data->first_name.' '.$data->last_name; ?></td>
-							<td><?php echo $data->username; ?></td>
-							<td><?php echo $data->email; ?></td>
-							<td></td>
-							<td><a class="text-info" href="<?php echo base_url('index.php/admin/users/edit/'.$data->id) ?>">edit</a></td>
-							<td><a class="text-info" href="<?php echo base_url('index.php/admin/users/delete/'.$data->id) ?>">hapus</a></td>
-						</tr>
-						<?php $no++ ?>
-					<?php endforeach ?>
-				</table>
+				<form action="<?php echo base_url('index.php/admin/users/index') ?>" method="post">
+					<div class="form-group">
+						<label> Cari User</label>
+						<div class="row">
+							<div class="col-md-6">
+								<input type="text" name="string" class="form-control" placeholder="ketikkan user " <?php if (!empty($post['string']) ): ?>
+								value="<?php echo $post['string'] ?>"
+								<?php endif ?>>
+								<small class="form-text text-muted">Tekan Enter untuk melakukan pencarian</small>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
-		</div>
+			<div class="mt-4">
+				<div class="table-responsive">
+					<table id="add-row" class="display table table-striped table-hover">
+						<tr>
+							<td>NO</td>
+							<td>NAMA</td>
+							<td>USERNAME</td>
+							<td>EMAIL</td>
+							<td>LEVEL</td>
+							<td colspan="2">ACTION</td>
+						</tr>
+						<?php $no = 1 ?>
+						<?php foreach ($hasil as $data): ?>
+							<tr>
+								<td><?php echo $no; ?></td>
+								<td><?php echo $data->first_name.' '.$data->last_name; ?></td>
+								<td><?php echo $data->username; ?></td>
+								<td><?php echo $data->email; ?></td>
+								<td></td>
+								<td><a class="text-info" href="<?php echo base_url('index.php/admin/users/edit/'.$data->id) ?>">edit</a></td>
+								<td><a class="text-info" href="<?php echo base_url('index.php/admin/users/delete/'.$data->id) ?>">hapus</a></td>
+							</tr>
+							<?php $no++ ?>
+						<?php endforeach ?>
+					</table>
+				</div>
+				
+			</div>
 		</div>
 	</div>
 </div>

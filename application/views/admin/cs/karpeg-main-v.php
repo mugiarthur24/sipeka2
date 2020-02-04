@@ -34,7 +34,7 @@
 						<?php $dtstatus = $this->Admin_m->detail_data_order('status','id_status',$data->id_sts_1) ?>
 						<?php if ($data->verifikasi_1 == '2' && $data->verifikasi_2 == '2' && $data->verifikasi_3 == '2' && $data->verifikasi_4 == '2' && $data->verifikasi_5 == '2' && $data->verifikasi_6 == '2' && $data->verifikasi_7 == '2'): ?>
 							<td class="text-center text-success">Telah Diverifikasi</td>
-							<td class="text-center"><a href="<?php echo base_url('index.php/admin/csmutasi/ctk_pwkk/'.$data->id_form_pwkkeluar) ?>"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a></td>
+							<td class="text-center"><a href="<?php echo base_url('index.php/admin/cskartu/ctk_karpeg/'.$data->id_form_karpeg) ?>"><img src="<?php echo base_url('asset/img/printer.svg') ?>" width="25" height="25"></a></td>
 						<?php else: ?>
 							<td class="text-center text-danger">Menunggu</td>
 						<td class="text-center"><i class="fa fa-times"></i></td>

@@ -70,7 +70,7 @@
 					<form action="<?php echo base_url('index.php/admin/pegawai/create_reselon/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label class="text-info" for="id_eselon">Eselon</label>
 										<select class="form-control border-dark" name="id_eselon">
@@ -79,6 +79,8 @@
 											<?php endforeach ?>
 										</select>
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="id_jenis_jabatan">JENIS JABATAN</label>
 										<select class="form-control border-dark" name="id_jenis_jabatan">
@@ -87,14 +89,22 @@
 											<?php endforeach ?>
 										</select>
 									</div>
+								</div>
+								<div class="col-md-6">
 									<div class="form-group">
 										<label class="text-info" for="nm_jabatan">NAMA JABATAN</label>
 										<input type="text" class="form-control border-dark" id="nm_jabatan" name="nm_jabatan" placeholder="NAMA JABATAN">
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info" for="nomor_sk">NOMOR SK</label>
 										<input type="text" class="form-control border-dark" id="nomor_sk" name="nomor_sk" placeholder="NOMOR SK">
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info">Status</label>
 										<select name="status" class="form-control border-dark">
@@ -102,14 +112,15 @@
 											<option value="1">Aktif</option>
 										</select>
 									</div>
+								</div>
+								<div class="col-md-4">
 									<div class="form-group">
 										<label class="text-info">Upload SK</label>
 										<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
 									</div>
 								</div>
 							</div>
-						</div>
-
+					</div>
 						<div class="modal-footer">
 							<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 						</div>

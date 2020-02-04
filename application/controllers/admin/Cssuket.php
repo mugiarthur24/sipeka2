@@ -175,6 +175,40 @@ class Cssuket extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function cuti_main(){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $datauser = $this->ion_auth->user()->row();
+                if ($this->ion_auth->in_group('members')) {
+                    redirect( base_url('index.php/admin/cssuket/cuti_tambah/'.$datauser->id_pegawai));
+                }
+                    // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
+                $post = $this->input->get();
+                $data['title'] = 'Ijin Cuti '.$this->Admin_m->info_pt(1)->nama_info_pt;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $datauser;
+                $data['pangkat'] = $this->Admin_m->select_data('master_pangkat');
+                $data['golongan'] = $this->Admin_m->select_data('master_golongan');
+                $data['jabatan'] = $this->Admin_m->select_data('master_jabatan');
+                $data['skpd'] = $this->Admin_m->select_data('master_lokasi_kerja');
+                $data['hasil'] = $this->Admin_m->select_data('form_cuti');
+                $data['aside'] = 'nav/nav';
+                $data['page'] = 'admin/cs/cuti-main-v';
+                                    // pagging setting
+                $this->load->view('admin/dashboard-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function tugasbelajar_main(){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
@@ -235,6 +269,42 @@ class Cssuket extends CI_Controller {
                     $data['formupload'] = $cekfomupload;
                     $data['aside'] = 'nav/nav';
                     $data['page'] = 'admin/cs/ijinbelajar-tambah-v';
+                    // pagging setting
+                    $this->load->view('admin/dashboard-v',$data);
+
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function cuti_tambah($idpegawai){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $datauser = $this->ion_auth->user()->row();
+                $pegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$idpegawai);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_cuti','id_pegawai',$pegawai->id_pegawai);
+                    $post = $this->input->get();
+                    $data['title'] = 'Surat Ijin Cuti'.$this->Admin_m->info_pt(1)->nama_info_pt;
+                    $data['infopt'] = $this->Admin_m->info_pt(1);
+                    $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                    $data['users'] = $datauser;
+                    $data['pangkat'] = $this->Suket_m->last_pangkat($idpegawai);
+                    $data['golongan'] = $this->Suket_m->last_golongan($idpegawai);
+                    $data['jabatan'] = $this->Suket_m->last_jabatan($idpegawai);
+                    // echo "<pre>";print_r($data['jabatan']);echo "<pre>";exit();
+                    $data['skpd'] = $this->Admin_m->select_data('master_lokasi_kerja');
+
+                    $data['hasil'] = $pegawai;
+                    $data['formupload'] = $cekfomupload;
+                    $data['aside'] = 'nav/nav';
+                    $data['page'] = 'admin/cs/cuti-tambah-v';
                     // pagging setting
                     $this->load->view('admin/dashboard-v',$data);
 
@@ -606,6 +676,178 @@ class Cssuket extends CI_Controller {
                 $pesan = 'Form berhasil di upload';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/cssuket/ijinbelajar_tambah/'.$getpegawai->id_pegawai));
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function cuti2($nip){
+        $post = $this->input->post();
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$nip);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_cuti','id_pegawai',$getpegawai->id_pegawai);
+                if ($cekfomupload == FALSE) {
+                    $dps = array(
+                        'id_pegawai'=>$getpegawai->id_pegawai,
+                        'tgl_create'=>date('Y-m-d')
+                    );
+                    $this->Admin_m->insert_data('form_cuti',$dps);
+                }
+                $cekfomupload = $this->Admin_m->detail_data_order('form_cuti','id_pegawai',$getpegawai->id_pegawai);
+                // echo "<pre>";print_r($cekfomupload);echo "<pre>";exit();
+                $pesaneror = array();
+                // upload 1
+                if (!empty($_FILES["upload_1"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-1'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_1')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $data['upload_1'] = $img;
+                        $data['verifikasi_1'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 2
+                if (!empty($_FILES["upload_2"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-2'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_2')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img2 = $this->upload->data('file_name');
+                        $data['upload_2'] = $img2;
+                        $data['verifikasi_2'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 3
+                if (!empty($_FILES["upload_3"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-3'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_3')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img3 = $this->upload->data('file_name');
+                        $data['upload_3'] = $img3;
+                        $data['verifikasi_3'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 4
+                if (!empty($_FILES["upload_4"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-4'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_4')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img4 = $this->upload->data('file_name');
+                        $data['upload_4'] = $img4;
+                         $data['verifikasi_4'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 5
+                if (!empty($_FILES["upload_5"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-5'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_5')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img5 = $this->upload->data('file_name');
+                        $data['upload_5'] = $img5;
+                         $data['verifikasi_5'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 6
+                if (!empty($_FILES["upload_6"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-6'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_6')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img6 = $this->upload->data('file_name');
+                        $data['upload_6'] = $img6;
+                         $data['verifikasi_6'] = '1';
+                       $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                // upload 7
+                if (!empty($_FILES["upload_7"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-7'.'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './asset/dokumen/';
+                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('upload_7')){
+                        $error = $this->upload->display_errors();
+                        $pesaneror[]=$error;
+                    }
+                    else{
+                        $img7 = $this->upload->data('file_name');
+                        $data['upload_7'] = $img7;
+                         $data['verifikasi_7'] = '1';
+                        $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$data);
+                    }
+                }
+                
+                $pesan = 'Form berhasil di upload';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/cssuket/cuti_tambah/'.$getpegawai->id_pegawai));
             }
         }else{
             $pesan = 'Login terlebih dahulu';
@@ -1021,6 +1263,42 @@ class Cssuket extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function detail_cuti($id){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $datauser = $this->ion_auth->user()->row();
+                if ($this->ion_auth->in_group('members')) {
+                    redirect( base_url('index.php/admin/cssuket/cuti_tambah/'.$datauser->id_pegawai));
+                }
+                    // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
+                $post = $this->input->get();
+                $datamutasi = $this->Admin_m->detail_data_order('form_cuti','id_form_cuti',$id);
+                $datapegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$datamutasi->id_pegawai);
+                $formupload = $this->Admin_m->detail_data_order('form_cuti','id_pegawai',$datapegawai->id_pegawai);
+                $data['title'] = 'Detail Surat Ijin Cuti - '.$datapegawai->nip;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $datauser;
+                $data['pegawai'] = $datapegawai;
+                $data['hasil'] = $datamutasi;
+                $data['formupload'] = $formupload;
+                $data['dtsts'] = $this->Admin_m->select_data('status');
+                $data['aside'] = 'nav/nav';
+                $data['page'] = 'admin/cs/cuti-detail-v';
+                                    // pagging setting
+                $this->load->view('admin/dashboard-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function detail_tugasbelajar($id){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
@@ -1418,6 +1696,193 @@ class Cssuket extends CI_Controller {
                 $pesan = 'Status dokumen berhasil diubah';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/cssuket/detail_ijinbelajar/'.$cekfomupload->id_form_ijinbelajar));
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function cuti_action($nip){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $post = $this->input->post();
+                $datauser = $this->ion_auth->user()->row();
+                $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$nip);
+                $cekfomupload = $this->Admin_m->detail_data_order('form_cuti','id_pegawai',$getpegawai->id_pegawai);
+                if ($cekfomupload == TRUE) {
+                    // upload 1
+                    if (!empty($_FILES["upload_1"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-1'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_1')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img = $this->upload->data('file_name');
+                            $datass['upload_1'] = $img;
+                        }
+                    }
+                    // upload 2
+                    if (!empty($_FILES["upload_2"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-2'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_2')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img2 = $this->upload->data('file_name');
+                            $datass['upload_2'] = $img2;
+                        }
+                    }
+                    // upload 3
+                    if (!empty($_FILES["upload_3"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-3'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_3')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img3 = $this->upload->data('file_name');
+                            $datass['upload_3'] = $img3;
+                        }
+                    }
+                    // upload 4
+                    if (!empty($_FILES["upload_4"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-4'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_4')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img4 = $this->upload->data('file_name');
+                            $datass['upload_4'] = $img4;
+                        }
+                    }
+                    // upload 5
+                    if (!empty($_FILES["upload_5"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-5'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_5')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img5 = $this->upload->data('file_name');
+                            $datass['upload_5'] = $img5;
+        
+                        }
+                    }
+                    // upload 6
+                    if (!empty($_FILES["upload_6"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-6'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_6')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img6 = $this->upload->data('file_name');
+                            $datass['upload_6'] = $img6;
+        
+                        }
+                    }
+                    // upload 7
+                    if (!empty($_FILES["upload_7"]["tmp_name"])) {
+                        $config['file_name'] = strtolower(url_title('sib'.'-'.$getpegawai->nip.'-7'.'-'.date('Ymd').'-'.time('Hms')));
+                        $config['upload_path'] = './asset/dokumen/';
+                        $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+                        $config['max_size'] = 2048;
+                        $config['max_width'] = '';
+                        $config['max_height'] = '';
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('upload_7')){
+                            $error = $this->upload->display_errors();
+                            $pesaneror[]=$error;
+                        }
+                        else{
+                            $img7 = $this->upload->data('file_name');
+                            $datass['upload_7'] = $img7;
+        
+                        }
+                    }
+                    
+                    if ($post['action1'] == TRUE) {
+                         $datass['verifikasi_1'] = $post['action1'];
+                    }
+                    if ($post['action2'] == TRUE) {
+                         $datass['verifikasi_2'] = $post['action2'];
+                    }
+                    if ($post['action3'] == TRUE) {
+                         $datass['verifikasi_3'] = $post['action3'];
+                    }
+                    if ($post['action4'] == TRUE) {
+                         $datass['verifikasi_4'] = $post['action4'];
+                    }
+                    if ($post['action5'] == TRUE) {
+                         $datass['verifikasi_5'] = $post['action5'];
+                    }
+                    if ($post['action6'] == TRUE) {
+                         $datass['verifikasi_6'] = $post['action6'];
+                    }
+                    if ($post['action7'] == TRUE) {
+                         $datass['verifikasi_7'] = $post['action7'];
+                    }
+                    
+                    $datass['ket_1'] = $post['ket1'];
+                    $datass['ket_2'] = $post['ket2'];
+                    $datass['ket_3'] = $post['ket3'];
+                    $datass['ket_4'] = $post['ket4'];
+                    $datass['ket_5'] = $post['ket5'];
+                    $datass['ket_6'] = $post['ket6'];
+                    $datass['ket_7'] = $post['ket7'];
+                    
+                    
+                    // echo "<pre>";print_r($datass);echo "<pre>";exit();
+                    $this->Admin_m->update('form_cuti','id_form_cuti',$cekfomupload->id_form_cuti,$datass);
+                }
+                $pesan = 'Status dokumen berhasil diubah';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/cssuket/detail_cuti/'.$cekfomupload->id_form_cuti));
             }
         }else{
             $pesan = 'Login terlebih dahulu';
@@ -2017,6 +2482,20 @@ class Cssuket extends CI_Controller {
         if ($hasil == TRUE) {
             foreach ($hasil as $data) {
                 echo '<tr><td>'.$data->nama_pegawai.'</td><td>'.$data->nip.'</td><td><a href="'.base_url('index.php/admin/cssuket/ijinbelajar_tambah/'.$data->id_pegawai.'/').'">Tambahkan</a></td>';
+            }
+
+        }else{
+            echo "Pegawai tidak ditemukan";
+        }
+    }
+    public function caripegawaicuti(){
+        $post = $this->input->post();
+        $cari = $post["string"];
+        // echo $post['string'];
+        $hasil = $this->Suket_m->cari_pegawai($cari);
+        if ($hasil == TRUE) {
+            foreach ($hasil as $data) {
+                echo '<tr><td>'.$data->nama_pegawai.'</td><td>'.$data->nip.'</td><td><a href="'.base_url('index.php/admin/cssuket/cuti_tambah/'.$data->id_pegawai.'/').'">Tambahkan</a></td>';
             }
 
         }else{

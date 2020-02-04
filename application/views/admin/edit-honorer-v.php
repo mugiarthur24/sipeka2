@@ -12,7 +12,14 @@
 						<label class="text-info">ALAMAT</label>
 						<input type="text" class="form-control border-dark" id="alamat" name="alamat" value="<?php echo $detail->alamat ?>" placeholder="Alamat">
 					</div>
-
+					<div class="form-group">
+						<label class="text-info">PENDIDIKAN</label>
+						<input type="text" class="form-control border-dark" id="pendidikan" name="pendidikan" value="<?php echo $detail->pendidikan ?>" placeholder="Pendidikan">
+					</div>
+					<div class="form-group">
+						<label class="text-info">JURUSAN</label>
+						<input type="text" class="form-control border-dark" id="jurusan" name="jurusan" value="<?php echo $detail->jurusan ?>" placeholder="Jurusan">
+					</div>
 					<div class="form-group">
 						<label class="text-info">NOMOR HP</label>
 						<input type="text" class="form-control border-dark" id="no_hp" name="no_hp" value="<?php echo $detail->no_hp ?>" placeholder="Nomor HP">

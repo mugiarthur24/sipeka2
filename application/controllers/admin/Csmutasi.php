@@ -123,8 +123,9 @@ class Csmutasi extends CI_Controller {
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $result = $this->Mutasi_m->detail_mutasipwkk($id);
+                // echo "<pre>";print_r($result);echo "</pre>";exit();
                 $data['infopt'] = $this->Admin_m->info_pt(1);
-                $data['title'] = $result->nm_pegawai;
+                $data['title'] = $result->nama_pegawai;
                 $data['hasil'] = $result;
                 // pagging setting
                 $this->load->view('admin/cs/cetak-konsideran-bupati-keluar',$data);
@@ -143,12 +144,12 @@ class Csmutasi extends CI_Controller {
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
-                $result = $this->Mutasi_m->detail_mutasipwkk($id);
+                $result = $this->Mutasi_m->detail_mutasipindah($id);
                 $data['infopt'] = $this->Admin_m->info_pt(1);
-                $data['title'] = $result->nm_pegawai;
+                $data['title'] = $result->nama_pegawai;
                 $data['hasil'] = $result;
                 // pagging setting
-                $this->load->view('admin/cs/cetak-konsideran-bupati-keluar',$data);
+                $this->load->view('admin/cs/cetak-konsideran-bupati-pindah-wilayah',$data);
             }
         }else{
             $pesan = 'Login terlebih dahulu';
@@ -238,6 +239,7 @@ class Csmutasi extends CI_Controller {
                 }
                     // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
                 $post = $this->input->get();
+                $datapwkk = $this->Admin_m->detail_data_order('data_pindah_wilayah_kerja_keluar','id_pindah_wilayah_kerja_keluar',$id);
                 $datamutasi = $this->Admin_m->detail_data_order('form_pwkkeluar','id_form_pwkkeluar',$id);
                 $datapegawai = $this->Admin_m->detail_data_order('data_pegawai','id_pegawai',$datamutasi->id_pegawai);
                 $formupload = $this->Admin_m->detail_data_order('form_pwkkeluar','id_pegawai',$datapegawai->id_pegawai);
@@ -245,6 +247,7 @@ class Csmutasi extends CI_Controller {
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
                 $data['users'] = $datauser;
+                $data['pwkk'] = $datapwkk;
                 $data['pegawai'] = $datapegawai;
                 $data['hasil'] = $datamutasi;
                 $data['formupload'] = $formupload;
@@ -676,6 +679,7 @@ class Csmutasi extends CI_Controller {
                     $datass['ket_9'] = $post['ket9'];
                     $datass['ket_10'] = $post['ket10'];
                     $datass['ket_11'] = $post['ket11'];
+                    $datass['lokasi_kerja_baru'] = $post['lokasi_kerja_baru'];
                     // echo "<pre>";print_r($datass);echo "<pre>";exit();
                     $this->Admin_m->update('form_pindahinstansi','id_form_pindah',$cekfomupload->id_form_pindah,$datass);
                 }
@@ -876,6 +880,7 @@ class Csmutasi extends CI_Controller {
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
+                $post = $this->input->post();
                 $datauser = $this->ion_auth->user()->row();
                 // echo "<pre>";print_r($datauser->cs_mutasi);echo "<pre/>";exit();
                 if ($datauser->cs_mutasi == 0) {
@@ -883,41 +888,63 @@ class Csmutasi extends CI_Controller {
                     $this->session->set_flashdata('message', $pesan );
                     redirect(base_url('index.php/admin/dashboard'));
                 }else{
-                    $post = $this->input->post();
-                    $lastid = $this->Mutasi_m->lastid();
-                    if ($lastid == true) {
-                        $kode = $lastid->id_pindah_wilayah_kerja_masuk+1;
+                    $getform = $this->Admin_m->detail_data_order('data_pindah_wilayah_kerja_keluar','nip',$nip);
+                    if ($getform == TRUE) {
+                        $lastid = $this->Mutasi_m->lastid();
+                        if ($lastid == true) {
+                            $kode = $lastid->id_pindah_wilayah_kerja_masuk+1;
+                        }else{
+                            $kode = 1;
+                        }
+                        $datas = array(
+                            'no_reg_pindah'=>'PWKK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
+                            'no_cetak'=>'CTK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
+                            'nip'=>$nip,
+                            'tgl_masuk'=>$post['tgl_masuk'],
+                            'id_pegawai'=>$post['id_pegawai'],
+                            'id_pangkat'=>$post['id_pangkat'],
+                            'id_golongan'=>$post['id_golongan'],
+                            'id_jabatan'=>$post['id_jabatan'],
+                            'unit_organisasi_asal'=>$post['id_satuan_kerja'],
+                            'tgl_permohonan_asal'=>$post['tgl_permohonan_asal'],
+                            'no_sk_tujuan'=>$post['no_sk_tujuan'],
+                            'tgl_sk_tujuan'=>$post['tgl_sk_tujuan'],
+                            'pejabat_daerah'=>$post['pejabat_daerah'],
+                            'pejabat_provinsi'=>$post['pejabat_provinsi'],
+                            'ibu_kota_provinsi'=>$post['ibu_kota_provinsi'],
+                            'instansi_lama'=>$post['instansi_lama'],
+                            'instansi_baru'=>$post['instansi_baru'],
+                            'tembusan_1'=>$post['tembusan_1'],
+                            'tembusan_2'=>$post['tembusan_2'],
+                            'status'=>'1',
+                            'tgl_create'=>date('Y-m-d'),
+                            'waktu_create'=>date('h:i:s'),
+                        );
+                        $this->Admin_m->insert_data('data_pindah_wilayah_kerja_keluar',$datas);
                     }else{
-                        $kode = 1;
+                        $datasa = array(
+                            'tgl_masuk'=>$post['tgl_masuk'],
+                            'id_pegawai'=>$post['id_pegawai'],
+                            'id_pangkat'=>$post['id_pangkat'],
+                            'id_golongan'=>$post['id_golongan'],
+                            'id_jabatan'=>$post['id_jabatan'],
+                            'unit_organisasi_asal'=>$post['id_satuan_kerja'],
+                            'tgl_permohonan_asal'=>$post['tgl_permohonan_asal'],
+                            'no_sk_tujuan'=>$post['no_sk_tujuan'],
+                            'tgl_sk_tujuan'=>$post['tgl_sk_tujuan'],
+                            'pejabat_daerah'=>$post['pejabat_daerah'],
+                            'pejabat_provinsi'=>$post['pejabat_provinsi'],
+                            'ibu_kota_provinsi'=>$post['ibu_kota_provinsi'],
+                            'instansi_lama'=>$post['instansi_lama'],
+                            'instansi_baru'=>$post['instansi_baru'],
+                            'tembusan_1'=>$post['tembusan_1'],
+                            'tembusan_2'=>$post['tembusan_2'],
+                            'status'=>'1',
+                            'tgl_create'=>date('Y-m-d'),
+                            'waktu_create'=>date('h:i:s'),
+                        );
+                        $this->Admin_m->update_data('data_pindah_wilayah_kerja_keluar','nip',$nip,$datasa);
                     }
-                    $data = array(
-                        'no_reg_pindah'=>'PWKK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
-                        'no_cetak'=>'CTK'.str_pad($kode, 6, "0", STR_PAD_LEFT),
-                        'tgl_masuk'=>$post['tgl_masuk'],
-                        'id_pegawai'=>$post['id_pegawai'],
-                        'id_pangkat'=>$post['id_pangkat'],
-                        'id_golongan'=>$post['id_golongan'],
-                        'id_jabatan'=>$post['id_jabatan'],
-                        'unit_organisasi_asal'=>$post['id_satuan_kerja'],
-                        'tgl_permohonan_asal'=>$post['tgl_permohonan_asal'],
-                        'no_sk_tujuan'=>$post['no_sk_tujuan'],
-                        'tgl_sk_tujuan'=>$post['tgl_sk_tujuan'],
-                        'pejabat_daerah'=>$post['pejabat_daerah'],
-                        'pejabat_provinsi'=>$post['pejabat_provinsi'],
-                        'ibu_kota_provinsi'=>$post['ibu_kota_provinsi'],
-                        'instansi_lama'=>$post['instansi_lama'],
-                        'instansi_baru'=>$post['instansi_baru'],
-                        'tembusan_1'=>$post['tembusan_1'],
-                        'tembusan_2'=>$post['tembusan_2'],
-                        'status'=>'1',
-                        'tgl_create'=>date('Y-m-d'),
-                        'waktu_create'=>date('h:i:s'),
-                    );
-                    $this->Admin_m->insert_data('data_pindah_wilayah_kerja_keluar',$data);
-                    // echo "<pre/>";print_r($data);echo "<pre>";exit();
-                    $pesan = 'Data Pindah Wilayah Kerja (Keluar) Berhasil di tambahkan';
-                    $this->session->set_flashdata('message', $pesan );
-                    // redirect(base_url('index.php/admin/csmutasi/pwk_keluar/'));
                     $getpegawai = $this->Admin_m->detail_data_order('data_pegawai','nip',$nip);
                     $cekfomupload = $this->Admin_m->detail_data_order('form_pwkkeluar','id_pegawai',$getpegawai->id_pegawai);
                 if ($cekfomupload == FALSE) {
@@ -1119,273 +1146,10 @@ class Csmutasi extends CI_Controller {
                         $data['upload_10'] = $img;
                     }
                 }
-                // upload 11
-                if (!empty($_FILES["upload_11"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-srtpidana'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_11')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_11'] = $img;
-                    }
+                
+                if (!empty($data)) {
+                    $this->Admin_m->update('form_pwkkeluar','id_form_pwkkeluar',$cekfomupload->id_form_pwkkeluar,$data);
                 }
-                // upload 12
-                if (!empty($_FILES["upload_12"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-aktanikah'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_12')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_12'] = $img;
-                    }
-                }
-                // upload 13
-                if (!empty($_FILES["upload_13"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-karsu'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_13')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_13'] = $img;
-                    }
-                }
-                // upload 14
-                if (!empty($_FILES["upload_14"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-koversi'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_14')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_14'] = $img;
-                    }
-                }
-                // upload 15
-                if (!empty($_FILES["upload_15"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-kp4'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_15')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_15'] = $img;
-                    }
-                }
-                // upload 16
-                if (!empty($_FILES["upload_1"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-keluarga'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_16')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_16'] = $img;
-                    }
-                }
-                // upload 17
-                if (!empty($_FILES["upload_17"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-ktp'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_17')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_17'] = $img;
-                    }
-                }
-                // upload 18
-                if (!empty($_FILES["upload_18"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-kk'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_18')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_18'] = $img;
-                    }
-                }
-                // upload 19
-                if (!empty($_FILES["upload_19"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-npwp'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_19')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_19'] = $img;
-                    }
-                }
-                // upload 20
-                if (!empty($_FILES["upload_20"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-aktaanak'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_20')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_20'] = $img;
-                    }
-                }
-                // upload 21
-                if (!empty($_FILES["upload_21"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-aktifkuliah'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_21')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_21'] = $img;
-                    }
-                }
-                // upload 22
-                if (!empty($_FILES["upload_1"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-taspen'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_22')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_22'] = $img;
-                    }
-                }
-                // upload 23
-                if (!empty($_FILES["upload_1"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-srtanakkandung'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_23')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_23'] = $img;
-                    }
-                }
-                // upload 24
-                if (!empty($_FILES["upload_24"]["tmp_name"])) {
-                    $config['file_name'] = strtolower(url_title('doc'.'-'.$getpegawai->nip.'-foto'.'-'.date('Ymd').'-'.time('Hms')));
-                    $config['upload_path'] = './asset/dokumen/';
-                    $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-                    $config['max_size'] = 2048;
-                    $config['max_width'] = '';
-                    $config['max_height'] = '';
-                    $pesaneror = array();
-                    $this->load->library('upload', $config);
-                    if (!$this->upload->do_upload('upload_24')){
-                        $error = $this->upload->display_errors();
-                        $pesaneror[]=$error;
-                    }
-                    else{
-                        $img = $this->upload->data('file_name');
-                        $data['upload_24'] = $img;
-                    }
-                }
-                $this->Admin_m->update('form_pwkkeluar','id_form_pwkkeluar',$cekfomupload->id_form_pwkkeluar,$data);
                 $pesan = 'Form berhasil di upload';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/csmutasi/pwk_keluar/'.$nip));

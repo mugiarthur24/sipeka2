@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="col">
-            <a href="#">
+            <a href="<?php echo base_url('index.php/admin/cssuket/cuti_main/') ?>">
                 <div class="card text-white bg-success mb-3" >
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/resign.svg') ?>" width="100" height="100"></span><br/><br/>
@@ -78,7 +78,7 @@
             </a>
         </div>
         <div class="col">
-            <a href="#">
+            <a href="<?php echo base_url('index.php/admin/cssuket/cuti_main/') ?>">
                 <div class="card text-white bg-success mb-3" >
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/svg/resign.svg') ?>" width="100" height="100"></span><br/><br/>

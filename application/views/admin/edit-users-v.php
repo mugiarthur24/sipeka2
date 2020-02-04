@@ -87,22 +87,32 @@
 		</div>
 		<div class="form-group">
 			<label for="password">Cs Suket</label><br/>
-			<?php if ($detail->cs_sekret =='0'): ?>
-				<input type="radio" name="cs_sekret" value="0" checked>Tidak
-				<input type="radio" name="cs_sekret" value="1">Ya
+			<?php if ($detail->cs_suket =='0'): ?>
+				<input type="radio" name="cs_suket" value="0" checked>Tidak
+				<input type="radio" name="cs_suket" value="1">Ya
 			<?php else: ?>
-				<input type="radio" name="cs_sekret" value="0" >Tidak
-				<input type="radio" name="cs_sekret" value="1" checked>Ya
+				<input type="radio" name="cs_suket" value="0" >Tidak
+				<input type="radio" name="cs_suket" value="1" checked>Ya
 			<?php endif ?>
 		</div>
 		<div class="form-group">
 			<label for="password">Cs Pensiun</label><br/>
-			<?php if ($detail->cs_sdm =='0'): ?>
-				<input type="radio" name="cs_sdm" value="0" checked>Tidak
-				<input type="radio" name="cs_sdm" value="1">Ya
+			<?php if ($detail->cs_pensiun =='0'): ?>
+				<input type="radio" name="cs_pensiun" value="0" checked>Tidak
+				<input type="radio" name="cs_pensiun" value="1">Ya
 			<?php else: ?>
-				<input type="radio" name="cs_sdm" value="0" >Tidak
-				<input type="radio" name="cs_sdm" value="1" checked>Ya
+				<input type="radio" name="cs_pensiun" value="0" >Tidak
+				<input type="radio" name="cs_pensiun" value="1" checked>Ya
+			<?php endif ?>
+		</div>
+		<div class="form-group">
+			<label for="password">Cs Kartu</label><br/>
+			<?php if ($detail->cs_kartu =='0'): ?>
+				<input type="radio" name="cs_kartu" value="0" checked>Tidak
+				<input type="radio" name="cs_kartu" value="1">Ya
+			<?php else: ?>
+				<input type="radio" name="cs_kartu" value="0" >Tidak
+				<input type="radio" name="cs_kartu" value="1" checked>Ya
 			<?php endif ?>
 		</div>
 		<button type="submit" class="btn btn-danger">Simpan</button>

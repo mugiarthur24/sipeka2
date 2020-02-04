@@ -74,7 +74,7 @@
 			<form action="<?php echo base_url('index.php/admin/pegawai/create_pendidikan/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tingkat_pendidikan">TINGKAT PENDIDIKAN</label>
 								<select class="form-control border-dark" name="tingkat_pendidikan">
@@ -83,25 +83,42 @@
 									<?php endforeach ?>
 								</select>
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="sekolah">NAMA TEMPAT PENDIDIKAN</label>
 								<input type="text" class="form-control border-dark" id="sekolah" name="sekolah" placeholder="SEKOLAH">
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="jurusan">JURUSAN</label>
 								<input type="text" class="form-control border-dark" id="jurusan" name="jurusan" placeholder="JURUSAN" >
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="nomor_ijazah">NOMOR IJAZAH</label>
 								<input type="text" class="form-control border-dark" id="nomor_ijazah" name="nomor_ijazah" placeholder="NOMOR IJAZAH">
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tanggal_lulus">TANGGAL IJAZAH</label>
 								<input type="date" class="form-control border-dark" id="tanggal_lulus" name="tanggal_lulus" placeholder="TANGGAL IJAZAH">
+							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tempat_sekolah">TEMPAT</label>
 								<input type="text" class="form-control border-dark" id="tempat_sekolah" name="tempat_sekolah" placeholder="TEMPAT SEKOLAH">
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info">Status </label>
 								<select name="id_status" class="form-control border-dark">
@@ -109,14 +126,17 @@
 									<option value="1">Aktif</option>
 								</select>
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info">Upload SK</label>
 								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">
-									</div>
 							</div>
-							</div>
+						</div>
 					</div>
+					
 				</div>
+		</div>
 				<div class="modal-footer">
 					<button type="submit" name="submit" value="submit" class="btn btn-danger">Simpan</button>
 				</div>

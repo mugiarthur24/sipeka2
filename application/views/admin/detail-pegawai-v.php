@@ -109,9 +109,9 @@
 														</li>
 														<li class="nav-item">
 														<?php if ($titelbag == 'unit'): ?>
-															<a class="nav-link active" href="<?php echo base_url('index.php/admin/pegawai/detail_organisasi/'.$hasil->id_pegawai); ?>"><i class="flaticon-diagram text-info"></i>Riwayat Organisasi</a>
+															<a class="nav-link active" href="<?php echo base_url('index.php/admin/pegawai/detail_organisasi/'.$hasil->id_pegawai); ?>"><i class="flaticon-diagram text-info"></i>Riwayat ODP</a>
 															<?php else: ?>
-																<a class="nav-link" href="<?php echo base_url('index.php/admin/pegawai/detail_organisasi/'.$hasil->id_pegawai); ?>"><i class="flaticon-diagram text-info"></i>Riwayat Organisasi</a>
+																<a class="nav-link" href="<?php echo base_url('index.php/admin/pegawai/detail_organisasi/'.$hasil->id_pegawai); ?>"><i class="flaticon-diagram text-info"></i>Riwayat ODP</a>
 															<?php endif ?>
 														</li>
 														<li class="nav-item">

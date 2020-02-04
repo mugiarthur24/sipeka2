@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="col"></div>
 			<div class="col" style="font-size: 12px">
-				<p class="">Batauga, <?php echo $hasil->tgl_permohonan; ?><br/>
+				<p class="">Batauga, <?php echo $hasil->tgl_permohonan_asal; ?><br/>
 			</div>
 		</div>
 		<div class="row">
@@ -82,7 +82,7 @@
 					<tr>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td class="justify">
-							<div align="text-left" style="font-size: 12px">Memperhatikan surat Walikota Baubau Nomor: ____________ tanggal _________ Perihal Persetujuan Pindah Wilayah Kerja dan Surat Permohonan Saudara <b><?php echo strtoupper($hasil->nm_pegawai) ?></b> NIP. <b><?php echo $hasil->nip; ?></b> Tanggal <?php echo $hasil->tgl_permohonan ?> perihal pindah wilayah kerja, maka kami yang bertanda tangan di bawah ini :</div>
+							<div align="text-left" style="font-size: 12px">Memperhatikan surat Walikota Baubau Nomor: ____________ tanggal _________ Perihal Persetujuan Pindah Wilayah Kerja dan Surat Permohonan Saudara <b><?php echo strtoupper($hasil->nama_pegawai) ?></b> NIP. <b><?php echo $hasil->nip; ?></b> Tanggal <?php echo $hasil->tgl_permohonan_asal ?> perihal pindah wilayah kerja, maka kami yang bertanda tangan di bawah ini :</div>
 								<table style="font-size: 12px" width="100%">
 									<tr>
 										<td width="25%">Nama</td>
@@ -101,7 +101,7 @@
 									<tr>
 										<td width="25%">Nama</td>
 										<td>:</td>
-										<td><b><?php echo strtoupper($hasil->nm_pegawai); ?></b></td>
+										<td><b><?php echo strtoupper($hasil->nama_pegawai); ?></b></td>
 									</tr>
 									<tr>
 										<td>NIP</td>
@@ -111,22 +111,22 @@
 									<tr>
 										<td>Pangkat/gol.Ruang</td>
 										<td>:</td>
-										<td><b><?php echo $this->Admin_m->detail_data_order('master_pangkat','id_pangkat',$hasil->id_pangkat)->nm_pangkat.', '.$this->Admin_m->detail_data_order('master_golongan','id_golongan',$hasil->id_golongan)->golongan; ?></b></td>
+										<td><b><?php echo @$this->Mutasi_m->last_pangkat($hasil->id_pegawai)->nm_pangkat.', '.@$this->Mutasi_m->last_golongan($hasil->id_pegawai)->golongan; ?></b></td>
 									</tr>
 									<tr>
 										<td>Jabatan</td>
 										<td>:</td>
-										<td><b><?php echo $this->Admin_m->detail_data_order('master_jabatan','id_jabatan',$hasil->id_jabatan)->nama_jabatan; ?></b></td>
+										<td><b><?php echo @$this->Mutasi_m->last_jabatan($hasil->id_pegawai)->nm_jabatan; ?></b></td>
 									</tr>
 									<tr>
 										<td>Unit Kerja</td>
 										<td>:</td>
-										<td><b><?php echo $this->Admin_m->detail_data_order('master_lokasi_kerja','id_lokasi_kerja',$hasil->unit_kerja)->lokasi_kerja; ?></b></td>
+										<td><b><?php echo @$this->Mutasi_m->last_satuan_kerja($hasil->id_pegawai)->nama_satuan_kerja; ?></b></td>
 									</tr>
 									<tr>
 										<td>Instansi</td>
 										<td>:</td>
-										<td><b><?php echo $hasil->instansi; ?></b></td>
+										<td><b>Pemerintah Kabupaten Buton Selatan</b></td>
 									</tr>
 								</table>
 								
@@ -166,7 +166,7 @@
 				<li>Kepala Badan Keuangan Daerah Kabupaten Buton Selatan di Batauga;</li>
 				<li>Kepala Badan Kepegawaian dan PSDM Kabupaten Buton Selatan di Batauga;</li>
 				<li>Kepala Badan Kepegawaian dan PSDM Kota Baubau di Baubau;</li>
-				<li>Sdr.<?php echo strtoupper($hasil->nm_pegawai); ?>;</li>
+				<li>Sdr.<?php echo strtoupper($hasil->nama_pegawai); ?>;</li>
 				<li>Arsip.</li>
 			</ol>
 			</div>

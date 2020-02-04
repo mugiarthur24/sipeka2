@@ -96,31 +96,63 @@
 			<form action="<?php echo base_url('index.php/admin/honorer/create') ?>" method="post">
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="nama">Nama Lengkap</label>
 								<input type="text" class="form-control border-dark" id="nama" name="nama" placeholder="Nama Lengkap Tanpa Gelar" >
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="tempat_lahir">Tempat Lahir</label>
 								<input type="text" class="form-control border-dark" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" >
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="tanggal_lahir">Tanggal Lahir</label>
 								<input type="text" class="form-control border-dark" id="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal Lahir" >
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="alamat">Alamat</label>
 								<input type="text" class="form-control border-dark" id="alamat" name="alamat" placeholder="Alamat" >
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="text-info" for="pendidikan">Pendidikan</label>
+								<input type="text" class="form-control border-dark" id="pendidikan" name="pendidikan" placeholder="Pendidikan" >
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="text-info" for="jurusan">Jurusan</label>
+								<input type="text" class="form-control border-dark" id="jurusan" name="jurusan" placeholder="Jurusan" >
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="tat">TAT</label>
 								<input type="text" class="form-control border-dark" id="tat" name="tat" placeholder="TAT">
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="tmt">TMT</label>
 								<input type="text" class="form-control border-dark" id="tmt" name="tmt" placeholder="TMT">
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="id_lokasi_kerja">Unit Organisasi</label>
 								<select class="form-control border-dark" name="id_lokasi_kerja">
@@ -129,12 +161,14 @@
 									<?php endforeach ?>
 								</select>
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="no_hp">Nomor Handphone</label>
 								<input type="text" class="form-control border-dark" id="no_hp" name="no_hp" placeholder="Nomor Handphone">
 							</div>
 						</div>
-					</div>
+					</div>	
 
 				</div>
 				<div class="modal-footer">
@@ -160,7 +194,7 @@
 					<input type="file" name="fileupload">
 					<div class="alert alert-info mt-2">
 						Gunakan Format Excel berikut untuk melakukan Upload Massal, Fitur ini hanya suport dengan menggunakan format di bawah ini.<br/>
-						<a href="<?php echo base_url('asset/dokumen/format-upload.xlsx') ?>">Download Template</a>
+						<a href="<?php echo base_url('asset/dokumen/format-upload - honorer.xlsx') ?>">Download Template</a>
 					</div>
 				</div>
 				</div>

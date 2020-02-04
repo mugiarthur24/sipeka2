@@ -57,7 +57,7 @@
                 </td>
                 <td>
                 <?php if (@$formupload->upload_1 == TRUE): ?>
-                  <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank"><?php echo $formupload->upload_1;?></a>
+                  <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_1;?></a>
                   <?php else: ?>
                     <span class="btn btn-secondary btn-sm w-100">View</span>
                   <?php endif ?>
@@ -78,7 +78,7 @@
                   <td><input type="file" name="upload_2"></td>
                   <td>
                     <?php if (@$formupload->upload_2 == TRUE): ?>
-                      <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_2) ?>" target="_blank"><?php echo $formupload->upload_2;?></a>
+                      <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_2) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_2;?></a>
                       <?php else: ?>
                         <span class="btn btn-secondary btn-sm w-100">View</span>
                       <?php endif ?>
@@ -100,7 +100,7 @@
                     <td><input type="file" name="upload_3"></td>
                     <td>
                       <?php if (@$formupload->upload_3 == TRUE): ?>
-                        <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_3) ?>" target="_blank"><?php echo $formupload->upload_3;?></a>
+                        <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_3) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_3;?></a>
                         <?php else: ?>
                           <span class="btn btn-secondary btn-sm w-100">View</span>
                         <?php endif ?>
@@ -121,7 +121,7 @@
                         <td><input type="file" name="upload_4"></td>
                         <td>
                           <?php if (@$formupload->upload_4== TRUE): ?>
-                            <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_4) ?>" target="_blank"><?php echo $formupload->upload_4;?></a>
+                            <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_4) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_4;?></a>
                             <?php else: ?>
                               <span class="btn btn-secondary btn-sm w-100">View</span>
                             <?php endif ?>
@@ -142,7 +142,7 @@
                             <td><input type="file" name="upload_5"></td>
                             <td>
                               <?php if (@$formupload->upload_5 == TRUE): ?>
-                                <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_5) ?>" target="_blank"><?php echo $formupload->upload_5;?></a>
+                                <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_5) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_5;?></a>
                                 <?php else: ?>
                                   <span class="btn btn-secondary btn-sm w-100">View</span>
                                 <?php endif ?>
@@ -163,7 +163,7 @@
                                 <td><input type="file" name="upload_6"></td>
                                 <td>
                                   <?php if (@$formupload->upload_6 == TRUE): ?>
-                                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_6) ?>" target="_blank"><?php echo $formupload->upload_6;?></a>
+                                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_6) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_6;?></a>
                                     <?php else: ?>
                                       <span class="btn btn-secondary btn-sm w-100">View</span>
                                     <?php endif ?>
@@ -184,7 +184,7 @@
                                     <td><input type="file" name="upload_7"></td>
                                     <td>
                                       <?php if (@$formupload->upload_7 == TRUE): ?>
-                                        <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_7) ?>" target="_blank"><?php echo $formupload->upload_7;?></a>
+                                        <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_7) ?>" target="_blank" class="btn btn-success btn-sm w-100"><?php echo $formupload->upload_7;?></a>
                                         <?php else: ?>
                                           <span class="btn btn-secondary btn-sm w-100">View</span>
                                         <?php endif ?>

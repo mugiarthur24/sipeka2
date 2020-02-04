@@ -6,7 +6,7 @@
 					<h4>Laporan Data Pegawai Per SKPD</h4>
 				</div>
 				<div>
-					<a href="<?php echo base_url('index.php/admin/export/dataexcel') ?>" class="btn btn-info">Cetak</a>
+					<a href="<?php echo base_url('index.php/admin/export/dataexcel') ?>" class="btn btn-info">Cetak Nominatif Pegawai</a>
 				</div>
 			</div>
 			<hr/>
@@ -17,7 +17,7 @@
 
 				<tr class="table-info">
 				<th>No.</th>
-				<th>Nama Satuan Kerja</th>
+				<th>ODP</th>
 				<th>Parent Unit</th>
 				<th></th>
 				</tr>';
@@ -27,10 +27,10 @@
 				foreach ($datas as $d) {
 					$table .= '
 					<tr>
-					<td class="p-1">'.$no++.'</td>
-					<td class="p-1">'.$d->nama_satuan_kerja.'</td>
-					<td class="p-1">'.$d->parent_unit.'</td>
-					<td class="p-1"><a href="'.base_url('index.php/admin/export/ex_by_skpd/').'/'.$d->id_satuan_kerja.'" style="color:green">Export<a/></td>
+					<td>'.$no++.'</td>
+					<td>'.$d->nama_satuan_kerja.'</td>
+					<td>'.$d->parent_unit.'</td>
+					<td><a href="'.base_url('index.php/admin/export/ex_by_skpd/').'/'.$d->id_satuan_kerja.'" style="color:green">Cetak (xls)<a/></td>
 					</tr>';
 				}
 				$table .='

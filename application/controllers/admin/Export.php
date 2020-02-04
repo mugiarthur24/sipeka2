@@ -38,10 +38,11 @@ class Export extends CI_Controller {
       $sheet = $file->getActiveSheet ( 0 );
   //memberikan title pada sheet
       $sheet->setTitle ( "NOMINATIF PEGAWAI BUSEL" );
-      $sheet->mergeCells('A1:AG1');
+      $sheet->mergeCells('A1:W1');
       $sheet->setCellValue ( "A1", "DAFTAR NOMINATIF PNS LINGKUP PEMERINTAH KABUPATEN BUTON SELATAN" );
-      $sheet->mergeCells('A2:AG2');
-      $sheet->setCellValue ( "A2", "" );
+      $sheet->mergeCells('A2:W2');
+      $sheet->setCellValue ( "A2", "TAHUN" );
+      $sheet->mergeCells('A3:W3');
       /*end - BLOCK SETUP SHEET*/
 
       /*start - BLOCK HEADER*/
@@ -51,10 +52,10 @@ class Export extends CI_Controller {
       $sheet->setCellValue ( "B4", "NAMA" );
       $sheet->mergeCells('C4:C5');
       $sheet->setCellValue ( "C4", "NIP" );
-      $sheet->mergeCells('D4:E5');
+      $sheet->mergeCells('D4:E4');
       $sheet->setCellValue ( "D4", "TEMPAT DAN TGL LAHIR" );
       $sheet->setCellValue ( "D5", "TEMPAT" );
-      $sheet->setCellValue ( "E5", "TEMPAT" );
+      $sheet->setCellValue ( "E5", "TGL LAHIR" );
       $sheet->mergeCells('F4:H4');
       $sheet->setCellValue ( "F4", "CPNS/PNS" );
       $sheet->setCellValue ( "F5", "GOL AWAL " );
@@ -62,8 +63,8 @@ class Export extends CI_Controller {
       $sheet->setCellValue ( "H5", "PNS TMT" );
       $sheet->mergeCells('I4:K4');
       $sheet->setCellValue ( "I4", "GOL.RUANG" );
-      $sheet->setCellValue ( "I5", "PANGKAT" );
-      $sheet->setCellValue ( "J5", "GOL" );
+      $sheet->mergeCells('I5:J5');
+      $sheet->setCellValue ( "I5", "GOL AKHIR" );
       $sheet->setCellValue ( "K5", "TMT" );
       $sheet->mergeCells('L4:L5');
       $sheet->setCellValue ( "L4", "L/P" );
@@ -87,6 +88,28 @@ class Export extends CI_Controller {
       $sheet->setCellValue ( "V5", "Prov/Kab/Kota Sebelum Pindah Ke Pemkab Busel" );
       $sheet->mergeCells('W4:W5');
       $sheet->setCellValue ( "W4", "SKPD" );
+      $sheet->setCellValue ( "A6", "1" );
+      $sheet->setCellValue ( "B6", "2" );
+      $sheet->setCellValue ( "C6", "3" );
+      $sheet->setCellValue ( "D6", "4" );
+      $sheet->setCellValue ( "E6", "5" );
+      $sheet->setCellValue ( "F6", "6" );
+      $sheet->setCellValue ( "G6", "7" );
+      $sheet->setCellValue ( "H6", "8" );
+      $sheet->setCellValue ( "I6", "9" );
+      $sheet->setCellValue ( "K6", "10" );
+      $sheet->setCellValue ( "L6", "11" );
+      $sheet->setCellValue ( "M6", "12" );
+      $sheet->setCellValue ( "N6", "13" );
+      $sheet->setCellValue ( "O6", "14" );
+      $sheet->setCellValue ( "P6", "15" );
+      $sheet->setCellValue ( "Q6", "16" );
+      $sheet->setCellValue ( "R6", "17" );
+      $sheet->setCellValue ( "S6", "18" );
+      $sheet->setCellValue ( "T6", "19" );
+      $sheet->setCellValue ( "U6", "20" );
+      $sheet->setCellValue ( "V6", "21" );
+      $sheet->setCellValue ( "W6", "22" );
 
       /*end - BLOCK HEADER*/
 
@@ -101,7 +124,7 @@ class Export extends CI_Controller {
         $sheet->setCellValue ( "C".$nocel, strtoupper($data->nip) );
         $sheet->setCellValue ( "D".$nocel, strtoupper($data->tempat_lahir) );
         $sheet->setCellValue ( "E".$nocel, strtoupper($data->tanggal_lahir) );
-        $sheet->setCellValue ( "F".$nocel, strtoupper($data->nip) );
+        $sheet->setCellValue ( "F".$nocel, strtoupper($data->tmt_cpns) );
         $sheet->setCellValue ( "G".$nocel, strtoupper($data->tmt_cpns) );
         $sheet->setCellValue ( "H".$nocel, strtoupper($data->tmt_pns) );
         $sheet->setCellValue ( "I".$nocel, strtoupper($data->nip) );
@@ -123,6 +146,54 @@ class Export extends CI_Controller {
         $nocel++;
       }
       /* end - BLOCK MEMASUKAN DATABASE*/
+      /*start - BLOK AUTOSIZE*/
+  $sheet ->getColumnDimension ( "A" )->setWidth(4);
+  $sheet ->getColumnDimension ( "B" )->setWidth(30);
+  $sheet ->getColumnDimension ( "C" )->setWidth(25);
+  $sheet ->getColumnDimension ( "D" )->setWidth(20);
+  $sheet ->getColumnDimension ( "E" )->setWidth(18);
+  $sheet ->getColumnDimension ( "F" )->setWidth(15);
+  $sheet ->getColumnDimension ( "G" )->setWidth(15);
+  $sheet ->getColumnDimension ( "H" )->setWidth(15);
+  $sheet ->getColumnDimension ( "I" )->setWidth(15);
+  $sheet ->getColumnDimension ( "J" )->setWidth(5);
+  $sheet ->getColumnDimension ( "K" )->setWidth(15);
+  $sheet ->getColumnDimension ( "L" )->setWidth(7);
+  $sheet ->getColumnDimension ( "M" )->setWidth(15);
+  $sheet ->getColumnDimension ( "N" )->setWidth(15);
+  $sheet ->getColumnDimension ( "O" )->setWidth(20);
+  $sheet ->getColumnDimension ( "P" )->setWidth(20);
+  $sheet ->getColumnDimension ( "Q" )->setWidth(15);
+  $sheet ->getColumnDimension ( "R" )->setWidth(20);
+  $sheet ->getColumnDimension ( "S" )->setWidth(15);
+  $sheet ->getColumnDimension ( "T" )->setWidth(15);
+  $sheet ->getColumnDimension ( "U" )->setWidth(20);
+  $sheet ->getColumnDimension ( "V" )->setWidth(20);
+  $sheet ->getColumnDimension ( "W" )->setWidth(70);
+  
+/*end - BLOG AUTOSIZE*/
+
+/*start - BLOCK UNTUK BORDER*/
+$thick = array ();
+$thick['borders']=array();
+$thick['borders']['allborders']=array();
+$thick['borders']['allborders']['style']=PHPExcel_Style_Border::BORDER_THICK ;
+$sheet->getStyle ( 'A1:W1' )->applyFromArray ($thick);
+
+$thin = array ();
+$thin['borders']=array();
+$thin['borders']['allborders']=array();
+$thin['borders']['allborders']['style']=PHPExcel_Style_Border::BORDER_THIN ;
+$sheet->getStyle ( 'A1:W50' )->applyFromArray ($thin);
+/*end - BLOCK UNTUK BORDER*/
+
+/*start - BLOCK UNTUK BACKGROUND*/
+$backgroound['fill']=array();
+$backgroound['fill']['type']=PHPExcel_Style_Fill::FILL_SOLID;
+$backgroound['fill']['color']=array();
+$backgroound['fill']['color']['rgb']='99FFFF';
+$sheet->getStyle ( 'A1:W1' )->applyFromArray ($backgroound);
+/*end - BLOCK UNTUK BACKGROUND*/
 
       /* start - BLOCK MEMBUAT LINK DOWNLOAD*/
       header ( 'Content-Type: application/vnd.ms-excel' );

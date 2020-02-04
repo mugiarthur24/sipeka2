@@ -170,7 +170,7 @@
                   <div class="text-danger">* Harap lengkapi data Kepegawaian terlebih dahulu agar dapat melakukan simpan data formulir ini.</div>
               <?php endif ?>
             </div>
-      </form>
+      <!-- </form> -->
 		</div>
 	</div>
 
@@ -185,7 +185,7 @@
     			<b>Perhatian</b><br>Pegawai ini belum melakukan upload file sama sekali
     		</div>
     	<?php endif ?>
-      <form action="<?php echo base_url('index.php/admin/csmutasi/cpwk_keluar_action/'.$pegawai->id_pegawai) ?>" method="post" enctype='multipart/form-data'>
+      <!-- <form action="<?php echo base_url('index.php/admin/csmutasi/cpwk_keluar_action/'.$pegawai->id_pegawai) ?>" method="post" enctype='multipart/form-data'> -->
        <table class="table">
             <thead class="thead-light">
               <tr>

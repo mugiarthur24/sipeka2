@@ -85,6 +85,8 @@ class Honorer extends CI_Controller {
                 $datainput = array(
                     'nama' => $post['nama'],
                     'alamat'=>$post['alamat'],
+                    'pendidikan'=>$post['pendidikan'],
+                    'jurusan'=>$post['jurusan'],
                     'tat'=>$post['tat'],
                     'id_lokasi_kerja'=>$post['id_lokasi_kerja'],
                     'tmt'=>$post['tmt'],
@@ -142,6 +144,8 @@ public function update_honorer(){
                 $datainput = array(
                     'nama' => $post['nama'],
                     'alamat'=>$post['alamat'],
+                    'pendidikan'=>$post['pendidikan'],
+                    'jurusan'=>$post['jurusan'],
                     'tat'=>$post['tat'],
                     'id_lokasi_kerja'=>$post['id_lokasi_kerja'],
                     'tmt'=>$post['tmt'],
@@ -315,7 +319,10 @@ function uploadexcel(){
                     'tmt' =>filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
                     'no_hp' =>filter_var($val[6], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
                     'tempat_lahir' =>filter_var($val[7], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
-                    'tanggal_lahir' =>filter_var($val[8], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),   
+                    'tanggal_lahir' =>filter_var($val[8], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
+                    'pendidikan' =>filter_var($val[9], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
+                    'jurusan' =>filter_var($val[10], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH),
+
                 );
                 $this->Admin_m->create('honorer',$datacreate); 
             }

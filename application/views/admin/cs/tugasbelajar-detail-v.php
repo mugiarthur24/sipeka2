@@ -405,7 +405,7 @@
               </td>
                 <td>
                 <?php if (@$formupload->verifikasi_13 == TRUE && @$formupload->verifikasi_13 !==0): ?>
-                  <?php $veri7 = $this->Admin_m->detail_data_order('status','id_status',$formupload->verifikasi_13); ?>
+                  <?php $veri13 = $this->Admin_m->detail_data_order('status','id_status',$formupload->verifikasi_13); ?>
                 <span class="<?php echo $veri13->kode_status; ?>"><?php echo $veri13->nm_status; ?></span>
                 <?php else: ?>
                   <span class="danger">tidak ada file</span>

@@ -1,6 +1,23 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin_m extends CI_Model
 {
+	public function jumlah_datauser($string){
+		$this->db->from('users');
+		if (!empty($string)) {
+			$this->db->where('first_name',$string);
+		}
+		$rs = $this->db->count_all_results();
+		return $rs;
+	}
+	public function searcing_data($sampai,$dari,$string,$skpd){
+		// $this->db->select('data_pegawai.*,master_golongan');
+		if (!empty($string)) {
+			$this->db->where('users.first_name',$string);
+		}
+		$this->db->order_by('first_name','asc');
+		$query = $this->db->get('users',$sampai,$dari);
+		return $query->result();
+	}
 	public function info_pt($id){
 		$this->db->where('id_info_pt', $id);
 		$query = $this->db->get('info_pt');
@@ -106,6 +123,34 @@ class Admin_m extends CI_Model
 		$this->db->where($field, $id);
 		$this->db->order_by($fieldorder,$valorder);
 		$query = $this->db->get($tabel);
+		return $query->row();
+	}
+	public function last_golongan($id){
+		$this->db->where('id_pegawai',$id);
+		$this->db->join('master_golongan', 'master_golongan.id_golongan = data_riwayat_golongan.id_golongan');
+		$this->db->order_by('id_riwayat_golongan','desc');
+		$query = $this->db->get('data_riwayat_golongan');
+		return $query->row();
+	}
+	public function last_pangkat($id){
+		$this->db->where('id_pegawai',$id);
+		$this->db->join('master_pangkat', 'master_pangkat.id_pangkat = data_riwayat_pangkat.id_pangkat');
+		$this->db->order_by('id_riwayat_pangkat','desc');
+		$query = $this->db->get('data_riwayat_pangkat');
+		return $query->row();
+	}
+	public function last_eselon($id){
+		$this->db->where('id_pegawai',$id);
+		$this->db->join('master_eselon', 'master_eselon.id_eselon = data_riwayat_eselon.id_eselon');
+		$this->db->order_by('id_riwayat_eselon','desc');
+		$query = $this->db->get('data_riwayat_eselon');
+		return $query->row();
+	}
+	public function last_jabatan($id){
+		$this->db->where('id_pegawai',$id);
+		$this->db->join('master_jabatan', 'master_jabatan.id_jabatan = data_riwayat_jabatan.id_jabatan');
+		$this->db->order_by('id_riwayat_jabatan','desc');
+		$query = $this->db->get('data_riwayat_jabatan');
 		return $query->row();
 	}
 	public function riwayat_max($id){

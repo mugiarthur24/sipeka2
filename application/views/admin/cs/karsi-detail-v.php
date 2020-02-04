@@ -41,7 +41,7 @@
                 </td>
                  <td>
                   <?php if (@$formupload->upload_1 == TRUE): ?>
-                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a></a>
+                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank" class="btn btn-success btn-sm w-100">View</a></a>
                     <?php else: ?>
                       <span class="btn btn-secondary btn-sm w-100">View</span>
                   <?php endif ?>

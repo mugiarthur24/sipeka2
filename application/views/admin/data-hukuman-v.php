@@ -71,31 +71,47 @@
 			<form action="<?php echo base_url('index.php/admin/pegawai/create_hukuman/'.$hasil->id_pegawai) ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="uraian">URAIAN</label>
 								<input type="text" class="form-control border-dark" id="uraian" name="uraian" placeholder="URAIAN" >
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="nomor_sk">NOMOR SK</label>
 								<input type="text" class="form-control border-dark" id="nomor_sk" name="nomor_sk" placeholder="NOMOR SK" >
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tanggal_sk">TANGGAL SK</label>
 								<input type="date" class="form-control border-dark" id="tanggal_sk" name="tanggal_sk" placeholder="TANGGAL SK" >
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tanggal_mulai">TANGGAL MULAI</label>
 								<input type="date" class="form-control border-dark" id="tanggal_mulai" name="tanggal_mulai" placeholder="TANGGAL MULAI" >
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="tanggal_selesai">TANGGAL SELESAI</label>
 								<input type="date" class="form-control border-dark" id="tanggal_selesai" name="tanggal_selesai" placeholder="TANGGAL SELESAI" >
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info" for="no_sk_pembatalan">NO SK PEMBATALAN</label>
 								<input type="text" class="form-control border-dark" id="no_sk_pembatalan" name="no_sk_pembatalan" placeholder="NO SK PEMBATALAN">
 							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label class="text-info">Upload SK</label>
 								<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" name="upload" id="uploadBtn">

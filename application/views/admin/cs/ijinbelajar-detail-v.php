@@ -41,9 +41,9 @@
                 </td>
                  <td>
                   <?php if (@$formupload->upload_1 == TRUE): ?>
-                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank" class="btn btn-danger btn-sm w-100">View</a>
+                    <a href="<?php echo base_url('asset/dokumen/'.$formupload->upload_1) ?>" target="_blank" class="btn btn-success btn-sm w-100">View</a>
                     <?php else: ?>
-                      tidak ada file
+                      <span class="btn btn-secondary btn-sm w-100">View</span>
                   <?php endif ?>
               </td>
                 <td>
@@ -405,7 +405,7 @@
               </td>
                 <td>
                 <?php if (@$formupload->verifikasi_13 == TRUE && @$formupload->verifikasi_13 !==0): ?>
-                  <?php $veri7 = $this->Admin_m->detail_data_order('status','id_status',$formupload->verifikasi_13); ?>
+                  <?php $veri13 = $this->Admin_m->detail_data_order('status','id_status',$formupload->verifikasi_13); ?>
                 <span class="<?php echo $veri13->kode_status; ?>"><?php echo $veri13->nm_status; ?></span>
                 <?php else: ?>
                   <span class="danger">tidak ada file</span>

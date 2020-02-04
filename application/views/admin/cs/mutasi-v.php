@@ -64,7 +64,7 @@
 	</div>
 	<div class="row">
 		<div class="col">
-            <a href="<?php echo base_url('index.php/admin/csmutasi/pindah_instansi/') ?>">
+            <a href="<?php echo base_url('index.php/admin/csmutasi/pindahinstansi_main/') ?>">
                 <div class="card text-white bg-secondary mb-3">
                     <div class="card-body text-center">
                         <span style="font-size: 50px;"><img src="<?php echo base_url('asset/img/hotel.svg') ?>" width="100" height="100"></span><br/><br/>

@@ -14,8 +14,8 @@
 			
 		</div>
 		<div class="card-body">
-			<div class="table-responsive">
-			<table class="table">
+			<div class="datatable-responsive">
+			<table id="basic-datatables" class="display table table-striped table-hover dataTable" aria-describedby="basic-datatables_info">
 				<tr>
 					<td class="text-center">No</td>
 					<td class="text-center">NIP</td>

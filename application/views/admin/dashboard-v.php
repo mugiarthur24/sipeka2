@@ -582,7 +582,7 @@
                   <li class="nav-item">
                     <a data-toggle="collapse" href="#mutasi">
                       <i class="fas fa-directions"></i>
-                      <p>Layanan Mutasi Pegawai</p>
+                      <p>Laporan Data Mutasi Pegawai</p>
                       <span class="caret"></span>
                     </a>
                     <div class="collapse" id="mutasi">

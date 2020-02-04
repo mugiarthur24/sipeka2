@@ -127,10 +127,16 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="text-info" for="id_atasan_pejabat_penilai	">ATASAN PEJABAT PENILAI</label>
 								<input type="text" class="form-control border-dark" id="id_atasan_pejabat_penilai	" name="id_atasan_pejabat_penilai	" placeholder="ATASAN PEJABAT PENILAI">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="text-info" for="	">NIP JABATAN PENILAI</label>
+								<input type="text" class="form-control border-dark" id="	" name="	" placeholder="NIP ATASAN PEJABAT PENILAI">
 							</div>
 						</div>
 					</div>
